@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    layout_breadcrumb.xml — Breadcrumb navigation (A4 trong ux_ui.md)
+    Root: LinearLayout (horizontal), height = 36dp, nền background_screen
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Cách set breadcrumb runtime:
+        TextView tvBreadcrumb = view.findViewById(R.id.tv_breadcrumb);
+        tvBreadcrumb.setText("Trang chủ → Phòng");
+
+    Hoặc dùng SpannableString để "Trang chủ" có màu text_link và clickable:
+        SpannableString span = new SpannableString("Trang chủ → Phòng");
+        span.setSpan(new ForegroundColorSpan(getColor(R.color.text_link)), 0, 9,
+                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        span.setSpan(new ClickableSpan() { ... }, 0, 9, ...);
+        tvBreadcrumb.setText(span);
+        tvBreadcrumb.setMovementMethod(LinkMovementMethod.getInstance());
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/breadcrumb_height"
+    android:background="@color/background_screen"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/margin_screen_horizontal"
+    android:paddingEnd="@dimen/margin_screen_horizontal">
+
+    <!-- Breadcrumb text (SpannableString set runtime để phần "Trang chủ" clickable) -->
+    <TextView
+        android:id="@+id/tv_breadcrumb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Trang chủ"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp" />
+
+</LinearLayout>

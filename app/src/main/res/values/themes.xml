@@ -1,9 +1,77 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.QL_Homestay" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.LalaHouse" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <!-- Màu chủ đạo cho Material Components -->
+        <item name="colorPrimary">@color/primary_main</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+
+        <!-- Màu secondary (dùng cùng tonal cho đơn giản) -->
+        <item name="colorSecondary">@color/primary_light</item>
+        <item name="colorSecondaryVariant">@color/primary_dark</item>
+        <item name="colorOnSecondary">@color/text_primary</item>
+
+        <!-- Surface / Background -->
+        <item name="android:colorBackground">@color/background_screen</item>
+        <item name="colorSurface">@color/background_card</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnBackground">@color/text_primary</item>
+
+        <!-- Error -->
+        <item name="colorError">@color/status_error</item>
+        <item name="colorOnError">@color/text_on_primary</item>
+
+        <!-- Status bar (teal nhạt — khớp với App Bar trắng) -->
+        <item name="android:statusBarColor">@color/background_card</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/background_card</item>
+
+        <!-- TextInputLayout mặc định toàn app -->
+        <item name="textInputStyle">@style/Widget.LalaHouse.TextInputLayout</item>
+
+        <!-- MaterialButton mặc định toàn app -->
+        <item name="materialButtonStyle">@style/Widget.LalaHouse.Button.Primary</item>
+
+        <!-- Ripple -->
+        <item name="rippleColor">@color/primary_light</item>
+
+        <!-- Chữ hint của EditText -->
+        <item name="android:textColorHint">@color/text_placeholder</item>
+
+        <!-- BottomNavigationView -->
+        <item name="bottomNavigationStyle">@style/Widget.LalaHouse.BottomNavigation</item>
+
     </style>
 
-    <style name="Theme.QL_Homestay" parent="Base.Theme.QL_Homestay" />
+    <!-- BottomNavigationView style -->
+    <style name="Widget.LalaHouse.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/background_card</item>
+        <item name="itemIconTint">@drawable/selector_bottomnav_icon</item>
+        <item name="itemTextColor">@drawable/selector_bottomnav_text</item>
+        <item name="elevation">@dimen/elevation_bottomsheet</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <!-- Theme cho LoginActivity / RegisterActivity (không cần AppBar Material) -->
+    <style name="Theme.LalaHouse.Auth" parent="Theme.LalaHouse">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <!-- Theme cho Dialog / BottomSheet -->
+    <style name="Theme.LalaHouse.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/primary_main</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+        <item name="colorSurface">@color/background_card</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.LalaHouse.Dialog</item>
+    </style>
+
+    <style name="ShapeAppearance.LalaHouse.Dialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
 </resources>

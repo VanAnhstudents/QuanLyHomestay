@@ -1,6 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    layout_appbar.xml — App Bar dùng chung
+    Root: LinearLayout (horizontal), height = 64dp, nền trắng, elevation 4dp
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Cách include:
+        <include layout="@layout/layout_appbar" android:id="@+id/appbar" />
+
+    Cách set tiêu đề runtime (nếu cần override text logo):
+        TextView tvAppTitle = findViewById(R.id.tv_app_title);
+        tvAppTitle.setText("Tên màn hình");
+
+    Badge thông báo: số đỏ trên iv_bell được set runtime bởi HomeFragment/MainActivity.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_appbar"
+    android:background="@color/background_card"
+    android:elevation="@dimen/elevation_appbar"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <!-- ── Nhóm bên trái: Logo tròn + Tên app ── -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/margin_screen_horizontal">
+
+        <!-- Logo tròn 40dp (dùng CircleImageView nếu có thư viện,
+             hoặc ImageView với background oval drawable) -->
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/icon_size_logo_header"
+            android:layout_height="@dimen/icon_size_logo_header"
+            android:background="@drawable/bg_fab"
+            android:contentDescription="Logo Lala House"
+            android:padding="6dp"
+            android:src="@drawable/ic_home"
+            android:tint="@color/text_on_primary" />
+
+        <!-- Tên app -->
+        <TextView
+            android:id="@+id/tv_app_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_xs"
+            android:fontFamily="sans-serif-bold"
+            android:text="Lala House"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- ── Nhóm bên phải: Chuông + Avatar + Tên user ── -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/margin_screen_horizontal">
+
+        <!-- Icon chuông thông báo (bọc trong RelativeLayout để đặt badge số) -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_xs">
+
+            <ImageView
+                android:id="@+id/iv_bell"
+                android:layout_width="@dimen/icon_size_appbar"
+                android:layout_height="@dimen/icon_size_appbar"
+                android:clickable="true"
+                android:contentDescription="Thông báo"
+                android:focusable="true"
+                android:padding="2dp"
+                android:src="@drawable/ic_bell"
+                android:tint="@color/icon_action" />
+
+            <!-- Badge số thông báo chưa đọc (ẩn khi = 0, set runtime) -->
+            <TextView
+                android:id="@+id/tv_badge_count"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignTop="@id/iv_bell"
+                android:layout_alignEnd="@id/iv_bell"
+                android:layout_marginTop="-2dp"
+                android:layout_marginEnd="-2dp"
+                android:background="@drawable/bg_badge_dadat"
+                android:fontFamily="sans-serif-bold"
+                android:gravity="center"
+                android:textColor="@color/text_on_primary"
+                android:textSize="8sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <!-- Avatar tròn 36dp -->
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/avatar_header_size"
+            android:layout_height="@dimen/avatar_header_size"
+            android:background="@drawable/bg_fab"
+            android:clickable="true"
+            android:contentDescription="Avatar người dùng"
+            android:focusable="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_person"
+            android:tint="@color/text_on_primary" />
+
+        <!-- Tên user (hiển thị role ngắn hoặc tên) -->
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="sans-serif"
+            android:maxWidth="80dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Admin"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

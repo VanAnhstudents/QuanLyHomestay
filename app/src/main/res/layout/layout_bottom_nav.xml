@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    layout_bottom_nav.xml — Bottom Navigation (A5 trong ux_ui.md)
+    Chỉ chứa đường kẻ 1dp phía trên + BottomNavigationView.
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Cách dùng trong activity_main.xml:
+        <!- Đặt ở cuối LinearLayout vertical root của activity_main.xml ->
+<include layout="@layout/layout_bottom_nav" android:id="@+id/bottom_nav_include" />
+
+    Menu items: bottom_nav_menu.xml (5 item: Home, Phòng, Đặt phòng, Khách hàng, Hơn nữa)
+    Phân quyền item "Hơn nữa": set runtime trong MainActivity.java.
+-->
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:background="@color/background_card"
+android:elevation="@dimen/elevation_bottomsheet">
+
+<!-- Đường kẻ phân cách 1dp phía trên Bottom Nav -->
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/divider" />
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottom_navigation"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_bottomnav"
+    android:background="@color/background_card"
+    app:itemIconTint="@drawable/selector_bottomnav_icon"
+    app:itemTextColor="@drawable/selector_bottomnav_text"
+    app:labelVisibilityMode="labeled"
+    app:menu="@menu/bottom_nav_menu" />
+
+</LinearLayout>
