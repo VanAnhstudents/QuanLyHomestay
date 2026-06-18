@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    component_status_badge.xml — Status Badge (spec 3.1, ux_ui.md)
+    Root : TextView, height = badge_height (24dp), pill shape
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Đây là layout template. Trong thực tế, badge được nhúng trực tiếp
+    dưới dạng TextView trong mỗi item layout (item_room_card, item_booking_card…).
+    File này phục vụ trường hợp <include> hoặc inflate thủ công.
+
+    Java (StatusBadgeView.java) — custom View nhận setState():
+        "Trống"           → bg_badge_trong     + badge_trong_text
+        "Đang thuê"       → bg_badge_dangthue  + badge_dangthue_text
+        "Đã đặt"          → bg_badge_dadat     + badge_dadat_text
+        "Đã thanh toán"   → bg_badge_dathanhtoan + badge_dathanhtoan_text
+        "Chưa thanh toán" → bg_badge_chuathanhtoan + badge_chuathanhtoan_text
+        "Đã hủy"          → bg_badge_dahuy     + badge_dahuy_text
+        "Sắp đến"         → bg_badge_dadat     + badge_dadat_text  (tái dùng đỏ nhạt)
+        "Đang ở"          → bg_badge_dangthue  + badge_dangthue_text (tái dùng vàng)
+        "Đã trả phòng"    → bg_badge_dahuy     + badge_dahuy_text  (tái dùng xám)
+
+    Cách dùng nhanh trong adapter (không cần custom View):
+        TextView badge = itemView.findViewById(R.id.badge_status);
+        switch (trangThai) {
+            case "Trống":
+                badge.setBackgroundResource(R.drawable.bg_badge_trong);
+                badge.setTextColor(ContextCompat.getColor(ctx, R.color.badge_trong_text));
+                break;
+            case "Đang thuê":
+                badge.setBackgroundResource(R.drawable.bg_badge_dangthue);
+                badge.setTextColor(ContextCompat.getColor(ctx, R.color.badge_dangthue_text));
+                break;
+            // ... các case khác tương tự
+        }
+        badge.setText(trangThai);
+-->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_status_badge"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/badge_height"
+    android:background="@drawable/bg_badge_pill"
+    android:fontFamily="sans-serif"
+    android:gravity="center"
+    android:minWidth="64dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:text="Trạng thái"
+    android:textColor="@color/text_secondary"
+    android:textSize="11sp" />

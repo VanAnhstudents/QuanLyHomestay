@@ -1,6 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    activity_login.xml — Màn hình Đăng nhập (spec A1, ux_ui.md)
+    Root : ScrollView > LinearLayout (vertical)
+    background = background_screen (#F5F5F5)
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Java (LoginActivity.java):
+      · btn_login     → AuthRepository.login() → SessionManager.login() → MainActivity
+      · cb_remember   → SharedPreferences lưu / điền sẵn username
+      · tv_go_register→ startActivity(RegisterActivity) + finish()
+      Lỗi → Snackbar.make(sv_root,"Tên đăng nhập hoặc mật khẩu không đúng",
+                           Snackbar.LENGTH_LONG).show()
+-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sv_login_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_screen"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="40dp">
+
+        <!-- ══ 1. Logo tròn 100dp ══ -->
+        <ImageView
+            android:id="@+id/iv_logo_login"
+            android:layout_width="@dimen/logo_login_size"
+            android:layout_height="@dimen/logo_login_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="72dp"
+            android:background="@drawable/bg_fab"
+            android:contentDescription="@string/app_name"
+            android:padding="22dp"
+            android:src="@drawable/ic_home"
+            android:tint="@color/text_on_primary" />
+
+        <!-- ══ 2. Tiêu đề 28sp Bold ══ -->
+        <TextView
+            android:id="@+id/tv_login_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-bold"
+            android:lineSpacingMultiplier="1.4"
+            android:text="Đăng nhập"
+            android:textColor="@color/text_primary"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_login_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:text="Quản lý Lala House"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
+        <!-- ══ 3. Card form (background = bg_card_form / primary_light) ══ -->
+        <LinearLayout
+            android:id="@+id/ll_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:background="@drawable/bg_card_form"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_card_default">
+
+            <!-- 3.1 Label "Tài khoản" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Tài khoản"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- 3.2 EditText tài khoản (height_input = 48dp) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_username"
+                style="@style/Widget.LalaHouse.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_input"
+                android:layout_marginTop="6dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:hint="Nhập tên đăng nhập"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 3.3 Label "Mật khẩu" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:fontFamily="sans-serif-medium"
+                android:text="Mật khẩu"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- 3.4 EditText mật khẩu + icon mắt -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_password"
+                style="@style/Widget.LalaHouse.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_input"
+                android:layout_marginTop="6dp"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:hint="Nhập mật khẩu"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 3.5 Row: CheckBox "Ghi nhớ" + Link "Quên mật khẩu?" -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_remember"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/primary_main"
+                    android:fontFamily="sans-serif"
+                    android:text="Ghi nhớ đăng nhập"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_forgot_pass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif"
+                    android:text="Quên mật khẩu?"
+                    android:textColor="@color/text_link"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- /card form -->
+
+        <!-- ══ 4. Button "Đăng nhập" full-width ══ -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/Widget.LalaHouse.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_button_main"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:text="Đăng nhập"
+            app:cornerRadius="@dimen/radius_button"
+            app:rippleColor="@color/primary_dark" />
+
+        <!-- ══ 5. "Chưa có tài khoản? Đăng ký ngay" ══ -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="Chưa có tài khoản? "
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_go_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:text="Đăng ký ngay"
+                android:textColor="@color/text_link"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

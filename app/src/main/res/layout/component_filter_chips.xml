@@ -1,6 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    component_filter_chips.xml — Filter Chip Group (spec 3.6.2, ux_ui.md)
+    Root : HorizontalScrollView > LinearLayout (horizontal)
+    height = chip_filter_height (32dp) mỗi chip, cuộn ngang không hiện scrollbar.
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Dùng tại: B1 (Tất cả/Trống/Đang thuê/Đã đặt),
+              C1 (Tất cả/Sắp đến/Đang ở/Đã trả phòng/Đã hủy),
+              E1 (Tất cả/Admin/Nhân viên/Đã khóa),
+              G1 (Tất cả/Đã thanh toán/Chưa thanh toán/Hoàn tiền).
+
+    Cách include:
+        <include layout="@layout/component_filter_chips"
+                 android:id="@+id/filter_chips_include" />
+
+    Java toggle (FilterChipGroupView.java hoặc inline trong Fragment):
+        TextView chipAll   = view.findViewById(R.id.chip_all);
+        TextView chipA     = view.findViewById(R.id.chip_filter_a);
+        // ...
+        // Khi click chip X:
+        chipAll.setBackgroundResource(R.drawable.bg_chip_filter_inactive);
+        chipAll.setTextColor(getColor(R.color.text_secondary));
+        chipX.setBackgroundResource(R.drawable.bg_chip_filter_active);
+        chipX.setTextColor(getColor(R.color.text_primary));
+        // Rồi filter RecyclerView theo chip được chọn.
+
+    Lưu ý: File này chứa chip placeholder "Tất cả" + 3 chip mặc định.
+    Mỗi màn hình sẽ override text chip bằng setText() runtime hoặc
+    ẩn/hiện chip bằng setVisibility() theo nghiệp vụ.
+-->
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/margin_screen_horizontal"
+    android:paddingEnd="@dimen/margin_screen_horizontal"
+    android:paddingTop="@dimen/spacing_xs"
+    android:paddingBottom="@dimen/spacing_xs"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Chip 1: "Tất cả" — mặc định active -->
+        <TextView
+            android:id="@+id/chip_all"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_filter_height"
+            android:layout_marginEnd="@dimen/spacing_xs"
+            android:background="@drawable/bg_chip_filter_active"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Tất cả"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <!-- Chip 2 (text set runtime, ẩn nếu không dùng) -->
+        <TextView
+            android:id="@+id/chip_filter_a"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_filter_height"
+            android:layout_marginEnd="@dimen/spacing_xs"
+            android:background="@drawable/bg_chip_filter_inactive"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Chip A"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <!-- Chip 3 -->
+        <TextView
+            android:id="@+id/chip_filter_b"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_filter_height"
+            android:layout_marginEnd="@dimen/spacing_xs"
+            android:background="@drawable/bg_chip_filter_inactive"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Chip B"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <!-- Chip 4 -->
+        <TextView
+            android:id="@+id/chip_filter_c"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_filter_height"
+            android:layout_marginEnd="@dimen/spacing_xs"
+            android:background="@drawable/bg_chip_filter_inactive"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Chip C"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <!-- Chip 5 (dùng cho C1 có 5 chip, ẩn mặc định) -->
+        <TextView
+            android:id="@+id/chip_filter_d"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_filter_height"
+            android:layout_marginEnd="@dimen/spacing_xs"
+            android:background="@drawable/bg_chip_filter_inactive"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Chip D"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</HorizontalScrollView>

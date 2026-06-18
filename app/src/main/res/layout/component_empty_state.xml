@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    component_empty_state.xml — Empty State (spec 3.2, ux_ui.md)
+    Root : LinearLayout (vertical), gravity = center
+    Dùng khi RecyclerView adapter.getItemCount() == 0 tại B1, C1, D1, E1, F1, G1.
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Cách dùng trong Fragment:
+        // Trong onViewCreated hoặc khi load data xong:
+        emptyState.setVisibility(list.isEmpty() ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(list.isEmpty() ? View.GONE : View.VISIBLE);
+
+    Tuỳ chỉnh text và button runtime:
+        TextView tvMsg  = view.findViewById(R.id.tv_empty_message);
+        TextView btnAdd = view.findViewById(R.id.btn_empty_add);
+        tvMsg.setText("Chưa có phòng nào");
+        btnAdd.setText("+ Thêm phòng");
+        btnAdd.setOnClickListener(v -> { ... });
+        // Ẩn nút nếu không có quyền:
+        btnAdd.setVisibility(hasPermission ? View.VISIBLE : View.GONE);
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_empty_state"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <!-- Icon lớn 64dp, tint nhạt -->
+    <ImageView
+        android:id="@+id/iv_empty_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="Không có dữ liệu"
+        android:src="@drawable/ic_search"
+        android:tint="#C5DDE2" />
+
+    <!-- Text "Không có dữ liệu" -->
+    <TextView
+        android:id="@+id/tv_empty_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xs"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Không có dữ liệu"
+        android:textColor="@color/icon_inactive"
+        android:textSize="16sp" />
+
+    <!-- Sub-text hướng dẫn (ẩn theo mặc định, set runtime nếu cần) -->
+    <TextView
+        android:id="@+id/tv_empty_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Nhấn nút bên dưới để thêm mới"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <!-- Button "Thêm mới" (outline, ẩn/hiện theo quyền) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_empty_add"
+        style="@style/Widget.LalaHouse.Button.Outline"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_button_small"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="+ Thêm mới"
+        android:textSize="14sp" />
+
+</LinearLayout>

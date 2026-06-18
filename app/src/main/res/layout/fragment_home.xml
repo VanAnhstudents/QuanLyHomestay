@@ -1,6 +1,400 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    fragment_home.xml — Trang chủ / Dashboard (spec A6, ux_ui.md)
+    Root : LinearLayout (vertical), background = background_screen
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Cấu trúc:
+      · Greeting text
+      · ScrollView (layout_weight=1) chứa toàn bộ nội dung cuộn:
+          ├ Lưới KPI 2×2  (include item_kpi_card.xml × 4)
+          ├ Section "Đặt phòng hôm nay"  (RecyclerView, item_booking_compact)
+          └ Section "Hoạt động gần đây"  (RecyclerView, item_booking_compact)
+
+    Java (HomeFragment.java):
+      · tv_greeting → "Xin chào, [SessionManager.getHoTen()]! 👋"
+      · 4 KPI card  → PhongDAO.countByTrangThai() + HoaDonDAO.getTotalTodayRevenue()
+      · rv_today_bookings    → DatPhong ngày hôm nay hoặc TrangThai=DangO
+      · rv_recent_activity   → CheckInOutDAO.getRecent(5)
+      · badge chuông         → ThongBaoDAO.countUnread(maTK) → set tv_badge_count
+
+    Lưu ý: App Bar và Bottom Nav KHÔNG include ở đây — chúng đã được include
+    sẵn trong activity_main.xml. Fragment chỉ render phần nội dung bên trong
+    FrameLayout của activity_main.xml.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_screen"
+    android:orientation="vertical">
+
+    <!-- ══ Greeting ══ -->
+    <TextView
+        android:id="@+id/tv_greeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_screen_horizontal"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:layout_marginEnd="@dimen/margin_screen_horizontal"
+        android:fontFamily="sans-serif-medium"
+        android:lineSpacingMultiplier="1.4"
+        android:text="Xin chào, Admin! 👋"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp" />
+
+    <!-- ══ ScrollView — co giãn lấp đầy khoảng trống ══ -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- ════════════════════════════════════════
+                 Lưới KPI 2×2  (mỗi card include item_kpi_card.xml)
+                 height mỗi hàng = kpi_card_height (80dp) + margin 4dp×2
+                 ════════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_xs"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:layout_marginEnd="@dimen/spacing_xs"
+                android:orientation="vertical">
+
+                <!-- Hàng KPI trên: Tổng phòng + Phòng trống -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Card 1: Tổng phòng (accent = primary_main) -->
+                    <LinearLayout
+                        android:id="@+id/card_kpi_total"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/kpi_card_height"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card_white"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/iv_kpi_total_icon"
+                            android:layout_width="@dimen/icon_size_appbar"
+                            android:layout_height="@dimen/icon_size_appbar"
+                            android:contentDescription="Tổng phòng"
+                            android:src="@drawable/ic_bed"
+                            android:tint="@color/primary_main" />
+
+                        <TextView
+                            android:id="@+id/tv_kpi_total_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif-bold"
+                            android:text="12"
+                            android:textColor="@color/primary_main"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Tổng phòng"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                    <!-- Card 2: Phòng trống (accent = status_success) -->
+                    <LinearLayout
+                        android:id="@+id/card_kpi_available"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/kpi_card_height"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card_white"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/iv_kpi_available_icon"
+                            android:layout_width="@dimen/icon_size_appbar"
+                            android:layout_height="@dimen/icon_size_appbar"
+                            android:contentDescription="Phòng trống"
+                            android:src="@drawable/ic_home"
+                            android:tint="@color/status_success" />
+
+                        <TextView
+                            android:id="@+id/tv_kpi_available_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif-bold"
+                            android:text="6"
+                            android:textColor="@color/status_success"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Phòng trống"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!-- /Hàng KPI trên -->
+
+                <!-- Hàng KPI dưới: Đang thuê + Doanh thu hôm nay -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Card 3: Đang thuê (accent = status_warning) -->
+                    <LinearLayout
+                        android:id="@+id/card_kpi_occupied"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/kpi_card_height"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card_white"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/iv_kpi_occupied_icon"
+                            android:layout_width="@dimen/icon_size_appbar"
+                            android:layout_height="@dimen/icon_size_appbar"
+                            android:contentDescription="Đang thuê"
+                            android:src="@drawable/ic_person"
+                            android:tint="@color/status_warning" />
+
+                        <TextView
+                            android:id="@+id/tv_kpi_occupied_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif-bold"
+                            android:text="4"
+                            android:textColor="@color/status_warning"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Đang thuê"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                    <!-- Card 4: Doanh thu hôm nay (accent = primary_main) -->
+                    <LinearLayout
+                        android:id="@+id/card_kpi_revenue"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/kpi_card_height"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card_white"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/iv_kpi_revenue_icon"
+                            android:layout_width="@dimen/icon_size_appbar"
+                            android:layout_height="@dimen/icon_size_appbar"
+                            android:contentDescription="Doanh thu"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="@color/primary_main" />
+
+                        <TextView
+                            android:id="@+id/tv_kpi_revenue_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-bold"
+                            android:maxLines="1"
+                            android:text="0đ"
+                            android:textColor="@color/primary_main"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Doanh thu hôm nay"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!-- /Hàng KPI dưới -->
+
+            </LinearLayout>
+            <!-- /Lưới KPI -->
+
+            <!-- ════════════════════════════════════════
+                 Section "Đặt phòng hôm nay"
+                 ════════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:orientation="vertical">
+
+                <!-- Header section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_screen_horizontal"
+                    android:paddingEnd="@dimen/margin_screen_horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Đặt phòng hôm nay"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_see_all_bookings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Xem tất cả"
+                        android:textColor="@color/text_link"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <!-- RecyclerView danh sách booking compact -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_today_bookings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/background_card"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Empty state khi không có đặt phòng hôm nay -->
+                <TextView
+                    android:id="@+id/tv_empty_bookings"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/background_card"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Không có đặt phòng hôm nay"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+            <!-- /Section đặt phòng hôm nay -->
+
+            <!-- ════════════════════════════════════════
+                 Section "Hoạt động gần đây"
+                 ════════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:orientation="vertical">
+
+                <!-- Header section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_screen_horizontal"
+                    android:paddingEnd="@dimen/margin_screen_horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Hoạt động gần đây"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_see_all_activity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Xem tất cả"
+                        android:textColor="@color/text_link"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <!-- RecyclerView hoạt động gần đây (CheckInOut 5 mục) -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recent_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/background_card"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Empty state -->
+                <TextView
+                    android:id="@+id/tv_empty_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/background_card"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Chưa có hoạt động nào"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+            <!-- /Section hoạt động gần đây -->
+
+        </LinearLayout>
+
+    </ScrollView>
+    <!-- /ScrollView -->
+
+</LinearLayout>

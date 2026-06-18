@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    dialog_confirm.xml — Confirm Dialog (spec 3.3, ux_ui.md)
+    Root : LinearLayout (vertical), width = width_dialog (330dp)
+    Dùng với MaterialAlertDialogBuilder hoặc inflate thủ công trong DialogFragment.
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Cách dùng (MaterialAlertDialogBuilder — đơn giản nhất):
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_confirm, null);
+        TextView tvTitle   = dialogView.findViewById(R.id.tv_dialog_title);
+        TextView tvMessage = dialogView.findViewById(R.id.tv_dialog_message);
+        tvTitle.setText("Xóa phòng");
+        tvMessage.setText("Bạn có chắc muốn xóa Phòng 101 không?");
+        new MaterialAlertDialogBuilder(context)
+            .setView(dialogView)
+            .create()
+            .show();
+
+        dialogView.findViewById(R.id.btn_dialog_cancel).setOnClickListener(v -> dialog.dismiss());
+        dialogView.findViewById(R.id.btn_dialog_confirm).setOnClickListener(v -> {
+            // Thực hiện xóa
+            dialog.dismiss();
+        });
+
+    Sử dụng tại: Xóa Phòng (B), Xóa Khách hàng (D2), Xóa Nhân viên (F2),
+                 Xóa Tài khoản (E1), Hủy Đặt phòng (C2).
+
+    Để đổi nút "Xóa" thành "Hủy đặt phòng" / "Khóa" v.v., set runtime:
+        btn_dialog_confirm.setText("Hủy đặt phòng");
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/width_dialog"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card_white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_card_default">
+
+    <!-- Icon cảnh báo (40dp, đỏ) -->
+    <ImageView
+        android:id="@+id/iv_dialog_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="Cảnh báo"
+        android:src="@drawable/ic_search"
+        android:tint="@color/status_error" />
+
+    <!-- Tiêu đề (18sp Bold, căn giữa) -->
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xs"
+        android:fontFamily="sans-serif-bold"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.4"
+        android:text="Xác nhận xóa"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Nội dung (14sp, gray, căn giữa) -->
+    <TextView
+        android:id="@+id/tv_dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xs"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        android:text="Bạn có chắc chắn muốn xóa mục này không? Hành động này không thể hoàn tác."
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp" />
+
+    <!-- Row 2 nút: Hủy (outline) + Xóa (filled đỏ) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Nút "Hủy" — outline -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_dialog_cancel"
+            style="@style/Widget.LalaHouse.Button.Outline"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Hủy"
+            android:textSize="15sp"
+            app:cornerRadius="@dimen/radius_button" />
+
+        <!-- Nút "Xóa" — filled đỏ -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_dialog_confirm"
+            style="@style/Widget.LalaHouse.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="@dimen/spacing_xs"
+            android:layout_weight="1"
+            android:backgroundTint="@color/status_error"
+            android:text="Xóa"
+            android:textSize="15sp"
+            app:cornerRadius="@dimen/radius_button"
+            app:rippleColor="@color/badge_dadat_bg" />
+
+    </LinearLayout>
+
+</LinearLayout>

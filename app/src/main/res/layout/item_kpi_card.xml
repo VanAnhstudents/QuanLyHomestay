@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    item_kpi_card.xml — KPI Card (spec A6 mục 3.3-3.6, ux_ui.md)
+    Height = kpi_card_height (80dp), width = 0dp / weight = 1
+    Dùng bên trong 2 LinearLayout horizontal lồng trong 1 LinearLayout vertical
+    để tạo lưới 2×2 trong fragment_home.xml.
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Java (HomeFragment.java) set runtime cho từng card:
+        iv_kpi_icon  → setImageResource() + setColorFilter(accent)
+        tv_kpi_value → setText(...)
+        tv_kpi_label → setText(...)
+        tv_kpi_value → setTextColor(accent)
+
+    Bảng accent theo thứ tự 4 card:
+        1. Tổng phòng   → primary_main   #4B9DA8  ic_bed
+        2. Phòng trống  → status_success #38A169  ic_home
+        3. Đang thuê    → status_warning #D97706  ic_person
+        4. Doanh thu HN → primary_main   #4B9DA8  ic_calendar
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/kpi_card_height"
+    android:layout_weight="1"
+    android:layout_margin="4dp"
+    android:background="@drawable/bg_card_white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Icon KPI (24×24, màu accent set runtime) -->
+    <ImageView
+        android:id="@+id/iv_kpi_icon"
+        android:layout_width="@dimen/icon_size_appbar"
+        android:layout_height="@dimen/icon_size_appbar"
+        android:contentDescription="KPI icon"
+        android:src="@drawable/ic_home"
+        android:tint="@color/primary_main" />
+
+    <!-- Giá trị (22sp Bold, màu accent set runtime) -->
+    <TextView
+        android:id="@+id/tv_kpi_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="sans-serif-bold"
+        android:text="0"
+        android:textColor="@color/primary_main"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Label (11sp Caption) -->
+    <TextView
+        android:id="@+id/tv_kpi_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Tổng phòng"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp" />
+
+</LinearLayout>
