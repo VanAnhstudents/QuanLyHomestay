@@ -41,4 +41,20 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
+
+    // Navigation Component
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+
+    // RecyclerView
+    implementation(libs.recyclerview)
+
+    // CardView
+    implementation(libs.cardview)
+
+    // MPAndroidChart (BarChart/LineChart/PieChart cho module Thống kê)
+    implementation(libs.mpandroidchart)
+
+    // CircleImageView (Avatar tròn)
+    implementation(libs.circleimageview)
 }

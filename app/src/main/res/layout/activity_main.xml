@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<!--
+    activity_main.xml — màn hình chính sau khi đăng nhập-
+
+    Cấu trúc 3 tầng (LinearLayout vertical):
+      1. App Bar (layout_appbar.xml, wrap_content)
+      2. FrameLayout chứa Fragment (layout_weight=1, layout_height=0dp) ← Fragment thay nhau render
+      3. Bottom Navigation (layout_bottom_nav.xml, wrap_content)
+
+    Fragment transaction xử lý trong MainActivity.java theo tab được chọn.
+    Không dùng NavController để đơn giản cho nhóm mới làm quen Fragment.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/background_screen"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Tầng 1: App Bar dùng chung -->
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/layout_appbar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Tầng 2: FrameLayout — nơi Fragment render thay nhau -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Tầng 3: Bottom Navigation -->
+    <include
+        android:id="@+id/bottom_nav_wrapper"
+        layout="@layout/layout_bottom_nav" />
+
+</LinearLayout>

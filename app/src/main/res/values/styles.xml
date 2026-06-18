@@ -1,2 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <!--
+        Typography: TextAppearance.LalaHouse.*
+        Font: Roboto (hệ thống Android — không cần file font riêng)
+        Theo ux_ui.md mục 1.2
+    -->
+
+    <!-- Display — 28sp Bold — tiêu đề màn hình lớn (Login, Register) -->
+    <style name="TextAppearance.LalaHouse.Display" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily">sans-serif-bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- Heading1 — 22sp Bold — tiêu đề section quan trọng -->
+    <style name="TextAppearance.LalaHouse.Heading1" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">sans-serif-bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- Heading2 — 18sp SemiBold — tiêu đề card, dialog -->
+    <style name="TextAppearance.LalaHouse.Heading2" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- Heading3 — 16sp SemiBold — nhãn nhóm, tiêu đề item -->
+    <style name="TextAppearance.LalaHouse.Heading3" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- Body1 — 16sp Regular — nội dung chính, text input -->
+    <style name="TextAppearance.LalaHouse.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+    </style>
+
+    <!-- Body2 — 14sp Regular — nội dung phụ, nhãn form, caption -->
+    <style name="TextAppearance.LalaHouse.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+    </style>
+
+    <!-- Label — 14sp Medium — nhãn trường dữ liệu -->
+    <style name="TextAppearance.LalaHouse.Label" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- ButtonText — 16sp Bold — chữ trên nút -->
+    <style name="TextAppearance.LalaHouse.ButtonText" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- Caption — 12sp Regular — thông tin nhỏ, badge, gợi ý -->
+    <style name="TextAppearance.LalaHouse.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- Overline — 11sp Medium — breadcrumb, tag, label icon BottomNav -->
+    <style name="TextAppearance.LalaHouse.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!-- ===== Widget Styles ===== -->
+
+    <!-- Button chính (filled teal) -->
+    <style name="Widget.LalaHouse.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/height_button_main</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="backgroundTint">@color/primary_main</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">@dimen/radius_button</item>
+        <item name="rippleColor">@color/primary_dark</item>
+    </style>
+
+    <!-- Button outline -->
+    <style name="Widget.LalaHouse.Button.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_height">@dimen/height_button_main</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="strokeColor">@color/primary_main</item>
+        <item name="android:textColor">@color/primary_main</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">@dimen/radius_button</item>
+    </style>
+
+    <!-- Button nhỏ (action) -->
+    <style name="Widget.LalaHouse.Button.Small" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/height_button_small</item>
+        <item name="backgroundTint">@color/primary_main</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="cornerRadius">@dimen/radius_button</item>
+    </style>
+
+    <!-- TextInputLayout chuẩn -->
+    <style name="Widget.LalaHouse.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_height">@dimen/height_input</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="boxStrokeColor">@color/border_input</item>
+        <item name="boxStrokeWidth">@dimen/stroke_input_normal</item>
+        <item name="boxStrokeWidthFocused">@dimen/stroke_input_focus</item>
+        <item name="boxCornerRadiusTopStart">@dimen/radius_input</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_input</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_input</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_input</item>
+        <item name="android:textColorHint">@color/text_placeholder</item>
+        <item name="hintTextColor">@color/primary_main</item>
+    </style>
+
+    <!-- TextInputLayout compact (cho form B3) -->
+    <style name="Widget.LalaHouse.TextInputLayout.Compact" parent="Widget.LalaHouse.TextInputLayout">
+        <item name="android:layout_height">@dimen/height_input_compact</item>
+    </style>
+
+    <!-- CardView chuẩn -->
+    <style name="Widget.LalaHouse.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/radius_card_large</item>
+        <item name="cardElevation">@dimen/elevation_card</item>
+        <item name="cardBackgroundColor">@color/background_card</item>
+        <item name="android:layout_marginStart">@dimen/margin_screen_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_screen_horizontal</item>
+        <item name="contentPadding">@dimen/padding_card_default</item>
+    </style>
+
+    <!-- CardView form (nền primary_light) -->
+    <style name="Widget.LalaHouse.Card.Form" parent="Widget.LalaHouse.Card">
+        <item name="cardBackgroundColor">@color/background_form_card</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <!-- CardView item list (radius nhỏ hơn) -->
+    <style name="Widget.LalaHouse.Card.ListItem" parent="Widget.LalaHouse.Card">
+        <item name="cardCornerRadius">@dimen/radius_card_small</item>
+    </style>
+
+</resources>

@@ -1,4 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    bottom_nav_menu.xml — Menu cho BottomNavigationView
+
+    5 tab:
+      1. Trang chủ  — ic_home
+      2. Phòng      — ic_bed
+      3. Đặt phòng  — ic_calendar
+      4. Khách hàng — ic_person
+      5. Hơn nữa    — ic_menu  (mở MoreBottomSheetFragment)
+
+    Phân quyền submenu "Hơn nữa" (Thanh toán, Nhân viên, Thống kê, Tài khoản)
+    được xử lý RUNTIME trong MainActivity.java — không hardcode ở đây.
+-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Trang chủ" />
+
+    <item
+        android:id="@+id/nav_room"
+        android:icon="@drawable/ic_bed"
+        android:title="Phòng" />
+
+    <item
+        android:id="@+id/nav_booking"
+        android:icon="@drawable/ic_calendar"
+        android:title="Đặt phòng" />
+
+    <item
+        android:id="@+id/nav_customer"
+        android:icon="@drawable/ic_person"
+        android:title="Khách hàng" />
+
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_menu"
+        android:title="Hơn nữa" />
 
 </menu>
