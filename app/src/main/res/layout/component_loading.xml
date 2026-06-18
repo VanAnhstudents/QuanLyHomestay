@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+    component_loading.xml — Loading Overlay (spec 3.4, ux_ui.md)
+    Root : FrameLayout, match_parent × match_parent, overlay mờ nửa đen
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    Cách dùng (include trong layout Fragment/Activity):
+        <include layout="@layout/component_loading"
+                 android:id="@+id/loading_overlay"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent" />
+
+    Java toggle:
+        View loadingOverlay = view.findViewById(R.id.loading_overlay);
+        // Khi bắt đầu load:
+        loadingOverlay.setVisibility(View.VISIBLE);
+        // Khi xong:
+        loadingOverlay.setVisibility(View.GONE);
+
+    Dùng khi: gọi DAO (load danh sách, lưu form),
+              nên set visibility = GONE mặc định trong XML này,
+              Fragment/Activity chủ động VISIBLE khi cần.
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:clickable="true"
+    android:focusable="true"
+    android:visibility="gone">
+
+    <!-- CircularProgressIndicator căn giữa (40dp, màu primary_main) -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_indicator"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:indicatorColor="@color/primary_main"
+        app:trackColor="#33FFFFFF"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+</FrameLayout>
