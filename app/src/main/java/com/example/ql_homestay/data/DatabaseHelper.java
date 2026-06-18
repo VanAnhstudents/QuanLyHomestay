@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "MaNV INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "MaTK INTEGER UNIQUE," +
                 "HoTen TEXT NOT NULL," +
-                "ChucVu TEXT NOT NULL CHECK (ChucVu IN ('LeTan','KeToan','DonPhong','BaoVe'))," +
+                "ChucVu TEXT NOT NULL CHECK (ChucVu IN ('QuanLy', 'LeTan','KeToan','DonPhong','BaoVe'))," +
                 "SDT TEXT," +
                 "Email TEXT," +
                 "CCCD TEXT," +
@@ -342,7 +342,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // =========================================================================
-    // SEED 3: PhanQuyen_VaiTro (32 dòng = 4 vai trò x 8 module, đúng seed RM.md)
+    // SEED 3: PhanQuyen_VaiTro (32 dòng = 4 vai trò x 8 module)
     // =========================================================================
     private void seedPhanQuyenVaiTro(SQLiteDatabase db) {
         // {MaVaiTro, TenModule, TenQuyen}
@@ -462,13 +462,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void seedTaiKhoan(SQLiteDatabase db) {
         // {TenDangNhap, Email, MatKhau, VaiTro, TrangThai, NgayTao}
         String[][] tks = {
-                {"admin",      "admin@lalahouse.vn",   "Admin@123",  "Admin",    "HoatDong", "2025-01-10"},
-                {"letan01",    "letan01@lalahouse.vn", "Letan@123",  "LeTan",    "HoatDong", "2025-02-01"},
-                {"letan02",    "letan02@lalahouse.vn", "Letan@456",  "LeTan",    "HoatDong", "2025-03-15"},
-                {"ketoan01",   "ketoan@lalahouse.vn",  "Ketoan@123", "KeToan",   "HoatDong", "2025-02-10"},
-                {"nhanvien01", "nv01@lalahouse.vn",    "Nv@12345",   "NhanVien", "HoatDong", "2025-04-01"},
-                {"nhanvien02", "nv02@lalahouse.vn",    "Nv@12346",   "NhanVien", "HoatDong", "2025-05-01"},
-                {"nhanvien03", "nv03@lalahouse.vn",    "Nv@12347",   "NhanVien", "Khoa",     "2025-06-01"},
+                {"admin",  "admin@lalahouse.vn",        "admin@1001",        "Admin",    "HoatDong", "2025-01-10"},
+                {"lt.nva", "letan_nva@lalahouse.vn",    "letan_nva@1001",    "LeTan",    "HoatDong", "2025-02-01"},
+                {"lt.dtt", "letan_dtt@lalahouse.vn",    "letan_dtt@1002",    "LeTan",    "HoatDong", "2025-03-15"},
+                {"kt.dth", "ketoan_dth@lalahouse.vn",   "ketoan_dth@1001",   "KeToan",   "HoatDong", "2025-02-10"},
+                {"nv.nva", "nhanvien_nva@lalahouse.vn", "nhanvien_nva@1001", "NhanVien", "HoatDong", "2025-04-01"},
+                {"nv.dtt", "nhanvien_dtt@lalahouse.vn", "nhanvien_dtt@1002", "NhanVien", "HoatDong", "2025-05-01"},
+                {"nv.dth", "nhanvien_dth@lalahouse.vn", "nhanvien_dth@1003", "NhanVien", "Khoa",     "2025-06-01"},
         };
         for (String[] t : tks) {
             ContentValues cv = new ContentValues();
@@ -489,13 +489,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void seedNhanVien(SQLiteDatabase db) {
         // {MaTK, HoTen, ChucVu, SDT, Email, CCCD, DiaChi, NgayVaoLam}
         String[][] nvs = {
-                {"1", "Nguyen Van An",    "LeTan",    "0901111001", "admin@lalahouse.vn",   "001080012345", "12 Le Loi, Q1, TP.HCM",          "2025-01-10"},
-                {"2", "Tran Thi Bich",    "LeTan",    "0901111002", "letan01@lalahouse.vn", "001090023456", "34 Nguyen Hue, Q1, TP.HCM",      "2025-02-01"},
-                {"3", "Le Van Cuong",     "LeTan",    "0901111003", "letan02@lalahouse.vn", "001070034567", "56 Hai Ba Trung, Q3, TP.HCM",    "2025-03-15"},
-                {"4", "Pham Thi Dung",    "KeToan",   "0901111004", "ketoan@lalahouse.vn",  "001085045678", "78 Dien Bien Phu, Q3, TP.HCM",   "2025-02-10"},
-                {"5", "Hoang Van Em",     "DonPhong", "0901111005", "nv01@lalahouse.vn",    "001095056789", "90 CMT8, Q10, TP.HCM",           "2025-04-01"},
-                {"6", "Vu Thi Phuong",    "DonPhong", "0901111006", "nv02@lalahouse.vn",    "001075067890", "12 Ly Thuong Kiet, Q10, TP.HCM", "2025-05-01"},
-                {"7", "Nguyen Quoc Toan", "BaoVe",    "0901111007", "nv03@lalahouse.vn",    "001088078901", "45 Tran Phu, Q5, TP.HCM",        "2025-06-01"},
+                {"1", "Nguyen Van Anh", "Admin",    "0901111001", "admin@lalahouse.vn",        "001080012345", "Hoang Tien, Thanh Hoa", "2025-01-10"},
+                {"2", "Nguyen Van An",  "LeTan",    "0901111002", "letan_nva@lalahouse.vn",    "001090023456", "Hoang Tien, Thanh Hoa", "2025-02-01"},
+                {"3", "Dinh Thi Truc",  "LeTan",    "0901111003", "letan_dtt@lalahouse.vn",    "001070034567", "Hau Loc, Thanh Hoa",    "2025-03-15"},
+                {"4", "Dinh Thi Ha",    "KeToan",   "0901111004", "ketoan_dth@lalahouse.vn",   "001085045678", "Yen Dinh, Thanh Hoa",   "2025-02-10"},
+                {"5", "Nguyen Van Anh", "DonPhong", "0901111005", "nhanvien_nva@lalahouse.v",  "001095056789", "Hoang Tien, Thanh Hoa", "2025-04-01"},
+                {"6", "Dinh Thi Truc",  "DonPhong", "0901111006", "nhanvien_dtt@lalahouse.vn", "001075067890", "Hau Loc, Thanh Hoa",    "2025-05-01"},
+                {"7", "Dinh Thi Ha",    "BaoVe",    "0901111007", "nhanvien_dth@lalahouse.vn", "001088078901", "Yen Dinh, Thanh Hoa",   "2025-06-01"},
         };
         for (String[] nv : nvs) {
             ContentValues cv = new ContentValues();
@@ -549,18 +549,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void seedKhachHang(SQLiteDatabase db) {
         // {HoTen, SDT, Email, CCCD, DiaChi, NgaySinh, GioiTinh, SoLanThue}
         String[][] khs = {
-                {"Nguyen Thi Mai",     "0912345601", "mai.nguyen@gmail.com",    "030190001001", "10 Tran Hung Dao, Hoan Kiem, HN",    "1990-05-12", "Nu",  "5"},
-                {"Tran Van Hung",      "0912345602", "hung.tran@gmail.com",     "038085001002", "22 Ly Thuong Kiet, Q10, HCM",        "1985-11-20", "Nam", "3"},
-                {"Le Thi Lan",         "0912345603", "lan.le@yahoo.com",        "001092001003", "15 Nguyen Trai, Thanh Xuan, HN",     "1992-07-08", "Nu",  "2"},
-                {"Pham Quoc Bao",      "0912345604", "bao.pham@gmail.com",      "079080001004", "88 Hoang Van Thu, Phu Nhuan, HCM",   "1980-03-25", "Nam", "7"},
-                {"Hoang Thi Thu",      "0912345605", "thu.hoang@hotmail.com",   "001095001005", "5 Hang Bai, Hoan Kiem, HN",          "1995-09-14", "Nu",  "1"},
-                {"Vu Minh Duc",        "0912345606", "duc.vu@gmail.com",        "034088001006", "40 Bach Dang, Hai Chau, Da Nang",    "1988-12-30", "Nam", "4"},
-                {"Dang Thi Hoa",       "0912345607", "hoa.dang@gmail.com",      "001093001007", "27 Phan Chu Trinh, HK, HN",          "1993-04-18", "Nu",  "2"},
-                {"Bui Van Thanh",      "0912345608", "thanh.bui@gmail.com",     "026087001008", "60 Tran Phu, Nha Trang, KH",         "1987-08-05", "Nam", "6"},
-                {"Do Thi Ngoc",        "0912345609", "ngoc.do@gmail.com",       "001091001009", "3 Ly Tu Trong, Q1, HCM",             "1991-01-22", "Nu",  "3"},
-                {"Nguyen Duc Kien",    "0912345610", "kien.nd@gmail.com",       "027096001010", "100 Le Duan, Hai Chau, Da Nang",     "1996-06-11", "Nam", "1"},
-                {"Cao Thi Bich Van",   "0912345611", "van.cao@gmail.com",       "001089001011", "18 Chua Lang, Dong Da, HN",          "1989-02-28", "Nu",  "4"},
-                {"Ly Hoang Nam",       "0912345612", "nam.ly@gmail.com",        "079094001012", "55 Vo Thi Sau, Q3, HCM",             "1994-10-07", "Nam", "2"},
+                {"Nguyen Thi Mai",   "0912345601", "mai.nguyen@gmail.com",  "030190001001", "10 Tran Hung Dao, Hoan Kiem, HN",  "1990-05-12", "Nu",  "5"},
+                {"Tran Van Hung",    "0912345602", "hung.tran@gmail.com",   "038085001002", "22 Ly Thuong Kiet, Q10, HCM",      "1985-11-20", "Nam", "3"},
+                {"Le Thi Lan",       "0912345603", "lan.le@yahoo.com",      "001092001003", "15 Nguyen Trai, Thanh Xuan, HN",   "1992-07-08", "Nu",  "2"},
+                {"Pham Quoc Bao",    "0912345604", "bao.pham@gmail.com",    "079080001004", "88 Hoang Van Thu, Phu Nhuan, HCM", "1980-03-25", "Nam", "7"},
+                {"Hoang Thi Thu",    "0912345605", "thu.hoang@hotmail.com", "001095001005", "5 Hang Bai, Hoan Kiem, HN",        "1995-09-14", "Nu",  "1"},
+                {"Vu Minh Duc",      "0912345606", "duc.vu@gmail.com",      "034088001006", "40 Bach Dang, Hai Chau, Da Nang",  "1988-12-30", "Nam", "4"},
+                {"Dang Thi Hoa",     "0912345607", "hoa.dang@gmail.com",    "001093001007", "27 Phan Chu Trinh, HK, HN",        "1993-04-18", "Nu",  "2"},
+                {"Bui Van Thanh",    "0912345608", "thanh.bui@gmail.com",   "026087001008", "60 Tran Phu, Nha Trang, KH",       "1987-08-05", "Nam", "6"},
+                {"Do Thi Ngoc",      "0912345609", "ngoc.do@gmail.com",     "001091001009", "3 Ly Tu Trong, Q1, HCM",           "1991-01-22", "Nu",  "3"},
+                {"Nguyen Duc Kien",  "0912345610", "kien.nd@gmail.com",     "027096001010", "100 Le Duan, Hai Chau, Da Nang",   "1996-06-11", "Nam", "1"},
+                {"Cao Thi Bich Van", "0912345611", "van.cao@gmail.com",     "001089001011", "18 Chua Lang, Dong Da, HN",        "1989-02-28", "Nu",  "4"},
+                {"Ly Hoang Nam",     "0912345612", "nam.ly@gmail.com",      "079094001012", "55 Vo Thi Sau, Q3, HCM",           "1994-10-07", "Nam", "2"},
         };
         for (String[] kh : khs) {
             ContentValues cv = new ContentValues();
@@ -894,24 +894,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // {MaTK, NoiDung, DaDoc, ThoiGian}
         Object[][] tbs = {
                 // Thông báo cho Admin (MaTK=1)
-                {1, "He thong da khoi dong thanh cong. Chao mung tro lai, Admin!",             1, "2026-06-17 07:00:00"},
-                {1, "Phong P302 check-in thanh cong luc 14:00 ngay 13/06.",                   1, "2026-06-13 14:05:00"},
-                {1, "Khach hang Nguyen Thi Mai da huy dat phong ngay 17/06.",                  0, "2026-06-17 09:30:00"},
-                {1, "Co 3 dat phong sap den trong 3 ngay toi.",                                0, "2026-06-17 08:00:00"},
+                {1, "He thong da khoi dong thanh cong. Chao mung tro lai, Admin!",           1, "2026-06-17 07:00:00"},
+                {1, "Phong P302 check-in thanh cong luc 14:00 ngay 13/06.",                  1, "2026-06-13 14:05:00"},
+                {1, "Khach hang Nguyen Thi Mai da huy dat phong ngay 17/06.",                0, "2026-06-17 09:30:00"},
+                {1, "Co 3 dat phong sap den trong 3 ngay toi.",                              0, "2026-06-17 08:00:00"},
                 // Thông báo cho Lễ tân 1 (MaTK=2)
-                {2, "Khach Tran Van Hung check-in Phong P102 luc 14:10 ngay 05/06.",          1, "2026-06-05 14:12:00"},
+                {2, "Khach Tran Van Hung check-in Phong P102 luc 14:10 ngay 05/06.",         1, "2026-06-05 14:12:00"},
                 {2, "Nhan viec: Huong dan khach Phong P103 lam thu tuc check-in luc 14:30.", 1, "2026-06-15 14:25:00"},
-                {2, "Nhac nho: Khach Phong P201 check-out ngay 20/06/2026.",                  0, "2026-06-17 07:30:00"},
-                {2, "Don dat phong moi tu khach Ly Hoang Nam – Phong P402 tu 22/06.",         0, "2026-06-17 10:00:00"},
-                {2, "Phong P103 hien dang su dung, khong xep them khach.",                    0, "2026-06-15 15:00:00"},
+                {2, "Nhac nho: Khach Phong P201 check-out ngay 20/06/2026.",                 0, "2026-06-17 07:30:00"},
+                {2, "Don dat phong moi tu khach Ly Hoang Nam – Phong P402 tu 22/06.",        0, "2026-06-17 10:00:00"},
+                {2, "Phong P103 hien dang su dung, khong xep them khach.",                   0, "2026-06-15 15:00:00"},
                 // Thông báo cho Lễ tân 2 (MaTK=3)
-                {3, "Ban giao ca: Khach P302 (Gia dinh Ly Hoang Nam) can ho tro them chan.",  1, "2026-06-13 22:05:00"},
-                {3, "Nhac nho check-out: Phong P203 ngay 18/06/2026 luc 12:00.",              0, "2026-06-17 07:00:00"},
-                {3, "Dat phong moi: Tran Van Hung – Phong P401 tu 20/06.",                    0, "2026-06-17 10:05:00"},
+                {3, "Ban giao ca: Khach P302 (Gia dinh Ly Hoang Nam) can ho tro them chan.", 1, "2026-06-13 22:05:00"},
+                {3, "Nhac nho check-out: Phong P203 ngay 18/06/2026 luc 12:00.",             0, "2026-06-17 07:00:00"},
+                {3, "Dat phong moi: Tran Van Hung – Phong P401 tu 20/06.",                   0, "2026-06-17 10:05:00"},
                 // Thông báo cho Kế toán (MaTK=4)
                 {4, "Hoa don #9 (MaDatPhong 11 – P302) chua thanh toan. Tong: 9.800.000 d.", 0, "2026-06-17 08:00:00"},
-                {4, "Bao cao doanh thu thang 6/2026 san sang de xuat.",                       0, "2026-06-17 09:00:00"},
-                {4, "Da xac nhan thanh toan hoa don #5 (P301 – Suite): 5.900.000 d.",         1, "2026-06-15 10:45:00"},
+                {4, "Bao cao doanh thu thang 6/2026 san sang de xuat.",                      0, "2026-06-17 09:00:00"},
+                {4, "Da xac nhan thanh toan hoa don #5 (P301 – Suite): 5.900.000 d.",        1, "2026-06-15 10:45:00"},
         };
         for (Object[] tb : tbs) {
             ContentValues cv = new ContentValues();
