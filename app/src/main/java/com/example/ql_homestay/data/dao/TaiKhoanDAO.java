@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.model.TaiKhoan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TaiKhoanDAO — Data Access Object cho bảng TaiKhoan.
  * Quy ước dùng trong project:
@@ -76,6 +79,45 @@ public class TaiKhoanDAO {
 
             return c.moveToFirst();
         }
+    }
+
+    /**
+     * Lấy toàn bộ danh sách tài khoản (dùng cho AccountListFragment).
+     */
+    public List<TaiKhoan> getAll() {
+        List<TaiKhoan> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try (Cursor c = db.query("TaiKhoan", null, null, null, null, null, "NgayTao DESC")) {
+            while (c.moveToNext()) list.add(cursorToModel(c));
+        }
+        return list;
+    }
+
+    /**
+     * Lọc tài khoản theo vai trò.
+     * @param vaiTro "Admin" | "LeTan" | "KeToan" | "NhanVien"
+     */
+    public List<TaiKhoan> filterByVaiTro(String vaiTro) {
+        List<TaiKhoan> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try (Cursor c = db.query("TaiKhoan", null,
+                "VaiTro = ?", new String[]{vaiTro}, null, null, "NgayTao DESC")) {
+            while (c.moveToNext()) list.add(cursorToModel(c));
+        }
+        return list;
+    }
+
+    /**
+     * Khoá / Mở khoá tài khoản.
+     * @param maTK  tài khoản cần đổi trạng thái
+     * @param trangThai "HoatDong" | "Khoa"
+     * @return số hàng bị ảnh hưởng (1 = thành công)
+     */
+    public int updateTrangThai(int maTK, String trangThai) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("TrangThai", trangThai);
+        return db.update("TaiKhoan", cv, "MaTK = ?", new String[]{String.valueOf(maTK)});
     }
 
     // WRITE

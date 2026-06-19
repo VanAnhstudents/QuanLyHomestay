@@ -47,10 +47,10 @@ public class PermissionHelper {
     // API chính
     /**
      * Kiểm tra xem vai trò có quyền tối thiểu {@code minQuyen} trên module không.
-     * @param db        SQLiteDatabase (dùng instance từ DatabaseHelper)
-     * @param vaiTro    Tên vai trò: "Admin" | "LeTan" | "KeToan" | "NhanVien"
+     * @param db SQLiteDatabase (dùng instance từ DatabaseHelper)
+     * @param vaiTro Tên vai trò: "Admin" | "LeTan" | "KeToan" | "NhanVien"
      * @param tenModule Tên module (dùng hằng số MODULE_* ở trên)
-     * @param minQuyen  Quyền tối thiểu cần có (dùng hằng số QUYEN_* ở trên)
+     * @param minQuyen Quyền tối thiểu cần có (dùng hằng số QUYEN_* ở trên)
      * @return true nếu vai trò có quyền >= minQuyen trên module
      */
     public static boolean hasAccess(SQLiteDatabase db, String vaiTro, String tenModule, String minQuyen) {
@@ -75,7 +75,7 @@ public class PermissionHelper {
                         "FROM PhanQuyen_VaiTro pqvt " +
                         "JOIN Quyen q ON pqvt.MaQuyen = q.MaQuyen " +
                         "JOIN Module m ON pqvt.MaModule = m.MaModule " +
-                        "WHERE pqvt.VaiTro = ? AND m.TenModule = ? " +
+                        "WHERE pqvt.MaVaiTro = ? AND m.TenModule = ? " +
                         "LIMIT 1";
 
         Cursor cursor = null;

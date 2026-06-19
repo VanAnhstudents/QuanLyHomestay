@@ -35,7 +35,7 @@ import androidx.annotation.NonNull;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "lalahouse.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2; // Đã tăng DB_VESION từ 1 -> 2 để onUpgrade() chạy lại và tạo bảng mới ==> tăng dần lên nếu có sự thay đổi ở đây!
     private static DatabaseHelper instance;
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -127,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Email TEXT," +
                 "MatKhau TEXT NOT NULL," +
                 "VaiTro TEXT NOT NULL CHECK (VaiTro IN ('Admin','LeTan','KeToan','NhanVien'))," +
-                "TrangThai TEXT NOT NULL DEFAULT 'Active' CHECK (TrangThai IN ('HoatDong','Khoa'))," +
+                "TrangThai TEXT NOT NULL DEFAULT 'HoatDong' CHECK (TrangThai IN ('HoatDong','Khoa'))," +
                 "NgayTao TEXT NOT NULL," +
                 "Avatar TEXT)");
 
