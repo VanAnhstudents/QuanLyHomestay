@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+    ic_bell — chuông thông báo
+    Dùng cho: icon thông báo trên App Bar (A3), badge đếm số chưa đọc
+    Size: 24×24dp  |  viewport: 24×24
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
 
-</selector>
+    <!-- Thân chuông -->
+    <path
+        android:pathData="M18,16 L18,11 C18,7.69 15.87,4.9 13,4.14 L13,3.5 C13,2.67 12.33,2 11.5,2 C10.67,2 10,2.67 10,3.5 L10,4.14 C7.13,4.9 5,7.69 5,11 L5,16 L3,18 L3,19 L20,19 L20,18 Z"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Phần rung của chuông (đáy tròn) -->
+    <path
+        android:pathData="M9,19 C9,20.1 9.9,21 11,21 C12.1,21 13,20.1 13,19"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"/>
+
+</vector>

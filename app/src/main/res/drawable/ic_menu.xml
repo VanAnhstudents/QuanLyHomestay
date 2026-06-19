@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+    ic_menu — 3 gạch ngang (hamburger / more)
+    Dùng cho: tab "Hơn nữa" ở BottomNavigationView (A5),
+              fallback icon cho HoaDonThanhToan / BaoCaoThongKe / CaiDatHeThong
+              trong seedModule() khi chưa có icon chuyên biệt
+    Size: 24×24dp  |  viewport: 24×24
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
 
-</selector>
+    <!-- Gạch trên -->
+    <path
+        android:pathData="M3,7 L21,7"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Gạch giữa -->
+    <path
+        android:pathData="M3,12 L21,12"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Gạch dưới -->
+    <path
+        android:pathData="M3,17 L21,17"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+</vector>

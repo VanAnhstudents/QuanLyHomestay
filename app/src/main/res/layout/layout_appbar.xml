@@ -14,9 +14,11 @@
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_appbar"
     android:background="@color/background_card"
+    android:baselineAligned="false"
     android:elevation="@dimen/elevation_appbar"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -30,17 +32,16 @@
         android:orientation="horizontal"
         android:paddingStart="@dimen/margin_screen_horizontal">
 
-        <!-- Logo tròn 40dp (dùng CircleImageView nếu có thư viện,
-             hoặc ImageView với background oval drawable) -->
-        <ImageView
+        <!-- Logo tròn 40dp — logo_home.jpg là ảnh VUÔNG nên dùng
+             ShapeableImageView + shapeAppearanceOverlay để cắt tròn thật sự -->
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_logo"
             android:layout_width="@dimen/icon_size_logo_header"
             android:layout_height="@dimen/icon_size_logo_header"
-            android:background="@drawable/bg_fab"
             android:contentDescription="Logo Lala House"
-            android:padding="6dp"
-            android:src="@drawable/ic_home"
-            android:tint="@color/text_on_primary" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_home"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
 
         <!-- Tên app -->
         <TextView
@@ -98,8 +99,18 @@
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <!-- Avatar tròn 36dp -->
-        <ImageView
+        <!-- Avatar tròn 36dp.
+             Dùng ShapeableImageView để sẵn sàng bo tròn ảnh đại diện THẬT
+             (JPG/PNG từ camera, thư viện ảnh, hoặc Glide/Picasso load URL) sau này.
+             Hiện tại src = ic_person (icon vector placeholder) nên vẫn giữ
+             app:tint + padding + background tròn cho đẹp.
+             LƯU Ý KHI LOAD ẢNH THẬT (Java):
+               imageView.setImageTintList(null);   // gỡ tint trước
+               imageView.setPadding(0,0,0,0);      // gỡ padding trước
+               imageView.setBackground(null);      // gỡ nền bg_fab trước
+               Glide.with(ctx).load(avatarUrl).circleCrop().into(imageView);
+             Nếu bỏ qua bước gỡ tint, ảnh thật sẽ bị nhuộm trắng y như lỗi logo trước đó. -->
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/avatar_header_size"
             android:layout_height="@dimen/avatar_header_size"
@@ -108,8 +119,10 @@
             android:contentDescription="Avatar người dùng"
             android:focusable="true"
             android:padding="8dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_person"
-            android:tint="@color/text_on_primary" />
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle"
+            app:tint="@color/text_on_primary" />
 
         <!-- Tên user (hiển thị role ngắn hoặc tên) -->
         <TextView
