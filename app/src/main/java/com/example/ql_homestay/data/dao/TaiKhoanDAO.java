@@ -109,7 +109,7 @@ public class TaiKhoanDAO {
 
     /**
      * Khoá / Mở khoá tài khoản.
-     * @param maTK  tài khoản cần đổi trạng thái
+     * @param maTK tài khoản cần đổi trạng thái
      * @param trangThai "HoatDong" | "Khoa"
      * @return số hàng bị ảnh hưởng (1 = thành công)
      */
@@ -183,12 +183,12 @@ public class TaiKhoanDAO {
     private ContentValues buildContentValues(TaiKhoan tk) {
         ContentValues cv = new ContentValues();
         cv.put("TenDangNhap", tk.getTenDangNhap());
-        if (tk.getEmail() != null) cv.put("Email",tk.getEmail());
+        cv.put("Email", tk.getEmail());
         cv.put("MatKhau", tk.getMatKhau());
         cv.put("VaiTro", tk.getVaiTro());
         cv.put("TrangThai", tk.getTrangThai() != null ? tk.getTrangThai() : "HoatDong");
         cv.put("NgayTao", tk.getNgayTao());
-        if (tk.getAvatar() != null) cv.put("Avatar", tk.getAvatar());
+        cv.put("Avatar", tk.getAvatar());
         return cv;
     }
 }
