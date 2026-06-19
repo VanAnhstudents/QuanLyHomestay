@@ -1,10 +1,8 @@
 package com.example.ql_homestay;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +13,8 @@ import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.ui.auth.LoginActivity;
 import com.example.ql_homestay.ui.booking.BookingListFragment;
 import com.example.ql_homestay.ui.customer.CustomerListFragment;
-import com.example.ql_homestay.ui.main.home.HomeFragment;
+import com.example.ql_homestay.ui.main.HomeFragment;
 import com.example.ql_homestay.ui.room.RoomListFragment;
-import com.example.ql_homestay.util.PermissionHelper;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
