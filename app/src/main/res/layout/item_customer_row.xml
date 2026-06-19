@@ -1,6 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    item_customer_row.xml — item RecyclerView danh sách khách hàng (D1)
+    Cao 72dp, dùng LinearLayout (horizontal) theo quy tắc chỉ 3 layout.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_customer_row"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/height_listitem_with_subtitle"
+    android:background="@color/background_card"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/margin_screen_horizontal"
+    android:paddingEnd="@dimen/margin_screen_horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- (a) Avatar tròn 48dp: ảnh hoặc initials -->
+    <FrameLayout
+        android:layout_width="@dimen/avatar_listitem_size"
+        android:layout_height="@dimen/avatar_listitem_size">
+
+        <!-- Ảnh avatar (ẩn khi dùng initials) -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/avatar_listitem_size"
+            android:layout_height="@dimen/avatar_listitem_size"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle"
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+        <!-- Initials fallback: nền primary_main, chữ trắng -->
+        <TextView
+            android:id="@+id/tv_initials"
+            android:layout_width="@dimen/avatar_listitem_size"
+            android:layout_height="@dimen/avatar_listitem_size"
+            android:background="@drawable/bg_avatar_circle"
+            android:gravity="center"
+            android:textColor="@color/text_on_primary"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="bold"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <!-- (b) Cột thông tin: Tên + SĐT + Email -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/spacing_md"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_ten_khach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/text_primary"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_sdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/text_secondary"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/text_secondary"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- (c) Icon > -->
+    <ImageView
+        android:layout_width="@dimen/icon_size_small_action"
+        android:layout_height="@dimen/icon_size_small_action"
+        android:src="@drawable/ic_chevron_right"
+        android:tint="@color/icon_inactive"
+        android:contentDescription="Xem chi tiết" />
+
+</LinearLayout>
