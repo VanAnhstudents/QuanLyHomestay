@@ -27,17 +27,16 @@
         android:paddingBottom="40dp">
 
         <!-- ══ 1. Logo tròn 100dp ══ -->
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_logo_login"
             android:layout_width="@dimen/logo_login_size"
             android:layout_height="@dimen/logo_login_size"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="72dp"
-            android:background="@drawable/bg_fab"
             android:contentDescription="@string/app_name"
-            android:padding="22dp"
-            android:src="@drawable/ic_home"
-            android:tint="@color/text_on_primary" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_home"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
 
         <!-- ══ 2. Tiêu đề 28sp Bold ══ -->
         <TextView
@@ -152,14 +151,15 @@
 
                 <CheckBox
                     android:id="@+id/cb_remember"
+                    style="@style/Widget.MaterialComponents.CompoundButton.CheckBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:buttonTint="@color/primary_main"
                     android:fontFamily="sans-serif"
                     android:text="Ghi nhớ đăng nhập"
                     android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    app:buttonTint="@color/primary_main" />
 
                 <TextView
                     android:id="@+id/tv_forgot_pass"

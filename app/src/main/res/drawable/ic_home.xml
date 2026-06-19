@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+    ic_home — nhà / trang chủ
+    Dùng cho: tab "Trang chủ" ở BottomNavigationView (A5),
+              breadcrumb icon, Module TrangChu
+    Size: 24×24dp  |  viewport: 24×24
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
 
-</selector>
+    <!-- Mái nhà (hình tam giác/chevron trên) -->
+    <path
+        android:pathData="M3,11 L12,3 L21,11"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Thân nhà (hình chữ nhật dưới) -->
+    <path
+        android:pathData="M5,11 L5,21 L19,21 L19,11"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Cửa ra vào (hình chữ nhật giữa-dưới) -->
+    <path
+        android:pathData="M9,21 L9,15 Q9,14 10,14 L14,14 Q15,14 15,15 L15,21"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"/>
+
+</vector>

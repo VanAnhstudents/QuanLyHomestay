@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_chart — biểu đồ cột / thống kê & báo cáo
+    Dùng cho: Module BaoCaoThongKe trong seedModule(),
+              icon header StatisticsDashboardFragment (H1),
+              RevenueReportFragment (H2), OccupancyReportFragment (H3)
+    Size: 24×24dp  |  viewport: 24×24
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Trục Y (dọc) -->
+    <path
+        android:pathData="M4,3 L4,21"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Trục X (ngang) -->
+    <path
+        android:pathData="M4,21 L21,21"
+        android:strokeWidth="2"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Cột 1 (thấp) -->
+    <path
+        android:pathData="M7,17 L7,21"
+        android:strokeWidth="3.5"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Cột 2 (cao nhất) -->
+    <path
+        android:pathData="M12,9 L12,21"
+        android:strokeWidth="3.5"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+    <!-- Cột 3 (trung bình) -->
+    <path
+        android:pathData="M17,13 L17,21"
+        android:strokeWidth="3.5"
+        android:strokeColor="#1A1A1A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"/>
+
+</vector>

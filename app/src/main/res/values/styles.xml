@@ -165,4 +165,9 @@
         <item name="cardCornerRadius">@dimen/radius_card_small</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.LalaHouse.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

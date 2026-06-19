@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+    ic_chevron_right — dấu ">" (chevron phải)
+    Dùng cho: icon cuối mỗi list item (Customer Row, Staff Row, Account Row)
+              để chỉ hành động nhấn vào xem chi tiết
+    Size: 24×24dp  |  viewport: 24×24
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
 
-</selector>
+    <!-- Chevron ">" -->
+    <path
+        android:pathData="M9,6 L15,12 L9,18"
+        android:strokeWidth="2"
+        android:strokeColor="#9E9E9E"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"/>
+
+</vector>
