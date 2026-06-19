@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    fragment_customer_list.xml — Danh sách khách hàng (D1)
+    Root: LinearLayout (vertical). Chỉ dùng LinearLayout/RelativeLayout/FrameLayout.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_screen"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- App Bar -->
+    <include layout="@layout/layout_appbar" />
+
+    <!-- Breadcrumb -->
+    <include
+        android:id="@+id/breadcrumb"
+        layout="@layout/layout_breadcrumb" />
+
+    <!-- SearchBar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/margin_screen_horizontal"
+        android:paddingEnd="@dimen/margin_screen_horizontal"
+        android:paddingTop="@dimen/spacing_sm"
+        android:paddingBottom="@dimen/spacing_xs">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_search"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_searchbar"
+            app:boxCornerRadiusTopStart="22dp"
+            app:boxCornerRadiusTopEnd="22dp"
+            app:boxCornerRadiusBottomStart="22dp"
+            app:boxCornerRadiusBottomEnd="22dp"
+            app:boxStrokeColor="@color/border_input"
+            app:startIconDrawable="@drawable/ic_search"
+            app:startIconTint="@color/icon_inactive"
+            app:hintTextColor="@color/text_placeholder"
+            android:hint="Tìm kiếm khách hàng..."
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:imeOptions="actionSearch" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- List + FAB trong RelativeLayout để FAB đè góc dưới phải -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- RecyclerView danh sách khách hàng -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_customers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:clipToPadding="false"
+            android:paddingBottom="72dp" />
+
+        <!-- Empty state (ẩn khi có dữ liệu) -->
+        <include
+            android:id="@+id/empty_state"
+            layout="@layout/component_empty_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <!-- FAB + Thêm khách hàng (ẩn runtime nếu không có quyền) -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/margin_screen_horizontal"
+            android:contentDescription="Thêm khách hàng"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/primary_main"
+            app:elevation="@dimen/elevation_fab"
+            app:tint="@color/text_on_primary"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+    </RelativeLayout>
+
+</LinearLayout>
