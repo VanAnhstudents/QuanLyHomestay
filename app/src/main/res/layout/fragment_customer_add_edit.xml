@@ -1,6 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    fragment_customer_add_edit.xml — Thêm / Sửa khách hàng (D3)
+    Root: ScrollView > LinearLayout (vertical)
+    Dùng chung cho cả Thêm mới (maKH = -1) và Sửa (maKH > 0).
+    Chỉ dùng LinearLayout / RelativeLayout / FrameLayout — KHÔNG dùng ConstraintLayout.
+-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_screen"
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
+
+        <!-- App Bar -->
+        <include layout="@layout/layout_appbar" />
+
+        <!-- ===== Ô chọn ảnh avatar (tròn, clickable) ===== -->
+        <FrameLayout
+            android:id="@+id/fl_avatar_picker"
+            android:layout_width="@dimen/avatar_detail_large"
+            android:layout_height="@dimen/avatar_detail_large"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginStart="auto"
+            android:layout_marginEnd="auto">
+
+            <!-- Ảnh avatar (ẩn khi dùng initials) -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_avatar_pick"
+                android:layout_width="@dimen/avatar_detail_large"
+                android:layout_height="@dimen/avatar_detail_large"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
+
+            <!-- Placeholder: nền xám + icon camera -->
+            <TextView
+                android:id="@+id/tv_avatar_placeholder"
+                android:layout_width="@dimen/avatar_detail_large"
+                android:layout_height="@dimen/avatar_detail_large"
+                android:background="@drawable/bg_avatar_circle"
+                android:gravity="center"
+                android:text="📷"
+                android:textSize="28sp"
+                android:visibility="visible" />
+
+        </FrameLayout>
+
+        <!-- Căn giữa FrameLayout trên theo chiều ngang -->
+        <!-- (FrameLayout không tự căn giữa khi cha là LinearLayout vertical,
+             cần wrap trong 1 LinearLayout horizontal với gravity="center") -->
+
+        <!-- Wrapper căn giữa avatar -->
+        <!-- Cách dùng: đặt FrameLayout fl_avatar_picker bên trong LinearLayout này -->
+
+        <!-- ===== Card form ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            app:cardCornerRadius="@dimen/radius_card_large"
+            app:cardElevation="@dimen/elevation_card"
+            app:cardBackgroundColor="@color/background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_card_default">
+
+                <!-- 3.1 Họ và tên -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Họ và tên *"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_ho_ten"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_input"
+                    app:boxCornerRadiusTopStart="@dimen/radius_input"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_input"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_input"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+                    app:boxStrokeColor="@color/border_input"
+                    android:hint="Nhập họ và tên"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_ho_ten"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName|textCapWords" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 3.2 Số điện thoại -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số điện thoại *"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_sdt"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_input"
+                    app:boxCornerRadiusTopStart="@dimen/radius_input"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_input"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_input"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+                    app:boxStrokeColor="@color/border_input"
+                    android:hint="Nhập số điện thoại"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_sdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 3.3 Email -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_input"
+                    app:boxCornerRadiusTopStart="@dimen/radius_input"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_input"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_input"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+                    app:boxStrokeColor="@color/border_input"
+                    android:hint="Nhập địa chỉ email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 3.4 CCCD/CMND -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CCCD/CMND"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_cccd"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_input"
+                    app:boxCornerRadiusTopStart="@dimen/radius_input"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_input"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_input"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+                    app:boxStrokeColor="@color/border_input"
+                    android:hint="Nhập số CCCD/CMND">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_cccd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 3.5 Địa chỉ -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Địa chỉ"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_dia_chi"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_input"
+                    app:boxCornerRadiusTopStart="@dimen/radius_input"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_input"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_input"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+                    app:boxStrokeColor="@color/border_input"
+                    android:hint="Nhập địa chỉ">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_dia_chi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:inputType="textPostalAddress|textCapSentences" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 3.6 Ngày sinh (DatePicker) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày sinh"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_ngay_sinh"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_input"
+                    app:boxCornerRadiusTopStart="@dimen/radius_input"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_input"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_input"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+                    app:boxStrokeColor="@color/border_input"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_calendar"
+                    app:endIconTint="@color/icon_inactive"
+                    android:hint="DD/MM/YYYY">
+
+                    <!-- read-only: mở DatePicker khi click -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_ngay_sinh"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:clickable="true"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 3.7 Giới tính (Spinner dạng exposed dropdown) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giới tính"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_gioi_tinh"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_input"
+                    app:boxCornerRadiusTopStart="@dimen/radius_input"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_input"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_input"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+                    app:boxStrokeColor="@color/border_input"
+                    android:hint="Chọn giới tính">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/dropdown_gioi_tinh"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== Button Lưu ===== -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_luu"
+            style="@style/Widget.LalaHouse.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_button_main"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:text="Lưu"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-bold"
+            android:textStyle="bold"
+            android:textColor="@color/text_on_primary"
+            app:cornerRadius="@dimen/radius_button"
+            app:backgroundTint="@color/primary_main" />
+
+    </LinearLayout>
+</ScrollView>
