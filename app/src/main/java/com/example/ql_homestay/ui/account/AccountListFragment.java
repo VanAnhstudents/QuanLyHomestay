@@ -35,7 +35,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * E1. Danh sách tài khoản — chỉ Admin truy cập.
+ * Danh sách tài khoản — chỉ Admin truy cập.
  * Filter chips: Tất cả / Admin / Nhân viên / Đã khóa.
  * PopupMenu từ icon 3 chấm: Sửa / Khóa (toggle) / Xóa.
  */

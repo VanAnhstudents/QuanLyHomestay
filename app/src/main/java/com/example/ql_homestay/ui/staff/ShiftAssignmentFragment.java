@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * F4. Phân công ca làm việc.
+ * Phân công ca làm việc.
  * Bảng 3 hàng (Sáng/Chiều/Tối) × 7 cột (T2–CN).
  * Load PhanCongCa hiện tại → Nút "Lưu" → replaceAll().
  *

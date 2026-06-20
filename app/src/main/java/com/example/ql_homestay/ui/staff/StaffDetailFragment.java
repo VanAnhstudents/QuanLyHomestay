@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * F2. Chi tiết nhân viên.
+ * Chi tiết nhân viên.
  * - Hiển thị thông tin + bảng ca làm việc (CheckBox read-only).
  * - Button "Phân công" → mở F4.
  * - Row Sửa/Xóa chỉ Admin thấy.

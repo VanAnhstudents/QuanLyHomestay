@@ -1,5 +1,6 @@
 package com.example.ql_homestay.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CustomerAdapter — RecyclerView.Adapter cho danh sách KhachHang ở CustomerListFragment (D1).
- * Item layout: item_customer_row.xml (avatar initials + tên + SĐT + email + chevron).
- * Theo lo_trinh.md B1: "RecyclerView dùng item_customer_row.xml (avatar initials + tên + SĐT)".
- */
+ * CustomerAdapter — RecyclerView.Adapter cho danh sách KhachHang ở CustomerListFragment.
+ * Item layout: item_customer_row.xml (avatar initials + tên + SĐT + email + chevron).*/
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
     /** Callback khi người dùng nhấn vào 1 dòng khách hàng. */
     public interface OnCustomerClickListener {
@@ -33,6 +32,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     }
 
     /** Thay toàn bộ dữ liệu hiển thị (gọi sau khi load/search xong, trên Main Thread). */
+    @SuppressLint("NotifyDataSetChanged")
     public void setData(List<KhachHang> newData) {
         danhSach.clear();
         if (newData != null) danhSach.addAll(newData);
