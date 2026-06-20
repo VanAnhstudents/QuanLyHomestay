@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- item_staff_row.xml — 80dp, consistent with item_customer_row.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="80dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Avatar initials 48dp -->
+    <TextView
+        android:id="@+id/tv_initials"
+        android:layout_width="@dimen/avatar_listitem_size"
+        android:layout_height="@dimen/avatar_listitem_size"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/margin_screen_horizontal"
+        android:background="@drawable/bg_avatar_circle"
+        android:fontFamily="sans-serif-bold"
+        android:gravity="center"
+        android:textColor="@color/text_on_primary"
+        android:textSize="18sp" />
+
+    <!-- Chevron > -->
+    <ImageView
+        android:id="@+id/iv_chevron"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin_screen_horizontal"
+        android:src="@drawable/ic_chevron_right"
+        app:tint="@color/icon_inactive" />
+
+    <!-- Tên + Chức vụ + SĐT -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_initials"
+        android:layout_toStartOf="@id/iv_chevron"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_ten_nhan_vien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_chuc_vu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="sans-serif"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/tv_sdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="sans-serif"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <!-- Divider 1dp bottom -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stroke_divider"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/margin_screen_horizontal"
+        android:background="@color/divider" />
+
+</RelativeLayout>

@@ -126,7 +126,7 @@
 
     <!-- TextInputLayout chuẩn -->
     <style name="Widget.LalaHouse.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_height">@dimen/height_input</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="boxStrokeColor">@color/border_input</item>
         <item name="boxStrokeWidth">@dimen/stroke_input_normal</item>
@@ -141,7 +141,7 @@
 
     <!-- TextInputLayout compact (cho form B3) -->
     <style name="Widget.LalaHouse.TextInputLayout.Compact" parent="Widget.LalaHouse.TextInputLayout">
-        <item name="android:layout_height">@dimen/height_input_compact</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <!-- CardView chuẩn -->

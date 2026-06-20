@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- F4. Phân công ca làm việc -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_screen">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/layout_breadcrumb" android:id="@+id/breadcrumb" />
+
+    <!-- Header 7 ngày -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:background="@color/background_card">
+
+        <!-- Spacer cho nhãn ca -->
+        <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T2" android:textSize="11sp" android:gravity="center" android:textColor="@color/text_secondary" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T3" android:textSize="11sp" android:gravity="center" android:textColor="@color/text_secondary" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T4" android:textSize="11sp" android:gravity="center" android:textColor="@color/text_secondary" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T5" android:textSize="11sp" android:gravity="center" android:textColor="@color/text_secondary" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T6" android:textSize="11sp" android:gravity="center" android:textColor="@color/text_secondary" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T7" android:textSize="11sp" android:gravity="center" android:textColor="@color/text_secondary" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="CN" android:textSize="11sp" android:gravity="center" android:textColor="@color/text_secondary" android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Hàng Ca Sáng -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:background="#FEF3C7"
+                android:paddingHorizontal="8dp">
+
+                <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="Sáng" android:textSize="12sp" android:gravity="center" android:textColor="@color/text_primary" />
+                <CheckBox android:id="@+id/cb_sang_t2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_sang_t3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_sang_t4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_sang_t5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_sang_t6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_sang_t7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_sang_cn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Hàng Ca Chiều -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:background="#DCFCE7"
+                android:paddingHorizontal="8dp">
+
+                <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="Chiều" android:textSize="12sp" android:gravity="center" android:textColor="@color/text_primary" />
+                <CheckBox android:id="@+id/cb_chieu_t2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_chieu_t3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_chieu_t4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_chieu_t5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_chieu_t6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_chieu_t7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_chieu_cn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Hàng Ca Tối -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:background="#E0E7FF"
+                android:paddingHorizontal="8dp">
+
+                <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="Tối" android:textSize="12sp" android:gravity="center" android:textColor="@color/text_primary" />
+                <CheckBox android:id="@+id/cb_toi_t2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_toi_t3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_toi_t4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_toi_t5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_toi_t6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_toi_t7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+                <CheckBox android:id="@+id/cb_toi_cn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Button Lưu phân công -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_luu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_button_main"
+        android:layout_marginHorizontal="@dimen/margin_screen_horizontal"
+        android:layout_marginVertical="16dp"
+        android:text="Lưu phân công"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_on_primary"
+        app:backgroundTint="@color/primary_main"
+        app:cornerRadius="@dimen/radius_button" />
+
+</LinearLayout>

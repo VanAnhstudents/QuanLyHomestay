@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.ui.auth.LoginActivity;
+import com.example.ql_homestay.ui.customer.CustomerListFragment;
 import com.example.ql_homestay.ui.main.HomeFragment;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     // Giai đoạn này chỉ dùng HomeFragment.
     // Các fragment khác sẽ được thêm vào khi từng thành viên hoàn thành module.
     private HomeFragment homeFragment;
+    private CustomerListFragment customerFragment;
     private Fragment activeFragment;
 
     @Override
@@ -68,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFragments() {
         homeFragment = new HomeFragment();
+        customerFragment = new CustomerListFragment();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, homeFragment, "home")
+                .add(R.id.fragment_container, customerFragment, "customer").hide(customerFragment)
                 .commit();
         activeFragment = homeFragment;
     }
@@ -82,10 +86,21 @@ public class MainActivity extends AppCompatActivity {
                 showFragment(homeFragment);
                 return true;
             }
+            if (id == R.id.nav_customer) {
+                showFragment(customerFragment);
+                return true;
+            }
+            if (id == R.id.nav_more) {
+                // Mở MoreBottomSheetFragment; giữ tab hiện tại trong bottomNav
+                if (getSupportFragmentManager().findFragmentByTag("more_sheet") == null) {
+                    MoreBottomSheetFragment.newInstance()
+                            .show(getSupportFragmentManager(), "more_sheet");
+                }
+                // Trả về false để bottomNav không đổi selection sang "Hơn nữa"
+                return false;
+            }
 
-            // Các tab Room / Booking / Customer / More:
-            // hiện Toast cho đến khi từng thành viên implement xong fragment tương ứng
-            // và thêm vào initFragments() + case này.
+            // Room / Booking — module của thành viên khác, hiện stub
             Toast.makeText(this, "Tính năng đang phát triển", Toast.LENGTH_SHORT).show();
             return true;
         });
@@ -94,7 +109,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFragment(Fragment target) {
-        if (target == activeFragment) return;
+        if (target == activeFragment
+                && getSupportFragmentManager().getBackStackEntryCount() == 0) return;
+        // Pop tất cả back stack (Staff, Account, Detail...) trước khi chuyển tab
+        getSupportFragmentManager().popBackStackImmediate(
+                null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.hide(activeFragment);
         ft.show(target);
@@ -107,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
         int count = getSupportFragmentManager().getBackStackEntryCount();
         if (count > 0) {
             getSupportFragmentManager().popBackStack();
-            activeFragment = homeFragment;
-            bottomNav.setSelectedItemId(R.id.nav_home);
         } else {
             moveTaskToBack(true);
         }

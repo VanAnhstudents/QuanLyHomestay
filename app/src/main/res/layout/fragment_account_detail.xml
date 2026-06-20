@@ -1,6 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- E2. Chi tiết / Phân quyền tài khoản — consistent with fragment_customer_detail.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_screen"
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
+
+        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
+
+        <!-- Card thông tin tài khoản -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            app:cardCornerRadius="@dimen/radius_card_large"
+            app:cardElevation="@dimen/elevation_card"
+            app:cardBackgroundColor="@color/background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_card_default">
+
+                <!-- Avatar + Tên + Email -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/spacing_sm">
+
+                    <FrameLayout android:layout_width="@dimen/avatar_detail_medium" android:layout_height="@dimen/avatar_detail_medium">
+                        <TextView
+                            android:id="@+id/tv_initials_detail"
+                            android:layout_width="@dimen/avatar_detail_medium"
+                            android:layout_height="@dimen/avatar_detail_medium"
+                            android:background="@drawable/bg_avatar_circle"
+                            android:gravity="center"
+                            android:textColor="@color/text_on_primary"
+                            android:textSize="22sp"
+                            android:fontFamily="sans-serif-bold"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                        <TextView android:id="@+id/tv_ten_tk_detail" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18sp" android:fontFamily="sans-serif-bold" android:textStyle="bold" android:textColor="@color/text_primary" android:maxLines="1" android:ellipsize="end" />
+                        <TextView android:id="@+id/tv_email_detail" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textSize="14sp" android:fontFamily="sans-serif" android:textColor="@color/text_secondary" android:maxLines="1" android:ellipsize="end" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="@dimen/stroke_divider" android:background="@color/divider" android:layout_marginBottom="@dimen/spacing_xs" />
+
+                <!-- Trạng thái -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Trạng thái" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_badge_trang_thai" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="11sp" android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="4dp" android:paddingBottom="4dp" android:background="@drawable/bg_badge_pill" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="@dimen/stroke_divider" android:background="@color/divider" />
+
+                <!-- Ngày tạo -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Ngày tạo" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_ngay_tao_detail" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary" android:gravity="end" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 4 tab chọn vai trò -->
+        <LinearLayout
+            android:id="@+id/row_tab_vaitro"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:background="@drawable/bg_card_white">
+
+            <TextView android:id="@+id/tab_admin"    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Admin"   android:textSize="13sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:background="@color/primary_main" android:textColor="@color/text_on_primary" />
+            <TextView android:id="@+id/tab_letan"    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Lễ tân"  android:textSize="13sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:background="@color/background_card" android:textColor="@color/text_primary" />
+            <TextView android:id="@+id/tab_ketoan"   android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Kế toán" android:textSize="13sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:background="@color/background_card" android:textColor="@color/text_primary" />
+            <TextView android:id="@+id/tab_nhanvien" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="NV"      android:textSize="13sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:background="@color/background_card" android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Card phân quyền -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:cardCornerRadius="@dimen/radius_card_large"
+            app:cardElevation="@dimen/elevation_card"
+            app:cardBackgroundColor="@color/background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_card_default">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phân quyền"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_permissions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Button Lưu thay đổi -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_luu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_button_main"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_md"
+            android:text="Lưu thay đổi"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-bold"
+            android:textStyle="bold"
+            android:textColor="@color/text_on_primary"
+            app:backgroundTint="@color/primary_main"
+            app:cornerRadius="@dimen/radius_button" />
+
+    </LinearLayout>
+</ScrollView>

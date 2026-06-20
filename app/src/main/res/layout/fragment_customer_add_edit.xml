@@ -19,8 +19,10 @@
         android:orientation="vertical"
         android:paddingBottom="32dp">
 
-        <!-- App Bar -->
-        <include layout="@layout/layout_appbar" />
+        <!-- Breadcrumb -->
+        <include
+            android:id="@+id/breadcrumb"
+            layout="@layout/layout_breadcrumb" />
 
         <!-- ===== Ô chọn ảnh avatar (tròn, clickable) ===== -->
         <FrameLayout
@@ -32,9 +34,7 @@
             android:layout_marginBottom="@dimen/spacing_sm"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:layout_marginStart="auto"
-            android:layout_marginEnd="auto">
+            android:foreground="?attr/selectableItemBackgroundBorderless">
 
             <!-- Ảnh avatar (ẩn khi dùng initials) -->
             <com.google.android.material.imageview.ShapeableImageView
@@ -96,7 +96,7 @@
                     android:id="@+id/til_ho_ten"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_input"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusTopStart="@dimen/radius_input"
                     app:boxCornerRadiusTopEnd="@dimen/radius_input"
                     app:boxCornerRadiusBottomStart="@dimen/radius_input"
@@ -108,7 +108,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_ho_ten"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:inputType="textPersonName|textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -128,7 +128,7 @@
                     android:id="@+id/til_sdt"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_input"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusTopStart="@dimen/radius_input"
                     app:boxCornerRadiusTopEnd="@dimen/radius_input"
                     app:boxCornerRadiusBottomStart="@dimen/radius_input"
@@ -140,7 +140,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_sdt"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -160,7 +160,7 @@
                     android:id="@+id/til_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_input"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusTopStart="@dimen/radius_input"
                     app:boxCornerRadiusTopEnd="@dimen/radius_input"
                     app:boxCornerRadiusBottomStart="@dimen/radius_input"
@@ -171,7 +171,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_email"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +191,7 @@
                     android:id="@+id/til_cccd"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_input"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusTopStart="@dimen/radius_input"
                     app:boxCornerRadiusTopEnd="@dimen/radius_input"
                     app:boxCornerRadiusBottomStart="@dimen/radius_input"
@@ -202,7 +202,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_cccd"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -222,7 +222,7 @@
                     android:id="@+id/til_dia_chi"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_input"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusTopStart="@dimen/radius_input"
                     app:boxCornerRadiusTopEnd="@dimen/radius_input"
                     app:boxCornerRadiusBottomStart="@dimen/radius_input"
@@ -233,7 +233,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_dia_chi"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:inputType="textPostalAddress|textCapSentences" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -253,7 +253,7 @@
                     android:id="@+id/til_ngay_sinh"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_input"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusTopStart="@dimen/radius_input"
                     app:boxCornerRadiusTopEnd="@dimen/radius_input"
                     app:boxCornerRadiusBottomStart="@dimen/radius_input"
@@ -268,7 +268,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_ngay_sinh"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
@@ -291,7 +291,7 @@
                     android:id="@+id/til_gioi_tinh"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_input"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusTopStart="@dimen/radius_input"
                     app:boxCornerRadiusTopEnd="@dimen/radius_input"
                     app:boxCornerRadiusBottomStart="@dimen/radius_input"
@@ -302,7 +302,7 @@
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/dropdown_gioi_tinh"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:inputType="none"
                         android:focusable="false"

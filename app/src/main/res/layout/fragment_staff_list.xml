@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- F1. Danh sách nhân viên (Staff List) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_screen">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/layout_breadcrumb" android:id="@+id/breadcrumb" />
+
+    <!-- SearchBar -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_searchbar"
+        android:layout_marginStart="@dimen/margin_screen_horizontal"
+        android:layout_marginEnd="@dimen/margin_screen_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusTopStart="22dp"
+        app:boxCornerRadiusTopEnd="22dp"
+        app:boxCornerRadiusBottomStart="22dp"
+        app:boxCornerRadiusBottomEnd="22dp"
+        app:startIconDrawable="@drawable/ic_search"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Tìm kiếm nhân viên..."
+            android:textColorHint="@color/text_placeholder"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:background="@null" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- List + FAB wrapper -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_staff_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:clipToPadding="false"
+            android:paddingBottom="72dp" />
+
+        <!-- Empty state -->
+        <include
+            layout="@layout/component_empty_state"
+            android:id="@+id/empty_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_staff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add"
+            android:contentDescription="Thêm nhân viên"
+            app:backgroundTint="@color/primary_main"
+            app:elevation="@dimen/elevation_fab"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -57,7 +57,7 @@ public class KhachHangDAO {
 
     public int update(KhachHang kh) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        return db.update("KhachHang", buildContentValues(kh),
+        return db.update("KhachHang", buildUpdateValues(kh),
                 "MaKH = ?", new String[]{String.valueOf(kh.getMaKH())});
     }
 
@@ -93,6 +93,13 @@ public class KhachHangDAO {
     }
 
     private ContentValues buildContentValues(KhachHang kh) {
+        ContentValues cv = buildUpdateValues(kh);
+        cv.put("SoLanThue", kh.getSoLanThue());
+        return cv;
+    }
+
+    /** For UPDATE: excludes SoLanThue so rental count is never overwritten by the edit form. */
+    private ContentValues buildUpdateValues(KhachHang kh) {
         ContentValues cv = new ContentValues();
         cv.put("HoTen", kh.getHoTen());
         cv.put("SDT", kh.getSdt());
@@ -102,7 +109,6 @@ public class KhachHangDAO {
         cv.put("NgaySinh", kh.getNgaySinh());
         cv.put("GioiTinh", kh.getGioiTinh());
         cv.put("Avatar", kh.getAvatar());
-        cv.put("SoLanThue", kh.getSoLanThue());
         return cv;
     }
 }

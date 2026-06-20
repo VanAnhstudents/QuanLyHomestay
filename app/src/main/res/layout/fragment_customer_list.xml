@@ -1,78 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    fragment_customer_list.xml — Danh sách khách hàng (D1)
-    Root: LinearLayout (vertical). Chỉ dùng LinearLayout/RelativeLayout/FrameLayout.
+    fragment_customer_list.xml — Danh sách khách hàng (D1 trong ux_ui.md)
+    Root: LinearLayout (vertical), background = background_screen
+    Chỉ dùng LinearLayout / RelativeLayout / FrameLayout (quy tắc layout bắt buộc).
+
+    Cấu trúc:
+      1. <include> layout_appbar
+      2. <include> layout_breadcrumb
+      3. SearchBar (TextInputLayout, lọc realtime qua TextWatcher trong Java)
+      4. RelativeLayout chứa RecyclerView + EmptyState + FAB "+ Thêm khách hàng"
+         (FAB ẩn nếu PermissionHelper.hasAccess(..., QuanLyKhachHang, ToanQuyen) = false)
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen"
     android:orientation="vertical">
 
-    <!-- App Bar -->
-    <include layout="@layout/layout_appbar" />
-
-    <!-- Breadcrumb -->
+    <!-- 2. Breadcrumb: "Trang chủ → Khách hàng" — set runtime trong Java -->
     <include
         android:id="@+id/breadcrumb"
         layout="@layout/layout_breadcrumb" />
 
-    <!-- SearchBar -->
-    <LinearLayout
+    <!-- 3. SearchBar -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/margin_screen_horizontal"
-        android:paddingEnd="@dimen/margin_screen_horizontal"
-        android:paddingTop="@dimen/spacing_sm"
-        android:paddingBottom="@dimen/spacing_xs">
+        android:layout_height="@dimen/height_searchbar"
+        android:layout_marginStart="@dimen/margin_screen_horizontal"
+        android:layout_marginTop="@dimen/spacing_sm"
+        android:layout_marginEnd="@dimen/margin_screen_horizontal"
+        app:boxBackgroundColor="@color/background_input"
+        app:boxCornerRadiusBottomEnd="22dp"
+        app:boxCornerRadiusBottomStart="22dp"
+        app:boxCornerRadiusTopEnd="22dp"
+        app:boxCornerRadiusTopStart="22dp"
+        app:boxStrokeColor="@color/border_input"
+        app:boxStrokeWidth="@dimen/stroke_input_normal"
+        app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="@color/icon_inactive">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_search"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_searchbar"
-            app:boxCornerRadiusTopStart="22dp"
-            app:boxCornerRadiusTopEnd="22dp"
-            app:boxCornerRadiusBottomStart="22dp"
-            app:boxCornerRadiusBottomEnd="22dp"
-            app:boxStrokeColor="@color/border_input"
-            app:startIconDrawable="@drawable/ic_search"
-            app:startIconTint="@color/icon_inactive"
-            app:hintTextColor="@color/text_placeholder"
-            android:hint="Tìm kiếm khách hàng..."
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            android:layout_height="match_parent"
+            android:hint="Tìm theo tên, SĐT, CCCD..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_placeholder"
+            android:textSize="14sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:inputType="text"
-                android:imeOptions="actionSearch" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <!-- List + FAB trong RelativeLayout để FAB đè góc dưới phải -->
+    <!-- 4. RelativeLayout chứa RecyclerView + EmptyState + FAB -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <!-- RecyclerView danh sách khách hàng -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_customers"
+            android:id="@+id/rv_customer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/spacing_sm"
             android:clipToPadding="false"
-            android:paddingBottom="72dp" />
+            android:paddingBottom="80dp"
+            tools:listitem="@layout/item_customer_row" />
 
-        <!-- Empty state (ẩn khi có dữ liệu) -->
+        <!-- EmptyState: hiển thị khi danh sách rỗng (adapter.getItemCount() == 0) -->
         <include
             android:id="@+id/empty_state"
             layout="@layout/component_empty_state"
@@ -81,11 +83,11 @@
             android:layout_centerInParent="true"
             android:visibility="gone" />
 
-        <!-- FAB + Thêm khách hàng (ẩn runtime nếu không có quyền) -->
+        <!-- 5. FAB "+ Thêm khách hàng" — ẩn nếu MaQuyen(QuanLyKhachHang) != ToanQuyen -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/margin_screen_horizontal"
@@ -93,8 +95,7 @@
             android:src="@drawable/ic_add"
             app:backgroundTint="@color/primary_main"
             app:elevation="@dimen/elevation_fab"
-            app:tint="@color/text_on_primary"
-            xmlns:app="http://schemas.android.com/apk/res-auto" />
+            app:tint="@color/text_on_primary" />
 
     </RelativeLayout>
 
