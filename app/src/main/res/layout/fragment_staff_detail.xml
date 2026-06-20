@@ -1,6 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- F2. Chi tiết nhân viên — consistent with fragment_customer_detail.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_screen"
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
+
+        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
+
+        <!-- Header: Avatar + Tên + Chức vụ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="24dp"
+            android:paddingBottom="16dp"
+            android:background="@color/background_screen">
+
+            <FrameLayout
+                android:layout_width="@dimen/avatar_detail_large"
+                android:layout_height="@dimen/avatar_detail_large">
+                <TextView
+                    android:id="@+id/tv_initials_detail"
+                    android:layout_width="@dimen/avatar_detail_large"
+                    android:layout_height="@dimen/avatar_detail_large"
+                    android:background="@drawable/bg_avatar_circle"
+                    android:gravity="center"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="28sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_ten_nv_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-bold"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_chuc_vu_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
+        <!-- Card thông tin cá nhân -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:cardCornerRadius="@dimen/radius_card_large"
+            app:cardElevation="@dimen/elevation_card"
+            app:cardBackgroundColor="@color/background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_card_default">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thông tin cá nhân"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <!-- SĐT -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Điện thoại" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_sdt_detail" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary" android:gravity="end" android:maxLines="1" android:ellipsize="end" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="@dimen/stroke_divider" android:background="@color/divider" />
+
+                <!-- Email -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Email" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_email_detail" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary" android:gravity="end" android:maxLines="1" android:ellipsize="end" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="@dimen/stroke_divider" android:background="@color/divider" />
+
+                <!-- CCCD -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="CCCD/CMND" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_cccd_detail" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary" android:gravity="end" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="@dimen/stroke_divider" android:background="@color/divider" />
+
+                <!-- Địa chỉ -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Địa chỉ" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_dia_chi_detail" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary" android:gravity="end" android:maxLines="2" android:ellipsize="end" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="@dimen/stroke_divider" android:background="@color/divider" />
+
+                <!-- Ngày vào làm -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Vào làm" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_ngay_vao_lam_detail" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="14sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary" android:gravity="end" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card ca làm việc -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            app:cardCornerRadius="@dimen/radius_card_large"
+            app:cardElevation="@dimen/elevation_card"
+            app:cardBackgroundColor="@color/background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_card_default">
+
+                <!-- Header: tiêu đề + Button Phân công -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/spacing_sm">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ca làm việc"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-bold"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_phan_cong"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="Phân công"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium"
+                        app:strokeColor="@color/primary_main"
+                        app:cornerRadius="@dimen/radius_button" />
+                </LinearLayout>
+
+                <!-- Header ngày -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="32dp" android:orientation="horizontal">
+                    <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="" />
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T2" android:textSize="11sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:textColor="@color/text_secondary" />
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T3" android:textSize="11sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:textColor="@color/text_secondary" />
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T4" android:textSize="11sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:textColor="@color/text_secondary" />
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T5" android:textSize="11sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:textColor="@color/text_secondary" />
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T6" android:textSize="11sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:textColor="@color/text_secondary" />
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T7" android:textSize="11sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:textColor="@color/text_secondary" />
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="CN" android:textSize="11sp" android:fontFamily="sans-serif-medium" android:gravity="center" android:textColor="@color/text_secondary" />
+                </LinearLayout>
+
+                <!-- Ca Sáng -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:orientation="horizontal" android:background="#FEF3C7">
+                    <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="Sáng" android:textSize="12sp" android:fontFamily="sans-serif" android:gravity="center" android:textColor="@color/text_primary" />
+                    <CheckBox android:id="@+id/cb_sang_t2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_sang_t3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_sang_t4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_sang_t5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_sang_t6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_sang_t7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_sang_cn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                </LinearLayout>
+
+                <!-- Ca Chiều -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:orientation="horizontal" android:background="#DCFCE7">
+                    <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="Chiều" android:textSize="12sp" android:fontFamily="sans-serif" android:gravity="center" android:textColor="@color/text_primary" />
+                    <CheckBox android:id="@+id/cb_chieu_t2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_chieu_t3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_chieu_t4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_chieu_t5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_chieu_t6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_chieu_t7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_chieu_cn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                </LinearLayout>
+
+                <!-- Ca Tối -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:orientation="horizontal" android:background="#E0E7FF">
+                    <TextView android:layout_width="40dp" android:layout_height="match_parent" android:text="Tối" android:textSize="12sp" android:fontFamily="sans-serif" android:gravity="center" android:textColor="@color/text_primary" />
+                    <CheckBox android:id="@+id/cb_toi_t2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_toi_t3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_toi_t4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_toi_t5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_toi_t6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_toi_t7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                    <CheckBox android:id="@+id/cb_toi_cn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:enabled="false" android:clickable="false" android:focusable="false" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Row Sửa / Xóa (ẩn runtime nếu không phải Admin) -->
+        <LinearLayout
+            android:id="@+id/row_action_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/margin_screen_horizontal"
+            android:layout_marginEnd="@dimen/margin_screen_horizontal"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_chinh_sua"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="Chỉnh sửa"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/primary_main"
+                app:strokeColor="@color/primary_main"
+                app:cornerRadius="@dimen/radius_button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_xoa"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/spacing_xs"
+                android:text="Xóa"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/status_error"
+                app:strokeColor="@color/status_error"
+                app:cornerRadius="@dimen/radius_button" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

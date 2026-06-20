@@ -77,13 +77,13 @@
                 android:id="@+id/til_fullname"
                 style="@style/Widget.LalaHouse.TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_input"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_fullname"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:hint="Nhập họ và tên"
                     android:inputType="textPersonName|textCapWords"
@@ -109,13 +109,13 @@
                 android:id="@+id/til_email"
                 style="@style/Widget.LalaHouse.TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_input"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:hint="Nhập địa chỉ email"
                     android:inputType="textEmailAddress"
@@ -141,14 +141,14 @@
                 android:id="@+id/til_password"
                 style="@style/Widget.LalaHouse.TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_input"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:hint="Tối thiểu 6 ký tự"
                     android:inputType="textPassword"
@@ -174,14 +174,14 @@
                 android:id="@+id/til_confirm_password"
                 style="@style/Widget.LalaHouse.TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_input"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_confirm_password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:hint="Nhập lại mật khẩu"
                     android:inputType="textPassword"
