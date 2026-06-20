@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * F3. Thêm / Sửa nhân viên.
+ * Thêm / Sửa nhân viên.
  * Khi thêm mới (maNV == -1): cũng tạo TaiKhoan trong 1 transaction.
  */
 public class StaffAddEditFragment extends Fragment {

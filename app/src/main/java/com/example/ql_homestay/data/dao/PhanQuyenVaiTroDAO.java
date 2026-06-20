@@ -62,7 +62,7 @@ public class PhanQuyenVaiTroDAO {
         return rows;
     }
 
-    /** Lưu đồng loạt 8 module của 1 vai trò trong 1 transaction (nút "Lưu thay đổi" ở E2). */
+    /** Lưu đồng loạt 8 module của 1 vai trò trong 1 transaction (nút "Lưu thay đổi" trong màn phân quyền). */
     public void updateAllForVaiTro(String maVaiTro, Map<Integer, Integer> maQuyenByModule) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.beginTransaction();

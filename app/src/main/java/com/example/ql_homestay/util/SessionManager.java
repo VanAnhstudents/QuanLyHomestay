@@ -21,7 +21,7 @@ public class SessionManager {
     private static final String KEY_USERNAME = "tenDangNhap";
     private static final String KEY_HO_TEN = "hoTen";
     private static final String KEY_VAI_TRO = "vaiTro";
-    private static final String KEY_AVATAR   = "avatar";
+    private static final String KEY_AVATAR = "avatar";
 
     // ─── Singleton ──────────────────────────────────────────────────────────
 
@@ -48,20 +48,20 @@ public class SessionManager {
      * Lưu phiên đăng nhập.
      * Gọi ngay sau khi {@code AuthRepository.login()} trả về kết quả thành công.
      *
-     * @param maTK       khóa tài khoản
+     * @param maTK khóa tài khoản
      * @param tenDangNhap tên đăng nhập
-     * @param hoTen      họ tên hiển thị (lấy từ bảng NhanVien hoặc fallback = tenDangNhap)
-     * @param vaiTro     "Admin" | "LeTan" | "KeToan" | "NhanVien"
-     * @param avatar     tên resource drawable avatar (nullable)
+     * @param hoTen họ tên hiển thị (lấy từ bảng NhanVien hoặc fallback = tenDangNhap)
+     * @param vaiTro "Admin" | "LeTan" | "KeToan" | "NhanVien"
+     * @param avatar tên resource drawable avatar (nullable)
      */
     public void login(int maTK, String tenDangNhap, String hoTen,
                       String vaiTro, String avatar) {
-        editor.putBoolean(KEY_LOGGED,   true);
-        editor.putInt(    KEY_MA_TK,    maTK);
-        editor.putString( KEY_USERNAME, tenDangNhap);
-        editor.putString( KEY_HO_TEN,   hoTen  != null ? hoTen  : tenDangNhap);
-        editor.putString( KEY_VAI_TRO,  vaiTro != null ? vaiTro : "NhanVien");
-        editor.putString( KEY_AVATAR,   avatar != null ? avatar : "avatar_admin");
+        editor.putBoolean(KEY_LOGGED, true);
+        editor.putInt(KEY_MA_TK, maTK);
+        editor.putString(KEY_USERNAME, tenDangNhap);
+        editor.putString(KEY_HO_TEN, hoTen != null ? hoTen : tenDangNhap);
+        editor.putString(KEY_VAI_TRO, vaiTro != null ? vaiTro : "NhanVien");
+        editor.putString(KEY_AVATAR, avatar != null ? avatar : "avatar_admin");
         editor.apply();
     }
 

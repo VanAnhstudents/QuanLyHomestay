@@ -89,11 +89,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.VH> {
     private static String mapVaiTro(String vaiTro) {
         if (vaiTro == null) return "";
         switch (vaiTro) {
-            case "Admin":     return "Admin";
-            case "LeTan":     return "Lễ tân";
-            case "KeToan":    return "Kế toán";
-            case "NhanVien":  return "Nhân viên";
-            default:          return vaiTro;
+            case "Admin": return "Admin";
+            case "LeTan": return "Lễ tân";
+            case "KeToan": return "Kế toán";
+            case "NhanVien": return "Nhân viên";
+            default: return vaiTro;
         }
     }
 
@@ -102,11 +102,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.VH> {
         final ImageButton btnMore;
         VH(View v) {
             super(v);
-            tvInitials   = v.findViewById(R.id.tv_initials);
-            tvTen        = v.findViewById(R.id.tv_ten_tai_khoan);
-            tvEmail      = v.findViewById(R.id.tv_email);
-            tvBadgeRole  = v.findViewById(R.id.tv_badge_role);
-            btnMore      = v.findViewById(R.id.btn_more);
+            tvInitials = v.findViewById(R.id.tv_initials);
+            tvTen = v.findViewById(R.id.tv_ten_tai_khoan);
+            tvEmail = v.findViewById(R.id.tv_email);
+            tvBadgeRole = v.findViewById(R.id.tv_badge_role);
+            btnMore = v.findViewById(R.id.btn_more);
         }
     }
 }

@@ -9,7 +9,7 @@ import com.example.ql_homestay.model.Module;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Cần cho E2 (RecyclerView 8 dòng module trong màn Phân quyền tài khoản). */
+/** DAO cho bảng Module - quản lý 8 module trong hệ thống phân quyền. */
 public class ModuleDAO {
     private final DatabaseHelper dbHelper;
 

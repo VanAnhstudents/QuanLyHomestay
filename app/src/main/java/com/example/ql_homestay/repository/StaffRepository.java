@@ -54,9 +54,8 @@ public class StaffRepository {
     }
 
     /**
-     * Tạo NhanVien mới kèm TaiKhoan đăng nhập liên kết, trong 1 transaction
-     * (theo lo_trinh.md B2). Lưu ý: tk.getNgayTao() phải được set trước khi
-     * gọi (cột NgayTao là NOT NULL trong schema TaiKhoan).
+     * Tạo NhanVien mới kèm TaiKhoan đăng nhập liên kết, trong 1 transaction.
+     * Lưu ý: tk.getNgayTao() phải được set trước khi gọi (cột NgayTao là NOT NULL trong schema TaiKhoan).
      * @return MaNV vừa tạo, hoặc -1 nếu thất bại
      */
     public long createStaffWithAccount(NhanVien nv, TaiKhoan tk) {

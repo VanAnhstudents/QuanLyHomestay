@@ -47,6 +47,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    /**
+     * Xóa database hiện tại và tạo lại từ đầu.
+     * Dùng để debug hoặc reset toàn bộ dữ liệu.
+     */
+    public void resetDatabase() {
+        SQLiteDatabase db = getWritableDatabase();
+        onUpgrade(db, 1, DB_VERSION);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Bật ràng buộc khóa ngoại cho phiên làm việc hiện tại của onCreate.

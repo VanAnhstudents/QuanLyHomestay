@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * E3. Thêm / Sửa tài khoản.
+ * Thêm / Sửa tài khoản.
  * Mode thêm mới (maTK == -1): hiện trường mật khẩu.
  * Mode sửa (maTK > 0): ẩn trường mật khẩu.
  */

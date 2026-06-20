@@ -1,5 +1,6 @@
 package com.example.ql_homestay.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.VH> {
         this.listener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setData(List<NhanVien> list) {
         data = list != null ? list : new ArrayList<>();
         notifyDataSetChanged();
@@ -65,12 +67,12 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.VH> {
     private static String mapChucVu(String chucVu) {
         if (chucVu == null) return "";
         switch (chucVu) {
-            case "QuanLy":    return "Quản lý";
-            case "LeTan":     return "Lễ tân";
-            case "KeToan":    return "Kế toán";
-            case "DonPhong":  return "Dọn phòng";
-            case "BaoVe":     return "Bảo vệ";
-            default:          return chucVu;
+            case "QuanLy": return "Quản lý";
+            case "LeTan": return "Lễ tân";
+            case "KeToan": return "Kế toán";
+            case "DonPhong": return "Dọn phòng";
+            case "BaoVe": return "Bảo vệ";
+            default: return chucVu;
         }
     }
 
@@ -79,9 +81,9 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.VH> {
         VH(View v) {
             super(v);
             tvInitials = v.findViewById(R.id.tv_initials);
-            tvTen      = v.findViewById(R.id.tv_ten_nhan_vien);
-            tvChucVu   = v.findViewById(R.id.tv_chuc_vu);
-            tvSdt      = v.findViewById(R.id.tv_sdt);
+            tvTen = v.findViewById(R.id.tv_ten_nhan_vien);
+            tvChucVu = v.findViewById(R.id.tv_chuc_vu);
+            tvSdt = v.findViewById(R.id.tv_sdt);
         }
     }
 }

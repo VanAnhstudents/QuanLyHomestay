@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * F1. Danh sách nhân viên — StaffListFragment.
+ * Danh sách nhân viên — StaffListFragment.
  * - RecyclerView item_staff_row + SearchBar realtime.
  * - FAB ẩn nếu không phải Admin.
  */
