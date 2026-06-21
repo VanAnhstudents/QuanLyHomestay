@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.model.TaiKhoan;
+import com.example.ql_homestay.util.AvatarHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +55,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.VH> {
         h.tvEmail.setText(tk.getEmail() != null ? tk.getEmail() : "");
         h.tvBadgeRole.setText(mapVaiTro(tk.getVaiTro()));
 
-        // Avatar initials
-        String initials = "?";
-        if (tk.getTenDangNhap() != null && !tk.getTenDangNhap().trim().isEmpty()) {
-            initials = tk.getTenDangNhap().substring(0, 1).toUpperCase();
-        }
-        h.tvInitials.setText(initials);
+        // Load avatar từ database
+        AvatarHelper.loadAvatar(h.itemView.getContext(), tk.getAvatar(), tk.getTenDangNhap(),
+                               h.ivAvatar, h.tvInitials);
 
         h.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(tk);
@@ -98,10 +97,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.VH> {
     }
 
     static class VH extends RecyclerView.ViewHolder {
+        final ImageView ivAvatar;
         final TextView tvInitials, tvTen, tvEmail, tvBadgeRole;
         final ImageButton btnMore;
         VH(View v) {
             super(v);
+            ivAvatar = v.findViewById(R.id.iv_avatar);
             tvInitials = v.findViewById(R.id.tv_initials);
             tvTen = v.findViewById(R.id.tv_ten_tai_khoan);
             tvEmail = v.findViewById(R.id.tv_email);

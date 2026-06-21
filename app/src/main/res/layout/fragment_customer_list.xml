@@ -29,7 +29,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_search"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_searchbar"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_screen_horizontal"
         android:layout_marginTop="@dimen/spacing_sm"
         android:layout_marginEnd="@dimen/margin_screen_horizontal"
@@ -46,7 +46,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:hint="Tìm theo tên, SĐT, CCCD..."
             android:imeOptions="actionSearch"
             android:inputType="text"

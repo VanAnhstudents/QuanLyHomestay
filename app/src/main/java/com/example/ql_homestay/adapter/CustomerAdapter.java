@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.model.KhachHang;
+import com.example.ql_homestay.util.AvatarHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     @Override
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
         KhachHang kh = danhSach.get(position);
-        holder.tvAvatarInitials.setText(kh.getInitials());
+        AvatarHelper.loadAvatar(holder.itemView.getContext(), kh.getAvatar(), kh.getHoTen(), 
+                               holder.ivAvatar, holder.tvAvatarInitials);
         holder.tvHoTen.setText(kh.getHoTen());
         holder.tvSdt.setText(kh.getSdt() != null && !kh.getSdt().isEmpty() ? kh.getSdt() : "—");
         holder.tvEmail.setText(kh.getEmail() != null && !kh.getEmail().isEmpty() ? kh.getEmail() : "—");
@@ -66,6 +69,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     }
 
     static class CustomerViewHolder extends RecyclerView.ViewHolder {
+        ImageView ivAvatar;
         TextView tvAvatarInitials;
         TextView tvHoTen;
         TextView tvSdt;
@@ -73,6 +77,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
         CustomerViewHolder(@NonNull View itemView) {
             super(itemView);
+            ivAvatar = itemView.findViewById(R.id.iv_avatar);
             tvAvatarInitials = itemView.findViewById(R.id.tv_avatar_initials);
             tvHoTen = itemView.findViewById(R.id.tv_ho_ten);
             tvSdt = itemView.findViewById(R.id.tv_sdt);

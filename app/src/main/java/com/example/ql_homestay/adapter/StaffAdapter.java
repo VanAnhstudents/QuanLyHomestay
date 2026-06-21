@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.model.NhanVien;
+import com.example.ql_homestay.util.AvatarHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +50,8 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.VH> {
         h.tvTen.setText(nv.getHoTen());
         h.tvChucVu.setText(mapChucVu(nv.getChucVu()));
         h.tvSdt.setText(nv.getSdt() != null ? nv.getSdt() : "");
-        // Avatar initials: lấy ký tự cuối cùng trong HoTen
-        String initials = "?";
-        if (nv.getHoTen() != null && !nv.getHoTen().trim().isEmpty()) {
-            String[] parts = nv.getHoTen().trim().split("\\s+");
-            initials = parts[parts.length - 1].substring(0, 1).toUpperCase();
-        }
-        h.tvInitials.setText(initials);
+        AvatarHelper.loadAvatar(h.itemView.getContext(), nv.getAvatar(), nv.getHoTen(),
+                               h.ivAvatar, h.tvInitials);
         h.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(nv);
         });
@@ -77,9 +74,11 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.VH> {
     }
 
     static class VH extends RecyclerView.ViewHolder {
+        final ImageView ivAvatar;
         final TextView tvInitials, tvTen, tvChucVu, tvSdt;
         VH(View v) {
             super(v);
+            ivAvatar = v.findViewById(R.id.iv_avatar);
             tvInitials = v.findViewById(R.id.tv_initials);
             tvTen = v.findViewById(R.id.tv_ten_nhan_vien);
             tvChucVu = v.findViewById(R.id.tv_chuc_vu);

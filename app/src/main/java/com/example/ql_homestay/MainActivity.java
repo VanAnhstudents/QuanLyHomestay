@@ -3,6 +3,7 @@ package com.example.ql_homestay;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,9 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ql_homestay.data.DatabaseHelper;
+import com.example.ql_homestay.data.dao.TaiKhoanDAO;
+import com.example.ql_homestay.model.TaiKhoan;
 import com.example.ql_homestay.ui.auth.LoginActivity;
 import com.example.ql_homestay.ui.customer.CustomerListFragment;
 import com.example.ql_homestay.ui.main.HomeFragment;
+import com.example.ql_homestay.util.AvatarHelper;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -63,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
             String hoTen = session.getHoTen();
             tvUserName.setText(hoTen.isEmpty() ? session.getTenDangNhap() : hoTen);
         }
+        
+        // Load avatar từ database
+        ImageView ivAvatar = findViewById(R.id.iv_avatar);
+        if (ivAvatar != null) {
+            TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO(dbHelper);
+            TaiKhoan taiKhoan = taiKhoanDAO.findById(session.getMaTK());
+            if (taiKhoan != null) {
+                AvatarHelper.loadAvatarOnly(this, taiKhoan.getAvatar(), ivAvatar);
+            }
+        }
+        
         if (tvBadgeCount != null) {
             tvBadgeCount.setVisibility(View.GONE); // TODO: ThongBaoDAO.countUnread()
         }
@@ -91,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             if (id == R.id.nav_more) {
-                // Mở MoreBottomSheetFragment; giữ tab hiện tại trong bottomNav
+                // Mở MoreBottomSheetFragment
                 if (getSupportFragmentManager().findFragmentByTag("more_sheet") == null) {
                     MoreBottomSheetFragment.newInstance()
                             .show(getSupportFragmentManager(), "more_sheet");
                 }
-                // Trả về false để bottomNav không đổi selection sang "Hơn nữa"
-                return false;
+                // Trả về true để giữ selection ở "Hơn nữa"
+                return true;
             }
 
             // Room / Booking — module của thành viên khác, hiện stub
@@ -137,6 +152,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void navigateToModule(String moduleKey) {
         Toast.makeText(this, "Module " + moduleKey + " đang phát triển", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Set bottom navigation selection programmatically
+     */
+    public void setBottomNavSelection(int itemId) {
+        bottomNav.setSelectedItemId(itemId);
     }
 
     public void logout() {

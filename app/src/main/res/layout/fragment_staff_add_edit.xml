@@ -15,6 +15,54 @@
 
         <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
 
+        <!-- ===== Avatar Picker ===== -->
+        <FrameLayout
+            android:id="@+id/fl_avatar_picker"
+            android:layout_width="@dimen/avatar_detail_large"
+            android:layout_height="@dimen/avatar_detail_large"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_avatar_pick"
+                android:layout_width="@dimen/avatar_detail_large"
+                android:layout_height="@dimen/avatar_detail_large"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
+
+            <LinearLayout
+                android:id="@+id/tv_avatar_placeholder"
+                android:layout_width="@dimen/avatar_detail_large"
+                android:layout_height="@dimen/avatar_detail_large"
+                android:background="@drawable/bg_avatar_circle"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+                
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@color/text_on_primary" />
+            </LinearLayout>
+
+        </FrameLayout>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
+            android:text="Chọn ảnh"
+            android:textSize="13sp"
+            android:textColor="@color/text_link"
+            android:fontFamily="sans-serif" />
+
         <!-- Card form thông tin nhân viên -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
