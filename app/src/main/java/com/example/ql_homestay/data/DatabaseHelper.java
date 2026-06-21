@@ -35,7 +35,7 @@ import androidx.annotation.NonNull;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "lalahouse.db";
-    private static final int DB_VERSION = 2; // Đã tăng DB_VESION từ 1 -> 2 để onUpgrade() chạy lại và tạo bảng mới ==> tăng dần lên nếu có sự thay đổi ở đây!
+    private static final int DB_VERSION = 3; // Đã tăng DB_VESION từ 1 -> 2 -> 3 để onUpgrade() chạy lại và tạo bảng mới ==> tăng dần lên nếu có sự thay đổi ở đây!
     private static volatile DatabaseHelper instance;
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -459,7 +459,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // MaTienNghi: WiFi=1, TV=2, DieuHoa=3, TuLanh=4, BonTam=5, Ban=6, TuQuan=7
     // =========================================================================
     private void seedTienNghi(SQLiteDatabase db) {
-        String[] items = {"WiFi", "TV", "DieuHoa", "TuLanh", "BonTam", "BanLamViec", "TuQuan"};
+        String[] items = {"WiFi", "TV", "Điều hòa", "Tủ lạnh", "Bồn tắm", "Bàn làm việc", "Tủ quần áo"};
         for (String t : items) {
             ContentValues cv = new ContentValues();
             cv.put("TenTienNghi", t);
@@ -503,13 +503,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void seedNhanVien(SQLiteDatabase db) {
         // {MaTK, HoTen, ChucVu, SDT, Email, CCCD, DiaChi, NgayVaoLam, Avatar}
         String[][] nvs = {
-                {"1", "Nguyen Van Anh", "QuanLy",   "0901111001", "admin@lalahouse.vn",        "001080012345", "Hoang Tien, Thanh Hoa", "2025-01-10", "avatar_admin"},
-                {"2", "Nguyen Van An",  "LeTan",    "0901111002", "letan_nva@lalahouse.vn",    "001090023456", "Hoang Tien, Thanh Hoa", "2025-02-01", "avatar_nam"},
-                {"3", "Dinh Thi Truc",  "LeTan",    "0901111003", "letan_dtt@lalahouse.vn",    "001070034567", "Hau Loc, Thanh Hoa",    "2025-03-15", "avatar_nu"},
-                {"4", "Dinh Thi Ha",    "KeToan",   "0901111004", "ketoan_dth@lalahouse.vn",   "001085045678", "Yen Dinh, Thanh Hoa",   "2025-02-10", "avatar_nu"},
-                {"5", "Nguyen Van Anh", "DonPhong", "0901111005", "nhanvien_nva@lalahouse.v",  "001095056789", "Hoang Tien, Thanh Hoa", "2025-04-01", "avatar_nam"},
-                {"6", "Dinh Thi Truc",  "DonPhong", "0901111006", "nhanvien_dtt@lalahouse.vn", "001075067890", "Hau Loc, Thanh Hoa",    "2025-05-01", "avatar_nu"},
-                {"7", "Dinh Thi Ha",    "BaoVe",    "0901111007", "nhanvien_dth@lalahouse.vn", "001088078901", "Yen Dinh, Thanh Hoa",   "2025-06-01", "avatar_nu"},
+                {"1", "Nguyễn Văn Anh", "QuanLy",   "0901111001", "admin@lalahouse.vn",        "001080012345", "Hoằng Tiến, Thanh Hóa", "2025-01-10", "avatar_admin"},
+                {"2", "Nguyễn Văn An",  "LeTan",    "0901111002", "letan_nva@lalahouse.vn",    "001090023456", "Hoằng Tiến, Thanh Hóa", "2025-02-01", "avatar_nam"},
+                {"3", "Đinh Thị Trúc",  "LeTan",    "0901111003", "letan_dtt@lalahouse.vn",    "001070034567", "Hậu Lộc, Thanh Hóa",    "2025-03-15", "avatar_nu"},
+                {"4", "Đinh Thị Hà",    "KeToan",   "0901111004", "ketoan_dth@lalahouse.vn",   "001085045678", "Yên Định, Thanh Hóa",   "2025-02-10", "avatar_nu"},
+                {"5", "Nguyễn Văn Anh", "DonPhong", "0901111005", "nhanvien_nva@lalahouse.v",  "001095056789", "Hoằng Tiến, Thanh Hóa", "2025-04-01", "avatar_nam"},
+                {"6", "Đinh Thị Trúc",  "DonPhong", "0901111006", "nhanvien_dtt@lalahouse.vn", "001075067890", "Hậu Lộc, Thanh Hóa",    "2025-05-01", "avatar_nu"},
+                {"7", "Đinh Thị Hà",    "BaoVe",    "0901111007", "nhanvien_dth@lalahouse.vn", "001088078901", "Yên Định, Thanh Hóa",   "2025-06-01", "avatar_nu"},
         };
         for (String[] nv : nvs) {
             ContentValues cv = new ContentValues();
@@ -564,18 +564,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void seedKhachHang(SQLiteDatabase db) {
         // {HoTen, SDT, Email, CCCD, DiaChi, NgaySinh, GioiTinh, SoLanThue, Avatar}
         String[][] khs = {
-                {"Nguyen Thi Mai",   "0912345601", "mai.nguyen@gmail.com",  "030190001001", "10 Tran Hung Dao, Hoan Kiem, HN",  "1990-05-12", "Nu",  "5", "avatar_nu"},
-                {"Tran Van Hung",    "0912345602", "hung.tran@gmail.com",   "038085001002", "22 Ly Thuong Kiet, Q10, HCM",      "1985-11-20", "Nam", "3", "avatar_nam"},
-                {"Le Thi Lan",       "0912345603", "lan.le@yahoo.com",      "001092001003", "15 Nguyen Trai, Thanh Xuan, HN",   "1992-07-08", "Nu",  "2", "avatar_nu"},
-                {"Pham Quoc Bao",    "0912345604", "bao.pham@gmail.com",    "079080001004", "88 Hoang Van Thu, Phu Nhuan, HCM", "1980-03-25", "Nam", "7", "avatar_nam"},
-                {"Hoang Thi Thu",    "0912345605", "thu.hoang@hotmail.com", "001095001005", "5 Hang Bai, Hoan Kiem, HN",        "1995-09-14", "Nu",  "1", "avatar_nu"},
-                {"Vu Minh Duc",      "0912345606", "duc.vu@gmail.com",      "034088001006", "40 Bach Dang, Hai Chau, Da Nang",  "1988-12-30", "Nam", "4", "avatar_nam"},
-                {"Dang Thi Hoa",     "0912345607", "hoa.dang@gmail.com",    "001093001007", "27 Phan Chu Trinh, HK, HN",        "1993-04-18", "Nu",  "2", "avatar_nu"},
-                {"Bui Van Thanh",    "0912345608", "thanh.bui@gmail.com",   "026087001008", "60 Tran Phu, Nha Trang, KH",       "1987-08-05", "Nam", "6", "avatar_nam"},
-                {"Do Thi Ngoc",      "0912345609", "ngoc.do@gmail.com",     "001091001009", "3 Ly Tu Trong, Q1, HCM",           "1991-01-22", "Nu",  "3", "avatar_nu"},
-                {"Nguyen Duc Kien",  "0912345610", "kien.nd@gmail.com",     "027096001010", "100 Le Duan, Hai Chau, Da Nang",   "1996-06-11", "Nam", "1", "avatar_nam"},
-                {"Cao Thi Bich Van", "0912345611", "van.cao@gmail.com",     "001089001011", "18 Chua Lang, Dong Da, HN",        "1989-02-28", "Nu",  "4", "avatar_nu"},
-                {"Ly Hoang Nam",     "0912345612", "nam.ly@gmail.com",      "079094001012", "55 Vo Thi Sau, Q3, HCM",           "1994-10-07", "Nam", "2", "avatar_nam"},
+                {"Nguyễn Thị Mai",   "0912345601", "mai.nguyen@gmail.com",  "030190001001", "10 Trần Hưng Đạo, Hoàn Kiếm, HN",  "1990-05-12", "Nu",  "5", "avatar_nu"},
+                {"Trần Văn Hùng",    "0912345602", "hung.tran@gmail.com",   "038085001002", "22 Lý Thường Kiệt, Q10, HCM",       "1985-11-20", "Nam", "3", "avatar_nam"},
+                {"Lê Thị Lan",       "0912345603", "lan.le@yahoo.com",      "001092001003", "15 Nguyễn Trãi, Thanh Xuân, HN",    "1992-07-08", "Nu",  "2", "avatar_nu"},
+                {"Phạm Quốc Bảo",    "0912345604", "bao.pham@gmail.com",    "079080001004", "88 Hoàng Văn Thụ, Phú Nhuận, HCM", "1980-03-25", "Nam", "7", "avatar_nam"},
+                {"Hoàng Thị Thu",    "0912345605", "thu.hoang@hotmail.com", "001095001005", "5 Hàng Bài, Hoàn Kiếm, HN",         "1995-09-14", "Nu",  "1", "avatar_nu"},
+                {"Vũ Minh Đức",      "0912345606", "duc.vu@gmail.com",      "034088001006", "40 Bạch Đằng, Hải Châu, Đà Nẵng",  "1988-12-30", "Nam", "4", "avatar_nam"},
+                {"Đặng Thị Hoa",     "0912345607", "hoa.dang@gmail.com",    "001093001007", "27 Phan Chu Trinh, HK, HN",         "1993-04-18", "Nu",  "2", "avatar_nu"},
+                {"Bùi Văn Thành",    "0912345608", "thanh.bui@gmail.com",   "026087001008", "60 Trần Phú, Nha Trang, KH",        "1987-08-05", "Nam", "6", "avatar_nam"},
+                {"Đỗ Thị Ngọc",      "0912345609", "ngoc.do@gmail.com",     "001091001009", "3 Lý Tự Trọng, Q1, HCM",           "1991-01-22", "Nu",  "3", "avatar_nu"},
+                {"Nguyễn Đức Kiên",  "0912345610", "kien.nd@gmail.com",     "027096001010", "100 Lê Duẩn, Hải Châu, Đà Nẵng",  "1996-06-11", "Nam", "1", "avatar_nam"},
+                {"Cao Thị Bích Vân", "0912345611", "van.cao@gmail.com",     "001089001011", "18 Chùa Láng, Đống Đa, HN",        "1989-02-28", "Nu",  "4", "avatar_nu"},
+                {"Lý Hoàng Nam",     "0912345612", "nam.ly@gmail.com",      "079094001012", "55 Võ Thị Sáu, Q3, HCM",           "1994-10-07", "Nam", "2", "avatar_nam"},
         };
         for (String[] kh : khs) {
             ContentValues cv = new ContentValues();
@@ -607,24 +607,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // {MaLoaiPhong, TenPhong, GiaMoiDem, SucChua, DienTich, Tang, TrangThai, MoTa, HinhAnh}
         Object[][] phongs = {
                 // --- Tầng 1 (Standard) ---
-                {1, "P101", 550_000.0,  2, 22.0, 1, "Trong",    "Phong Standard view san vuon, thiet ke hien dai.",        "room_standard"},
-                {1, "P102", 550_000.0,  2, 22.0, 1, "Trong",    "Phong Standard view duong pho, day du tien nghi co ban.", "room_standard"},
-                {1, "P103", 550_000.0,  2, 24.0, 1, "DangThue", "Phong Standard goc, rong hon, co ban cong nho.",          "room_standard"},
+                {1, "P101", 550_000.0,  2, 22.0, 1, "Trong",    "Phòng Standard view sân vườn, thiết kế hiện đại.",        "room_standard"},
+                {1, "P102", 550_000.0,  2, 22.0, 1, "Trong",    "Phòng Standard view đường phố, đầy đủ tiện nghi cơ bản.", "room_standard"},
+                {1, "P103", 550_000.0,  2, 24.0, 1, "DangThue", "Phòng Standard góc, rộng hơn, có ban công nhỏ.",          "room_standard"},
 
                 // --- Tầng 2 (Deluxe) ---
-                {2, "P201", 950_000.0,  3, 30.0, 2, "DangThue", "Phong Deluxe view ho boi, noi that sang trong.",          "room_deluxe"},
-                {2, "P202", 950_000.0,  3, 30.0, 2, "DaDat",    "Phong Deluxe cuoi tuan, uu tien gia dinh.",               "room_deluxe"},
-                {2, "P203", 950_000.0,  3, 32.0, 2, "DangThue", "Phong Deluxe goc 2 mat thong, nhieu anh sang tu nhien.",  "room_deluxe"},
-                {2, "P204", 950_000.0,  3, 30.0, 2, "Trong",    "Phong Deluxe phong cach toi gian, thich hop cong tac.",   "room_deluxe"},
+                {2, "P201", 950_000.0,  3, 30.0, 2, "DangThue", "Phòng Deluxe view hồ bơi, nội thất sang trọng.",          "room_deluxe"},
+                {2, "P202", 950_000.0,  3, 30.0, 2, "DaDat",    "Phòng Deluxe cuối tuần, ưu tiên gia đình.",               "room_deluxe"},
+                {2, "P203", 950_000.0,  3, 32.0, 2, "DangThue", "Phòng Deluxe góc 2 mặt thông, nhiều ánh sáng tự nhiên.",  "room_deluxe"},
+                {2, "P204", 950_000.0,  3, 30.0, 2, "Trong",    "Phòng Deluxe phong cách tối giản, thích hợp công tác.",   "room_deluxe"},
 
                 // --- Tầng 3 (Suite) ---
-                {3, "P301", 1_900_000.0, 4, 55.0, 3, "Trong",    "Suite hang sang, phong khach rieng, bon tam jacuzzi.",   "room_suite"},
-                {3, "P302", 1_900_000.0, 4, 55.0, 3, "DangThue", "Suite gia dinh, 2 phong ngu, bep nho tich hop.",         "room_suite"},
-                {3, "P304", 1_850_000.0, 3, 50.0, 3, "Trong",    "Suite studio mo, view toan canh thanh pho.",             "room_suite"},
+                {3, "P301", 1_900_000.0, 4, 55.0, 3, "Trong",    "Suite hạng sang, phòng khách riêng, bồn tắm jacuzzi.",   "room_suite"},
+                {3, "P302", 1_900_000.0, 4, 55.0, 3, "DangThue", "Suite gia đình, 2 phòng ngủ, bếp nhỏ tích hợp.",         "room_suite"},
+                {3, "P304", 1_850_000.0, 3, 50.0, 3, "Trong",    "Suite studio mở, view toàn cảnh thành phố.",             "room_suite"},
 
-                // --- Tầng 4 (Deluxe cao cap) ---
-                {2, "P401", 1_000_000.0, 3, 35.0, 4, "DaDat",    "Phong Deluxe tang thuong, view song Sai Gon.",           "room_deluxe_top"},
-                {2, "P402", 1_000_000.0, 3, 35.0, 4, "Trong",    "Phong Deluxe tang thuong, ban cong lon.",                "room_deluxe_top"},
+                // --- Tầng 4 (Deluxe cao cấp) ---
+                {2, "P401", 1_000_000.0, 3, 35.0, 4, "DaDat",    "Phòng Deluxe tầng thượng, view sông Sài Gòn.",           "room_deluxe_top"},
+                {2, "P402", 1_000_000.0, 3, 35.0, 4, "Trong",    "Phòng Deluxe tầng thượng, ban công lớn.",                "room_deluxe_top"},
         };
         for (Object[] p : phongs) {
             ContentValues cv = new ContentValues();
@@ -707,25 +707,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // {MaKH, MaPhong, MaNV, NgayCI, NgayCO, SoKhach, SoDem, TrangThai, PhuongThuc, GhiChu, NgayTao}
         Object[][] dps = {
                 // ---- ĐÃ TRẢ PHÒNG (lịch sử) ----
-                {1,  1, 2, "2026-06-01", "2026-06-04", 2, 3, "DaTraPhong", "CK",    "Khach quen, uu tien phong san vuon.", "2026-05-28"},
+                {1,  1, 2, "2026-06-01", "2026-06-04", 2, 3, "DaTraPhong", "CK",    "Khách quen, ưu tiên phòng sân vườn.", "2026-05-28"},
                 {2,  2, 2, "2026-06-05", "2026-06-08", 2, 3, "DaTraPhong", "TM",    null,                                  "2026-06-04"},
-                {4,  7, 3, "2026-06-08", "2026-06-12", 2, 4, "DaTraPhong", "CK",    "Khach cong tac dai han.",             "2026-06-07"},
+                {4,  7, 3, "2026-06-08", "2026-06-12", 2, 4, "DaTraPhong", "CK",    "Khách công tác dài hạn.",             "2026-06-07"},
                 {8, 10, 2, "2026-06-10", "2026-06-14", 2, 4, "DaTraPhong", "TM",    null,                                  "2026-06-09"},
-                {11, 8, 3, "2026-06-12", "2026-06-15", 3, 3, "DaTraPhong", "VNPAY", "Doan gia dinh, yeu cau jacuzzi.",     "2026-06-11"},
+                {11, 8, 3, "2026-06-12", "2026-06-15", 3, 3, "DaTraPhong", "VNPAY", "Đoàn gia đình, yêu cầu jacuzzi.",     "2026-06-11"},
 
                 // ---- ĐÃ HỦY ----
-                {5,  1, 2, "2026-06-20", "2026-06-22", 1, 2, "DaHuy",      "TM",    "Khach doi lich dot xuat.",            "2026-06-15"},
+                {5,  1, 2, "2026-06-20", "2026-06-22", 1, 2, "DaHuy",      "TM",    "Khách đổi lịch đột xuất.",            "2026-06-15"},
                 {10, 2, 2, "2026-06-25", "2026-06-27", 2, 2, "DaHuy",      "CK",    null,                                  "2026-06-16"},
 
                 // ---- ĐANG Ở (check-in trước 17/06, check-out sau 17/06) ----
                 {3,  3, 2, "2026-06-15", "2026-06-19", 2, 4, "DangO",      "TM",    null,                                  "2026-06-14"},
-                {6,  4, 3, "2026-06-16", "2026-06-20", 2, 4, "DangO",      "CK",    "Khach doanh nhan, can hoa don VAT.",  "2026-06-15"},
+                {6,  4, 3, "2026-06-16", "2026-06-20", 2, 4, "DangO",      "CK",    "Khách doanh nhân, cần hóa đơn VAT.",  "2026-06-15"},
                 {9,  6, 2, "2026-06-14", "2026-06-18", 3, 4, "DangO",      "VNPAY", null,                                  "2026-06-13"},
-                {12, 9, 3, "2026-06-13", "2026-06-18", 4, 5, "DangO",      "TM",    "Gia dinh 4 nguoi, 2 tre em.",         "2026-06-12"},
+                {12, 9, 3, "2026-06-13", "2026-06-18", 4, 5, "DangO",      "TM",    "Gia đình 4 người, 2 trẻ em.",         "2026-06-12"},
 
                 // ---- SẮP ĐẾN (check-in sau 17/06) – Phòng đang ở trạng thái 'DaDat' ----
                 {7,  5, 2, "2026-06-19", "2026-06-22", 2, 3, "SapDen",     "CK",    null,                                  "2026-06-17"},
-                {2, 11, 3, "2026-06-20", "2026-06-24", 3, 4, "SapDen",     "TM",    "Tang bao nuoc chao mung.",            "2026-06-17"},
+                {2, 11, 3, "2026-06-20", "2026-06-24", 3, 4, "SapDen",     "TM",    "Tặng báo nước chào mừng.",            "2026-06-17"},
                 {4, 12, 2, "2026-06-22", "2026-06-25", 2, 3, "SapDen",     "CK",    null,                                  "2026-06-17"},
         };
         for (Object[] dp : dps) {
@@ -857,32 +857,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // {MaHD, TenPhuThu, SoTien}
         Object[][] items = {
                 // HĐ 1: 150.000
-                {1, "Dich vu don phong them",  100_000.0},
-                {1, "Nuoc uong mini-bar",      50_000.0},
+                {1, "Dịch vụ dọn phòng thêm",  100_000.0},
+                {1, "Nước uống mini-bar",        50_000.0},
                 // HĐ 2: 50.000
-                {2, "Phi giu xe may",          50_000.0},
+                {2, "Phí giữ xe máy",            50_000.0},
                 // HĐ 3: 300.000
-                {3, "Bua sang buffet x2",      200_000.0},
-                {3, "Thue xe dua don san bay", 100_000.0},
+                {3, "Bữa sáng buffet x2",       200_000.0},
+                {3, "Thuê xe đưa đón sân bay",  100_000.0},
                 // HĐ 4: 500.000
-                {4, "Bua sang buffet x2",      200_000.0},
-                {4, "Dich vu spa",             200_000.0},
-                {4, "Nuoc uong mini-bar",      100_000.0},
+                {4, "Bữa sáng buffet x2",       200_000.0},
+                {4, "Dịch vụ spa",              200_000.0},
+                {4, "Nước uống mini-bar",       100_000.0},
                 // HĐ 5: 700.000
-                {5, "Bua sang buffet x3",      300_000.0},
-                {5, "Thue xe dua don san bay", 200_000.0},
-                {5, "Dich vu spa",             200_000.0},
+                {5, "Bữa sáng buffet x3",       300_000.0},
+                {5, "Thuê xe đưa đón sân bay",  200_000.0},
+                {5, "Dịch vụ spa",              200_000.0},
                 // HĐ 6: 100.000
-                {6, "Phi giu xe may",          50_000.0},
-                {6, "Nuoc uong mini-bar",      50_000.0},
+                {6, "Phí giữ xe máy",            50_000.0},
+                {6, "Nước uống mini-bar",        50_000.0},
                 // HĐ 7: 200.000
-                {7, "Bua sang buffet x2",      200_000.0},
+                {7, "Bữa sáng buffet x2",       200_000.0},
                 // HĐ 8: 380.000 (phụ thu VAT 10% trên 3.800.000)
-                {8, "Thue GTGT (VAT 10%)",     380_000.0},
+                {8, "Thuế GTGT (VAT 10%)",      380_000.0},
                 // HĐ 9: 500.000
-                {9, "Bua sang buffet x4",      200_000.0},
-                {9, "Dich vu spa",             200_000.0},
-                {9, "Nuoc uong mini-bar",      100_000.0},
+                {9, "Bữa sáng buffet x4",       200_000.0},
+                {9, "Dịch vụ spa",              200_000.0},
+                {9, "Nước uống mini-bar",       100_000.0},
         };
         for (Object[] item : items) {
             ContentValues cv = new ContentValues();
@@ -902,24 +902,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // {MaTK, NoiDung, DaDoc, ThoiGian}
         Object[][] tbs = {
                 // Thông báo cho Admin (MaTK=1)
-                {1, "He thong da khoi dong thanh cong. Chao mung tro lai, Admin!",           1, "2026-06-17 07:00:00"},
-                {1, "Phong P302 check-in thanh cong luc 14:00 ngay 13/06.",                  1, "2026-06-13 14:05:00"},
-                {1, "Khach hang Nguyen Thi Mai da huy dat phong ngay 17/06.",                0, "2026-06-17 09:30:00"},
-                {1, "Co 3 dat phong sap den trong 3 ngay toi.",                              0, "2026-06-17 08:00:00"},
+                {1, "Hệ thống đã khởi động thành công. Chào mừng trở lại, Admin!",            1, "2026-06-17 07:00:00"},
+                {1, "Phòng P302 check-in thành công lúc 14:00 ngày 13/06.",                   1, "2026-06-13 14:05:00"},
+                {1, "Khách hàng Nguyễn Thị Mai đã hủy đặt phòng ngày 17/06.",                 0, "2026-06-17 09:30:00"},
+                {1, "Có 3 đặt phòng sắp đến trong 3 ngày tới.",                               0, "2026-06-17 08:00:00"},
                 // Thông báo cho Lễ tân 1 (MaTK=2)
-                {2, "Khach Tran Van Hung check-in Phong P102 luc 14:10 ngay 05/06.",         1, "2026-06-05 14:12:00"},
-                {2, "Nhan viec: Huong dan khach Phong P103 lam thu tuc check-in luc 14:30.", 1, "2026-06-15 14:25:00"},
-                {2, "Nhac nho: Khach Phong P201 check-out ngay 20/06/2026.",                 0, "2026-06-17 07:30:00"},
-                {2, "Don dat phong moi tu khach Ly Hoang Nam – Phong P402 tu 22/06.",        0, "2026-06-17 10:00:00"},
-                {2, "Phong P103 hien dang su dung, khong xep them khach.",                   0, "2026-06-15 15:00:00"},
+                {2, "Khách Trần Văn Hùng check-in Phòng P102 lúc 14:10 ngày 05/06.",          1, "2026-06-05 14:12:00"},
+                {2, "Nhận việc: Hướng dẫn khách Phòng P103 làm thủ tục check-in lúc 14:30.", 1, "2026-06-15 14:25:00"},
+                {2, "Nhắc nhở: Khách Phòng P201 check-out ngày 20/06/2026.",                  0, "2026-06-17 07:30:00"},
+                {2, "Đơn đặt phòng mới từ khách Lý Hoàng Nam – Phòng P402 từ 22/06.",        0, "2026-06-17 10:00:00"},
+                {2, "Phòng P103 hiện đang sử dụng, không xếp thêm khách.",                    0, "2026-06-15 15:00:00"},
                 // Thông báo cho Lễ tân 2 (MaTK=3)
-                {3, "Ban giao ca: Khach P302 (Gia dinh Ly Hoang Nam) can ho tro them chan.", 1, "2026-06-13 22:05:00"},
-                {3, "Nhac nho check-out: Phong P203 ngay 18/06/2026 luc 12:00.",             0, "2026-06-17 07:00:00"},
-                {3, "Dat phong moi: Tran Van Hung – Phong P401 tu 20/06.",                   0, "2026-06-17 10:05:00"},
+                {3, "Bàn giao ca: Khách P302 (Gia đình Lý Hoàng Nam) cần hỗ trợ thêm chăn.", 1, "2026-06-13 22:05:00"},
+                {3, "Nhắc nhở check-out: Phòng P203 ngày 18/06/2026 lúc 12:00.",              0, "2026-06-17 07:00:00"},
+                {3, "Đặt phòng mới: Trần Văn Hùng – Phòng P401 từ 20/06.",                   0, "2026-06-17 10:05:00"},
                 // Thông báo cho Kế toán (MaTK=4)
-                {4, "Hoa don #9 (MaDatPhong 11 – P302) chua thanh toan. Tong: 9.800.000 d.", 0, "2026-06-17 08:00:00"},
-                {4, "Bao cao doanh thu thang 6/2026 san sang de xuat.",                      0, "2026-06-17 09:00:00"},
-                {4, "Da xac nhan thanh toan hoa don #5 (P301 – Suite): 5.900.000 d.",        1, "2026-06-15 10:45:00"},
+                {4, "Hóa đơn #9 (MaDatPhong 11 – P302) chưa thanh toán. Tổng: 9.800.000 đ.", 0, "2026-06-17 08:00:00"},
+                {4, "Báo cáo doanh thu tháng 6/2026 sẵn sàng để xuất.",                       0, "2026-06-17 09:00:00"},
+                {4, "Đã xác nhận thanh toán hóa đơn #5 (P301 – Suite): 5.900.000 đ.",        1, "2026-06-15 10:45:00"},
         };
         for (Object[] tb : tbs) {
             ContentValues cv = new ContentValues();
