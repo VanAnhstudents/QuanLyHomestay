@@ -146,18 +146,18 @@ public class AccountDetailFragment extends Fragment {
         int textOn = R.color.text_on_primary;
         int textOff = R.color.text_primary;
 
-        tabAdmin.setBackgroundResource("Admin".equals(vaiTro) ? android.R.color.transparent : android.R.color.transparent);
-        tabAdmin.setBackgroundColor(requireContext().getResources().getColor("Admin".equals(vaiTro) ? active : inactive));
-        tabAdmin.setTextColor(requireContext().getResources().getColor("Admin".equals(vaiTro) ? textOn : textOff));
+        android.content.Context ctx = requireContext();
+        tabAdmin.setBackgroundColor(androidx.core.content.ContextCompat.getColor(ctx, "Admin".equals(vaiTro) ? active : inactive));
+        tabAdmin.setTextColor(androidx.core.content.ContextCompat.getColor(ctx, "Admin".equals(vaiTro) ? textOn : textOff));
 
-        tabLeTan.setBackgroundColor(requireContext().getResources().getColor("LeTan".equals(vaiTro) ? active : inactive));
-        tabLeTan.setTextColor(requireContext().getResources().getColor("LeTan".equals(vaiTro) ? textOn : textOff));
+        tabLeTan.setBackgroundColor(androidx.core.content.ContextCompat.getColor(ctx, "LeTan".equals(vaiTro) ? active : inactive));
+        tabLeTan.setTextColor(androidx.core.content.ContextCompat.getColor(ctx, "LeTan".equals(vaiTro) ? textOn : textOff));
 
-        tabKeToan.setBackgroundColor(requireContext().getResources().getColor("KeToan".equals(vaiTro) ? active : inactive));
-        tabKeToan.setTextColor(requireContext().getResources().getColor("KeToan".equals(vaiTro) ? textOn : textOff));
+        tabKeToan.setBackgroundColor(androidx.core.content.ContextCompat.getColor(ctx, "KeToan".equals(vaiTro) ? active : inactive));
+        tabKeToan.setTextColor(androidx.core.content.ContextCompat.getColor(ctx, "KeToan".equals(vaiTro) ? textOn : textOff));
 
-        tabNhanVien.setBackgroundColor(requireContext().getResources().getColor("NhanVien".equals(vaiTro) ? active : inactive));
-        tabNhanVien.setTextColor(requireContext().getResources().getColor("NhanVien".equals(vaiTro) ? textOn : textOff));
+        tabNhanVien.setBackgroundColor(androidx.core.content.ContextCompat.getColor(ctx, "NhanVien".equals(vaiTro) ? active : inactive));
+        tabNhanVien.setTextColor(androidx.core.content.ContextCompat.getColor(ctx, "NhanVien".equals(vaiTro) ? textOn : textOff));
     }
 
     private void setupRecyclerView() {

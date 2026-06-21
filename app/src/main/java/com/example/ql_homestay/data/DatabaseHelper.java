@@ -36,14 +36,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "lalahouse.db";
     private static final int DB_VERSION = 2; // Đã tăng DB_VESION từ 1 -> 2 để onUpgrade() chạy lại và tạo bảng mới ==> tăng dần lên nếu có sự thay đổi ở đây!
-    private static DatabaseHelper instance;
+    private static volatile DatabaseHelper instance;
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     public static DatabaseHelper getInstance(Context context) {
-        if (instance == null)
-            instance = new DatabaseHelper(context.getApplicationContext());
+        if (instance == null) {
+            synchronized (DatabaseHelper.class) {
+                if (instance == null)
+                    instance = new DatabaseHelper(context.getApplicationContext());
+            }
+        }
         return instance;
     }
 

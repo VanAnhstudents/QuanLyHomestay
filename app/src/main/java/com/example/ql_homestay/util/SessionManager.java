@@ -25,7 +25,7 @@ public class SessionManager {
 
     // ─── Singleton ──────────────────────────────────────────────────────────
 
-    private static SessionManager instance;
+    private static volatile SessionManager instance;
     private final SharedPreferences prefs;
     private final SharedPreferences.Editor editor;
 
@@ -37,7 +37,10 @@ public class SessionManager {
 
     public static SessionManager getInstance(Context context) {
         if (instance == null) {
-            instance = new SessionManager(context);
+            synchronized (SessionManager.class) {
+                if (instance == null)
+                    instance = new SessionManager(context.getApplicationContext());
+            }
         }
         return instance;
     }

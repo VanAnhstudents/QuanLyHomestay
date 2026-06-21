@@ -37,10 +37,9 @@ public class ImagePickerHelper {
                                            ImageView imageView, View placeholderView) {
         if (imageUri == null) return null;
         
-        try {
-            InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+        try (InputStream inputStream = context.getContentResolver().openInputStream(imageUri)) {
+            if (inputStream == null) return null;
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            if (inputStream != null) inputStream.close();
             
             if (bitmap == null) return null;
             
