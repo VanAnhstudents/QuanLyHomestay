@@ -1,5 +1,7 @@
 package com.example.ql_homestay.model;
 
+import androidx.annotation.NonNull;
+
 /**
  * POJO ánh xạ bảng TaiKhoan trong SQLite.
  * Các trường khớp 1-1 với schema định nghĩa trong DatabaseHelper.
@@ -100,6 +102,7 @@ public class TaiKhoan {
         return "HoatDong".equals(trangThai);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "TaiKhoan{maTK=" + maTK

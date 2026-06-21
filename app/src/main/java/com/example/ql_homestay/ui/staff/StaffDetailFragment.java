@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.model.NhanVien;
 import com.example.ql_homestay.model.PhanCongCa;
 import com.example.ql_homestay.repository.StaffRepository;
+import com.example.ql_homestay.util.AvatarHelper;
 import com.example.ql_homestay.util.PermissionHelper;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.button.MaterialButton;
@@ -56,6 +58,7 @@ public class StaffDetailFragment extends Fragment {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     // Views — thông tin
+    private ImageView ivAvatar;
     private TextView tvInitials, tvTen, tvChucVu;
     private TextView tvSdt, tvEmail, tvCccd, tvDiaChi, tvNgayVaoLam;
     private MaterialButton btnPhanCong, btnChinhSua, btnXoa;
@@ -99,6 +102,7 @@ public class StaffDetailFragment extends Fragment {
     }
 
     private void bindViews(View v) {
+        ivAvatar      = v.findViewById(R.id.iv_avatar_detail);
         tvInitials    = v.findViewById(R.id.tv_initials_detail);
         tvTen         = v.findViewById(R.id.tv_ten_nv_detail);
         tvChucVu      = v.findViewById(R.id.tv_chuc_vu_detail);
@@ -157,12 +161,7 @@ public class StaffDetailFragment extends Fragment {
     }
 
     private void bindStaff(NhanVien nv) {
-        String initials = "?";
-        if (nv.getHoTen() != null && !nv.getHoTen().trim().isEmpty()) {
-            String[] parts = nv.getHoTen().trim().split("\\s+");
-            initials = parts[parts.length - 1].substring(0, 1).toUpperCase();
-        }
-        tvInitials.setText(initials);
+        AvatarHelper.loadAvatar(requireContext(), nv.getAvatar(), nv.getHoTen(), ivAvatar, tvInitials);
         tvTen.setText(nv.getHoTen());
         tvChucVu.setText(mapChucVu(nv.getChucVu()));
         tvSdt.setText(orDash(nv.getSdt()));

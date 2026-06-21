@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.data.dao.TaiKhoanDAO;
 import com.example.ql_homestay.model.TaiKhoan;
 import com.example.ql_homestay.repository.PermissionRepository;
+import com.example.ql_homestay.util.AvatarHelper;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
@@ -59,6 +61,7 @@ public class AccountDetailFragment extends Fragment {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     // Views
+    private ImageView ivAvatar;
     private TextView tvInitials, tvTenTK, tvEmail, tvBadgeTrangThai, tvNgayTao;
     private TextView tabAdmin, tabLeTan, tabKeToan, tabNhanVien;
     private RecyclerView rvPermissions;
@@ -99,6 +102,7 @@ public class AccountDetailFragment extends Fragment {
     }
 
     private void bindViews(View v) {
+        ivAvatar = v.findViewById(R.id.iv_avatar_detail);
         tvInitials = v.findViewById(R.id.tv_initials_detail);
         tvTenTK = v.findViewById(R.id.tv_ten_tk_detail);
         tvEmail = v.findViewById(R.id.tv_email_detail);
@@ -179,9 +183,7 @@ public class AccountDetailFragment extends Fragment {
             TaiKhoan tk = taiKhoanDAO.findById(maTK);
             mainHandler.post(() -> {
                 if (!isAdded() || tk == null) return;
-                String initials = tk.getTenDangNhap() != null && !tk.getTenDangNhap().isEmpty()
-                        ? tk.getTenDangNhap().substring(0, 1).toUpperCase() : "?";
-                tvInitials.setText(initials);
+                AvatarHelper.loadAvatar(requireContext(), tk.getAvatar(), tk.getTenDangNhap(), ivAvatar, tvInitials);
                 tvTenTK.setText(tk.getTenDangNhap());
                 tvEmail.setText(tk.getEmail() != null ? tk.getEmail() : "—");
 

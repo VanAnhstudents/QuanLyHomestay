@@ -28,6 +28,13 @@
             <FrameLayout
                 android:layout_width="@dimen/avatar_detail_large"
                 android:layout_height="@dimen/avatar_detail_large">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_avatar_detail"
+                    android:layout_width="@dimen/avatar_detail_large"
+                    android:layout_height="@dimen/avatar_detail_large"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
                 <TextView
                     android:id="@+id/tv_initials_detail"
                     android:layout_width="@dimen/avatar_detail_large"

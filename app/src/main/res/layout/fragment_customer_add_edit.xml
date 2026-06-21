@@ -31,7 +31,6 @@
             android:layout_height="@dimen/avatar_detail_large"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="@dimen/spacing_sm"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless">
@@ -46,17 +45,35 @@
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
 
             <!-- Placeholder: nền xám + icon camera -->
-            <TextView
+            <LinearLayout
                 android:id="@+id/tv_avatar_placeholder"
                 android:layout_width="@dimen/avatar_detail_large"
                 android:layout_height="@dimen/avatar_detail_large"
                 android:background="@drawable/bg_avatar_circle"
                 android:gravity="center"
-                android:text="📷"
-                android:textSize="28sp"
-                android:visibility="visible" />
+                android:orientation="vertical"
+                android:visibility="visible">
+                
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@color/text_on_primary" />
+            </LinearLayout>
 
         </FrameLayout>
+        
+        <!-- Text "Chọn ảnh" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
+            android:text="Chọn ảnh"
+            android:textSize="13sp"
+            android:textColor="@color/text_link"
+            android:fontFamily="sans-serif" />
 
         <!-- Căn giữa FrameLayout trên theo chiều ngang -->
         <!-- (FrameLayout không tự căn giữa khi cha là LinearLayout vertical,

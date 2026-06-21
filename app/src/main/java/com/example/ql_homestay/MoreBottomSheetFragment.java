@@ -62,6 +62,10 @@ public class MoreBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void navigate(androidx.fragment.app.Fragment fragment) {
         dismiss();
+        // Set bottom navigation về "Hơn nữa" khi mở các module con
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).setBottomNavSelection(R.id.nav_more);
+        }
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)

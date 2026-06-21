@@ -41,6 +41,13 @@
                     android:layout_marginBottom="@dimen/spacing_sm">
 
                     <FrameLayout android:layout_width="@dimen/avatar_detail_medium" android:layout_height="@dimen/avatar_detail_medium">
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/iv_avatar_detail"
+                            android:layout_width="@dimen/avatar_detail_medium"
+                            android:layout_height="@dimen/avatar_detail_medium"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
                         <TextView
                             android:id="@+id/tv_initials_detail"
                             android:layout_width="@dimen/avatar_detail_medium"

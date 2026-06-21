@@ -1,16 +1,24 @@
 package com.example.ql_homestay.ui.customer;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.model.KhachHang;
 import com.example.ql_homestay.repository.CustomerRepository;
+import com.example.ql_homestay.util.ImagePickerHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -46,10 +55,24 @@ public class CustomerAddEditFragment extends Fragment {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     // Views
+    private FrameLayout flAvatarPicker;
+    private ImageView ivAvatarPick;
+    private View tvAvatarPlaceholder;
     private TextInputLayout tilHoTen, tilSdt;
     private TextInputEditText etHoTen, etSdt, etEmail, etCccd, etDiaChi, etNgaySinh;
     private MaterialAutoCompleteTextView dropdownGioiTinh;
     private MaterialButton btnLuu;
+    
+    private byte[] avatarBytes = null;
+
+    private final ActivityResultLauncher<Intent> imagePickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                    Uri imageUri = result.getData().getData();
+                    avatarBytes = ImagePickerHelper.handleImageResult(
+                            requireContext(), imageUri, ivAvatarPick, tvAvatarPlaceholder);
+                }
+            });
 
     private static final String[] GIOI_TINH_DISPLAY = {"Nam", "Nữ", "Khác"};
     private static final String[] GIOI_TINH_VALUE   = {"Nam", "Nu",  "Khac"};
@@ -72,6 +95,9 @@ public class CustomerAddEditFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         repository = new CustomerRepository(requireContext());
 
+        flAvatarPicker      = view.findViewById(R.id.fl_avatar_picker);
+        ivAvatarPick        = view.findViewById(R.id.iv_avatar_pick);
+        tvAvatarPlaceholder = view.findViewById(R.id.tv_avatar_placeholder);
         tilHoTen         = view.findViewById(R.id.til_ho_ten);
         tilSdt           = view.findViewById(R.id.til_sdt);
         etHoTen          = view.findViewById(R.id.et_ho_ten);
@@ -84,6 +110,7 @@ public class CustomerAddEditFragment extends Fragment {
         btnLuu           = view.findViewById(R.id.btn_luu);
 
         setupBreadcrumb(view);
+        setupAvatarPicker();
         setupGenderDropdown();
         setupDatePicker();
 
@@ -102,6 +129,11 @@ public class CustomerAddEditFragment extends Fragment {
         if (tv != null) tv.setText(maKH > 0
                 ? "Trang chủ → Khách hàng → Chỉnh sửa"
                 : "Trang chủ → Khách hàng → Thêm mới");
+    }
+    
+    private void setupAvatarPicker() {
+        flAvatarPicker.setOnClickListener(v -> 
+            ImagePickerHelper.pickImage(this, imagePickerLauncher));
     }
 
     private void setupGenderDropdown() {
@@ -172,7 +204,12 @@ public class CustomerAddEditFragment extends Fragment {
         kh.setDiaChi(text(etDiaChi));
         kh.setNgaySinh(text(etNgaySinh));
         kh.setGioiTinh(selectedGioiTinhValue());
-        kh.setAvatar(null);
+        // Convert byte[] to Base64 string
+        if (avatarBytes != null && avatarBytes.length > 0) {
+            kh.setAvatar(Base64.encodeToString(avatarBytes, Base64.DEFAULT));
+        } else {
+            kh.setAvatar(null);
+        }
 
         btnLuu.setEnabled(false);
         executor.execute(() -> {

@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.model.DatPhong;
 import com.example.ql_homestay.model.KhachHang;
 import com.example.ql_homestay.repository.CustomerRepository;
+import com.example.ql_homestay.util.AvatarHelper;
 import com.example.ql_homestay.util.PermissionHelper;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.button.MaterialButton;
@@ -51,6 +53,7 @@ public class CustomerDetailFragment extends Fragment {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     // Views
+    private ImageView ivAvatar;
     private TextView tvInitials, tvTenKhach, tvBadgeSoLanThue;
     private TextView tvSdt, tvEmail, tvCccd, tvDiaChi, tvNgaySinh;
     private RecyclerView rvLichSu;
@@ -79,6 +82,7 @@ public class CustomerDetailFragment extends Fragment {
         dbHelper   = DatabaseHelper.getInstance(requireContext());
         repository = new CustomerRepository(requireContext());
 
+        ivAvatar          = view.findViewById(R.id.iv_avatar_detail);
         tvInitials        = view.findViewById(R.id.tv_initials_detail);
         tvTenKhach        = view.findViewById(R.id.tv_ten_khach_detail);
         tvBadgeSoLanThue  = view.findViewById(R.id.tv_badge_so_lan_thue);
@@ -126,7 +130,7 @@ public class CustomerDetailFragment extends Fragment {
     }
 
     private void bindCustomer(KhachHang kh) {
-        tvInitials.setText(kh.getInitials());
+        AvatarHelper.loadAvatar(requireContext(), kh.getAvatar(), kh.getHoTen(), ivAvatar, tvInitials);
         tvTenKhach.setText(kh.getHoTen());
         tvBadgeSoLanThue.setText("Đã thuê " + kh.getSoLanThue() + " lần");
         tvSdt.setText(orDash(kh.getSdt()));
