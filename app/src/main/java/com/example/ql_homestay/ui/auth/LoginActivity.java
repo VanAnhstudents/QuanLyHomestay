@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 /**
  * LoginActivity — màn hình Đăng nhập.
- * Layout: activity_login.xml (spec A1, ux_ui.md)
+ * Layout: activity_login.xml
  * Flow:
  *   1. Nếu SessionManager.isLoggedIn() → bypass thẳng tới MainActivity.
  *   2. Nếu SharedPreferences có lưu username (ghi nhớ) → điền sẵn.
@@ -31,8 +30,7 @@ import com.google.android.material.textfield.TextInputLayout;
  *        b. Gọi AuthRepository.login().
  *        c. Thành công → SessionManager.login() → startActivity(MainActivity) → finish().
  *        d. Thất bại → Snackbar lỗi.
- *   4. Nhấn "Đăng ký ngay" → startActivity(RegisterActivity).
- *   5. CheckBox "Ghi nhớ" → lưu/xóa username trong SharedPreferences.
+ *   4. CheckBox "Ghi nhớ" → lưu/xóa username trong SharedPreferences.
  */
 public class LoginActivity extends AppCompatActivity {
     // SharedPreferences key cho "Ghi nhớ đăng nhập"
@@ -47,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText etPassword;
     private CheckBox cbRemember;
     private MaterialButton btnLogin;
-    private TextView tvGoRegister;
 
     // Dependencies
     private AuthRepository authRepo;
@@ -84,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         cbRemember = findViewById(R.id.cb_remember);
         btnLogin = findViewById(R.id.btn_login);
-        tvGoRegister = findViewById(R.id.tv_go_register);
     }
 
     // "Ghi nhớ đăng nhập" — restore từ SharedPreferences
@@ -105,11 +101,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Đăng nhập
         btnLogin.setOnClickListener(v -> attemptLogin());
-
-        // Đăng ký ngay
-        tvGoRegister.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
     }
 
     // Login logic
