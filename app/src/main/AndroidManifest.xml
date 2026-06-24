@@ -24,13 +24,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Màn hình Đăng ký -->
-        <activity
-            android:name=".ui.auth.RegisterActivity"
-            android:exported="false"
-            android:theme="@style/Theme.LalaHouse.Auth"
-            android:windowSoftInputMode="adjustResize" />
-
         <!-- Màn hình chính (sau đăng nhập) -->
         <activity
             android:name=".MainActivity"
