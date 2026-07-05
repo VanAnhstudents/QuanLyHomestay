@@ -15,8 +15,10 @@ import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.data.dao.TaiKhoanDAO;
 import com.example.ql_homestay.model.TaiKhoan;
 import com.example.ql_homestay.ui.auth.LoginActivity;
+import com.example.ql_homestay.ui.booking.BookingListFragment;
 import com.example.ql_homestay.ui.customer.CustomerListFragment;
 import com.example.ql_homestay.ui.main.HomeFragment;
+import com.example.ql_homestay.ui.room.RoomListFragment;
 import com.example.ql_homestay.util.AvatarHelper;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private SessionManager session;
     private DatabaseHelper dbHelper;
 
-    // Giai đoạn này chỉ dùng HomeFragment.
-    // Các fragment khác sẽ được thêm vào khi từng thành viên hoàn thành module.
     private HomeFragment homeFragment;
     private CustomerListFragment customerFragment;
+    private RoomListFragment roomFragment;
+    private BookingListFragment bookingFragment;
     private Fragment activeFragment;
 
     @Override
@@ -84,11 +86,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragments() {
-        homeFragment = new HomeFragment();
+        homeFragment    = new HomeFragment();
         customerFragment = new CustomerListFragment();
+        roomFragment    = new RoomListFragment();
+        bookingFragment = new BookingListFragment();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, homeFragment, "home")
+                .add(R.id.fragment_container, homeFragment,     "home")
                 .add(R.id.fragment_container, customerFragment, "customer").hide(customerFragment)
+                .add(R.id.fragment_container, roomFragment,     "room").hide(roomFragment)
+                .add(R.id.fragment_container, bookingFragment,  "booking").hide(bookingFragment)
                 .commit();
         activeFragment = homeFragment;
     }
@@ -101,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
                 showFragment(homeFragment);
                 return true;
             }
+            if (id == R.id.nav_room) {
+                showFragment(roomFragment);
+                return true;
+            }
+            if (id == R.id.nav_booking) {
+                showFragment(bookingFragment);
+                return true;
+            }
             if (id == R.id.nav_customer) {
                 showFragment(customerFragment);
                 return true;
@@ -111,11 +125,9 @@ public class MainActivity extends AppCompatActivity {
                     MoreBottomSheetFragment.newInstance()
                             .show(getSupportFragmentManager(), "more_sheet");
                 }
-                // Trả về true để giữ selection ở "Hơn nữa"
                 return true;
             }
 
-            // Room / Booking — module của thành viên khác, hiện stub
             Toast.makeText(this, "Tính năng đang phát triển", Toast.LENGTH_SHORT).show();
             return true;
         });
