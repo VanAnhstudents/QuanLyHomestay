@@ -8,14 +8,20 @@ public class PhanCongCa {
     private int maCa;
     /** 1 = Thứ 2 ... 7 = Chủ nhật */
     private int thuTrongTuan;
+    private String tuanBatDau;
 
     public PhanCongCa() {}
 
     public PhanCongCa(int maPhanCong, int maNV, int maCa, int thuTrongTuan) {
+        this(maPhanCong, maNV, maCa, thuTrongTuan, "1970-01-05");
+    }
+
+    public PhanCongCa(int maPhanCong, int maNV, int maCa, int thuTrongTuan, String tuanBatDau) {
         this.maPhanCong = maPhanCong;
         this.maNV = maNV;
         this.maCa = maCa;
         this.thuTrongTuan = thuTrongTuan;
+        this.tuanBatDau = tuanBatDau;
     }
 
     /** Constructor tiện dùng khi tạo dòng mới (chưa có MaPhanCong, để DB tự sinh). */
@@ -35,9 +41,12 @@ public class PhanCongCa {
     public int getThuTrongTuan() { return thuTrongTuan; }
     public void setThuTrongTuan(int thuTrongTuan) { this.thuTrongTuan = thuTrongTuan; }
 
+    public String getTuanBatDau() { return tuanBatDau; }
+    public void setTuanBatDau(String tuanBatDau) { this.tuanBatDau = tuanBatDau; }
+
     @NonNull
     @Override
     public String toString() {
-        return "PhanCongCa{maNV=" + maNV + ", maCa=" + maCa + ", thu=" + thuTrongTuan + "}";
+        return "PhanCongCa{maNV=" + maNV + ", maCa=" + maCa + ", thu=" + thuTrongTuan + ", tuan='" + tuanBatDau + "'}";
     }
 }

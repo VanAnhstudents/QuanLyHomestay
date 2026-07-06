@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,15 +26,11 @@ import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Danh sách nhân viên — StaffListFragment.
- * - RecyclerView item_staff_row + SearchBar realtime.
- * - FAB ẩn nếu không phải Admin.
- */
 public class StaffListFragment extends Fragment {
 
     private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
@@ -42,6 +39,8 @@ public class StaffListFragment extends Fragment {
     private View emptyState;
     private FloatingActionButton fabAdd;
     private TextInputEditText etSearch;
+    private TextView chipAll, chipQuanLy, chipLeTan, chipKeToan, chipDonPhong, chipBaoVe;
+    private String selectedChucVu = null;
 
     private StaffAdapter adapter;
     private StaffRepository repository;
@@ -63,29 +62,38 @@ public class StaffListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        session    = SessionManager.getInstance(requireContext());
-        dbHelper   = DatabaseHelper.getInstance(requireContext());
+        session = SessionManager.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         repository = new StaffRepository(requireContext());
 
-        rvStaffList = view.findViewById(R.id.rv_staff_list);
-        emptyState  = view.findViewById(R.id.empty_state);
-        fabAdd      = view.findViewById(R.id.fab_add_staff);
-        etSearch    = view.findViewById(R.id.et_search);
-
+        bindViews(view);
         setupBreadcrumb(view);
         setupRecyclerView();
         setupSearch();
+        setupChucVuFilter();
         setupFab();
         applyPermission();
         loadStaff(null);
     }
 
+    private void bindViews(View view) {
+        rvStaffList = view.findViewById(R.id.rv_staff_list);
+        emptyState = view.findViewById(R.id.empty_state);
+        fabAdd = view.findViewById(R.id.fab_add_staff);
+        etSearch = view.findViewById(R.id.et_search);
+        chipAll = view.findViewById(R.id.chip_all);
+        chipQuanLy = view.findViewById(R.id.chip_quan_ly);
+        chipLeTan = view.findViewById(R.id.chip_le_tan);
+        chipKeToan = view.findViewById(R.id.chip_ke_toan);
+        chipDonPhong = view.findViewById(R.id.chip_don_phong);
+        chipBaoVe = view.findViewById(R.id.chip_bao_ve);
+    }
+
     private void setupBreadcrumb(View view) {
         View bc = view.findViewById(R.id.breadcrumb);
-        if (bc != null) {
-            android.widget.TextView tv = bc.findViewById(R.id.tv_breadcrumb);
-            if (tv != null) tv.setText("Trang chủ → Nhân viên");
-        }
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Nhân viên");
     }
 
     private void setupRecyclerView() {
@@ -98,13 +106,66 @@ public class StaffListFragment extends Fragment {
         searchWatcher = new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
             @Override
             public void afterTextChanged(Editable s) {
-                String kw = s != null ? s.toString().trim() : "";
-                loadStaff(kw.isEmpty() ? null : kw);
+                reloadStaff();
             }
         };
         etSearch.addTextChangedListener(searchWatcher);
+    }
+
+    private void setupChucVuFilter() {
+        View.OnClickListener chipClick = v -> {
+            setAllChipsInactive();
+            selectedChucVu = null;
+            if (v == chipAll) {
+                setChipActive(chipAll, true);
+            } else if (v == chipQuanLy) {
+                selectedChucVu = "QuanLy";
+                setChipActive(chipQuanLy, true);
+            } else if (v == chipLeTan) {
+                selectedChucVu = "LeTan";
+                setChipActive(chipLeTan, true);
+            } else if (v == chipKeToan) {
+                selectedChucVu = "KeToan";
+                setChipActive(chipKeToan, true);
+            } else if (v == chipDonPhong) {
+                selectedChucVu = "DonPhong";
+                setChipActive(chipDonPhong, true);
+            } else if (v == chipBaoVe) {
+                selectedChucVu = "BaoVe";
+                setChipActive(chipBaoVe, true);
+            }
+            reloadStaff();
+        };
+
+        chipAll.setOnClickListener(chipClick);
+        chipQuanLy.setOnClickListener(chipClick);
+        chipLeTan.setOnClickListener(chipClick);
+        chipKeToan.setOnClickListener(chipClick);
+        chipDonPhong.setOnClickListener(chipClick);
+        chipBaoVe.setOnClickListener(chipClick);
+        setChipActive(chipAll, true);
+    }
+
+    private void setAllChipsInactive() {
+        setChipActive(chipAll, false);
+        setChipActive(chipQuanLy, false);
+        setChipActive(chipLeTan, false);
+        setChipActive(chipKeToan, false);
+        setChipActive(chipDonPhong, false);
+        setChipActive(chipBaoVe, false);
+    }
+
+    private void setChipActive(TextView chip, boolean active) {
+        if (chip == null) return;
+        chip.setBackgroundResource(active
+                ? R.drawable.bg_chip_filter_active
+                : R.drawable.bg_chip_filter_inactive);
+        chip.setTextColor(requireContext().getResources().getColor(active
+                ? R.color.text_primary
+                : R.color.text_secondary, null));
     }
 
     private void setupFab() {
@@ -122,14 +183,28 @@ public class StaffListFragment extends Fragment {
             List<NhanVien> result = (keyword == null)
                     ? repository.getAllStaff()
                     : repository.searchStaff(keyword);
+            if (selectedChucVu != null) {
+                List<NhanVien> filtered = new ArrayList<>();
+                for (NhanVien nv : result) {
+                    if (selectedChucVu.equals(nv.getChucVu())) filtered.add(nv);
+                }
+                result = filtered;
+            }
+            List<NhanVien> displayResult = result;
             mainHandler.post(() -> {
                 if (!isAdded()) return;
-                adapter.setData(result);
-                boolean empty = result == null || result.isEmpty();
+                adapter.setData(displayResult);
+                boolean empty = displayResult == null || displayResult.isEmpty();
                 if (emptyState != null) emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
                 rvStaffList.setVisibility(empty ? View.GONE : View.VISIBLE);
             });
         });
+    }
+
+    private void reloadStaff() {
+        String kw = etSearch != null && etSearch.getText() != null
+                ? etSearch.getText().toString().trim() : "";
+        loadStaff(kw.isEmpty() ? null : kw);
     }
 
     private void openDetail(NhanVien nv) {
@@ -151,18 +226,26 @@ public class StaffListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        String kw = etSearch != null && etSearch.getText() != null
-                ? etSearch.getText().toString().trim() : "";
-        loadStaff(kw.isEmpty() ? null : kw);
+        reloadStaff();
         applyPermission();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (etSearch != null && searchWatcher != null)
+        if (etSearch != null && searchWatcher != null) {
             etSearch.removeTextChangedListener(searchWatcher);
-        rvStaffList = null; emptyState = null; fabAdd = null; etSearch = null;
+        }
+        rvStaffList = null;
+        emptyState = null;
+        fabAdd = null;
+        etSearch = null;
+        chipAll = null;
+        chipQuanLy = null;
+        chipLeTan = null;
+        chipKeToan = null;
+        chipDonPhong = null;
+        chipBaoVe = null;
     }
 
     @Override
