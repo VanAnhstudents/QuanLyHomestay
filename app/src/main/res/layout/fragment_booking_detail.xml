@@ -5,13 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_screen">
+    android:background="@color/background_screen"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="24dp">
+        android:paddingBottom="32dp">
+
+        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
 
         <!-- Card tá»•ng quan -->
         <LinearLayout
@@ -319,37 +322,50 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:visibility="visible">
 
             <!-- Row 6A: Sá»­a + XÃ³a -->
             <LinearLayout
                 android:id="@+id/row_6a"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_edit_booking"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_outline"
-                    android:text="Sá»­a Ä‘áº·t phÃ²ng"
+                    android:text="Sửa đặt phòng"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="@color/primary_main"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/primary_main"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button"
+                    android:visibility="gone" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_delete_booking"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_danger_outline"
-                    android:text="XÃ³a Ä‘áº·t phÃ²ng"
+                    android:text="Xóa đặt phòng"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="@color/status_error"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/status_error"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Row 6B: Check-in + Check-out -->
@@ -358,30 +374,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_checkin"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_primary"
-                    android:text="Check-in"
+                    android:text="✓ Check-in"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_on_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    app:backgroundTint="@color/primary_main"
+                    app:cornerRadius="@dimen/radius_button"
+                    android:visibility="gone" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_checkout"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_outline"
                     android:text="Check-out"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="@color/primary_main"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/primary_main"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Tráº¡ng thÃ¡i read-only (hiá»‡n khi ChiXem) -->

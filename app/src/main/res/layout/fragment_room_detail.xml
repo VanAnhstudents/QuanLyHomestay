@@ -5,12 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_screen">
+    android:background="@color/background_screen"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
+
+        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
 
     <!-- Header áº£nh phÃ²ng: 220dp -->
         <RelativeLayout
@@ -289,44 +293,55 @@
                 android:layout_height="44dp"
                 android:orientation="horizontal">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_edit_room"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_outline"
-                    android:text="Chá»‰nh sá»­a"
+                    android:text="Chỉnh sửa"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="@color/primary_main"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/primary_main"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button"
                     android:visibility="gone" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_delete_room"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_danger_outline"
-                    android:text="XÃ³a phÃ²ng"
+                    android:text="Xóa phòng"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="@color/status_error"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/status_error"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button"
                     android:visibility="gone" />
             </LinearLayout>
 
-            <!-- HÃ ng 2: Äáº·t phÃ²ng -->
-            <Button
+            <!-- Hàng 2: Đặt phòng -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_book_room"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_button_primary"
-                android:text="Äáº·t phÃ²ng"
-                android:textColor="@color/text_on_primary"
-                android:textSize="15sp"
+                android:layout_height="@dimen/height_button_main"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:text="ĐẶT PHÒNG"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-bold"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:textColor="@color/text_on_primary"
+                app:backgroundTint="@color/primary_main"
+                app:cornerRadius="@dimen/radius_button" />
         </LinearLayout>
 
     </LinearLayout>

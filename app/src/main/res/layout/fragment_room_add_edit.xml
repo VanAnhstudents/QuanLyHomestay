@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="24dp">
+        android:paddingBottom="32dp">
+
+        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
 
         <!-- áº¢nh phÃ²ng: clickable, 180dp, bo trÃ²n -->
         <FrameLayout
@@ -113,13 +115,25 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner_loai_phong"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_loai_phong"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:paddingHorizontal="12dp" />
+                app:endIconMode="dropdown_menu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/actvLoaiPhong"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Chọn loại phòng"
+                    android:inputType="none"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_placeholder"
+                    android:paddingHorizontal="4dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- GiÃ¡/Ä‘Ãªm -->
             <TextView
@@ -219,13 +233,25 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner_trang_thai"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_trang_thai"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:paddingHorizontal="12dp" />
+                app:endIconMode="dropdown_menu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/actvTrangThai"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Chọn trạng thái"
+                    android:inputType="none"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_placeholder"
+                    android:paddingHorizontal="4dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Tiá»‡n nghi -->
             <TextView
@@ -279,30 +305,35 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Button Há»§y: ná»n tráº¯ng, viá»n xanh, chá»¯ xanh -->
-            <Button
+            <!-- Button Hủy: outline, không nền solid -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cancel_room"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_outline"
-                android:text="Há»§y"
+                android:text="Hủy"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="@color/primary_main"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                app:backgroundTint="@color/background_card"
+                app:strokeColor="@color/primary_main"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="@dimen/radius_button" />
 
-            <!-- Button LÆ°u -->
-            <Button
+            <!-- Button Lưu -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save_room"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_primary"
-                android:text="LÆ°u phÃ²ng"
+                android:text="lƯU PHÒNG"
                 android:textColor="@color/text_on_primary"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:backgroundTint="@color/primary_main"
+                app:cornerRadius="@dimen/radius_button"/>
         </LinearLayout>
 
     </LinearLayout>

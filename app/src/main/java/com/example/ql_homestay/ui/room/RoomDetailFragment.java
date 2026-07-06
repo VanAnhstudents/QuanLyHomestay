@@ -23,6 +23,7 @@ import com.example.ql_homestay.model.TienNghi;
 import com.example.ql_homestay.repository.RoomRepository;
 import com.example.ql_homestay.util.PermissionHelper;
 import com.example.ql_homestay.util.SessionManager;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
@@ -52,7 +53,8 @@ public class RoomDetailFragment extends Fragment {
     private TextView tvSucChua, tvDienTich, tvTang;
     private LinearLayout llTienNghi;
     private TextView tvMoTa;
-    private Button btnEditRoom, btnDeleteRoom, btnBookRoom;
+    private Button btnBookRoom;
+    private MaterialButton btnEditRoom, btnDeleteRoom;
 
     private Phong currentPhong;
     private RoomRepository roomRepository;
