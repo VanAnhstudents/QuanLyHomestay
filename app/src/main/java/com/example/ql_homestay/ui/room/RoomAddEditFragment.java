@@ -110,6 +110,7 @@ public class RoomAddEditFragment extends Fragment {
 
         bindViews(view);
         updateAppBarTitle();
+        setupBreadcrumb(view);
         setupImagePicker();
         setupCancelButton(view);
         setupSaveButton();
@@ -139,6 +140,17 @@ public class RoomAddEditFragment extends Fragment {
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).setAppBarTitle(
                     maPhong > 0 ? "Sửa phòng" : "Thêm phòng");
+        }
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) {
+            tv.setText(maPhong > 0
+                    ? "Trang chủ → Phòng → Chỉnh sửa"
+                    : "Trang chủ → Phòng → Thêm mới");
         }
     }
 

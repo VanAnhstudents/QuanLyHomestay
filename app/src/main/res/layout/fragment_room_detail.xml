@@ -14,6 +14,8 @@
         android:orientation="vertical"
         android:paddingBottom="32dp">
 
+        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
+
     <!-- Header ảnh phòng: 220dp -->
         <RelativeLayout
             android:layout_width="match_parent"
