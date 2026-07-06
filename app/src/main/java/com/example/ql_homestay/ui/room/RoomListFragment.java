@@ -44,7 +44,6 @@ public class RoomListFragment extends Fragment {
     private RecyclerView rvRoomList;
     private View layoutEmpty;
     private FloatingActionButton fabAddRoom;
-    private android.widget.Button btnAddRoom;
     private EditText etSearch;
 
     // Filter chips
@@ -83,6 +82,15 @@ public class RoomListFragment extends Fragment {
         setupFab();
         applyPermission();
 
+        // Lắng nghe kết quả từ RoomAddEditFragment khi thêm phòng mới thành công
+        getParentFragmentManager().setFragmentResultListener("room_saved", getViewLifecycleOwner(),
+                (requestKey, result) -> {
+                    if (result.getBoolean("room_added", false)) {
+                        pendingScrollToBottom = true;
+                        loadRooms(null, currentFilter);
+                    }
+                });
+
         loadRooms(null, null);
     }
 
@@ -90,7 +98,6 @@ public class RoomListFragment extends Fragment {
         rvRoomList   = view.findViewById(R.id.rv_room_list);
         layoutEmpty  = view.findViewById(R.id.layout_empty);
         fabAddRoom   = view.findViewById(R.id.fab_add_room);
-        btnAddRoom   = view.findViewById(R.id.btn_add_room);
         etSearch     = view.findViewById(R.id.et_search);
         chipAll      = view.findViewById(R.id.chip_all);
         chipTrong    = view.findViewById(R.id.chip_trong);
@@ -173,22 +180,20 @@ public class RoomListFragment extends Fragment {
     }
 
     private void setupFab() {
-        View.OnClickListener addClick = v -> openAddEditRoom(-1);
-        if (fabAddRoom != null) fabAddRoom.setOnClickListener(addClick);
-        if (btnAddRoom != null) btnAddRoom.setOnClickListener(addClick);
+        if (fabAddRoom != null) fabAddRoom.setOnClickListener(v -> openAddEditRoom(-1));
     }
 
     /**
-     * Áp dụng RBAC: chỉ Admin thấy nút Thêm phòng.
+     * Áp dụng RBAC: chỉ Admin thấy FAB Thêm phòng.
      */
     private void applyPermission() {
         String vaiTro = sessionManager.getVaiTro();
         boolean canAdd = PermissionHelper.hasFullAccess(dbHelper, vaiTro,
                 PermissionHelper.MODULE_QUAN_LY_PHONG);
-        int vis = canAdd ? View.VISIBLE : View.GONE;
-        if (fabAddRoom != null) fabAddRoom.setVisibility(vis);
-        if (btnAddRoom != null) btnAddRoom.setVisibility(vis);
+        if (fabAddRoom != null) fabAddRoom.setVisibility(canAdd ? View.VISIBLE : View.GONE);
     }
+
+    private boolean pendingScrollToBottom = false;
 
     /**
      * Load phòng trên thread nền.
@@ -211,6 +216,11 @@ public class RoomListFragment extends Fragment {
                 boolean isEmpty = result == null || result.isEmpty();
                 if (layoutEmpty != null) layoutEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
                 rvRoomList.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+                // Scroll xuống cuối nếu vừa thêm phòng mới
+                if (pendingScrollToBottom) {
+                    pendingScrollToBottom = false;
+                    scrollToBottom();
+                }
             });
         });
     }
@@ -234,10 +244,26 @@ public class RoomListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        // Kiểm tra flag từ RoomAddEditFragment (thêm phòng mới thành công)
+        if (RoomAddEditFragment.sRoomJustAdded) {
+            RoomAddEditFragment.sRoomJustAdded = false;
+            pendingScrollToBottom = true;
+        }
         String kw = etSearch != null && etSearch.getText() != null
                 ? etSearch.getText().toString().trim() : "";
         loadRooms(kw.isEmpty() ? null : kw, currentFilter);
         applyPermission();
+    }
+
+    /** Scroll RecyclerView xuống cuối – gọi sau khi thêm phòng mới */
+    public void scrollToBottom() {
+        if (rvRoomList != null) {
+            rvRoomList.post(() -> {
+                int count = rvRoomList.getAdapter() != null
+                        ? rvRoomList.getAdapter().getItemCount() : 0;
+                if (count > 0) rvRoomList.smoothScrollToPosition(count - 1);
+            });
+        }
     }
 
     @Override
@@ -246,7 +272,7 @@ public class RoomListFragment extends Fragment {
         if (etSearch != null && searchTextWatcher != null)
             etSearch.removeTextChangedListener(searchTextWatcher);
         rvRoomList = null; layoutEmpty = null;
-        fabAddRoom = null; btnAddRoom = null; etSearch = null;
+        fabAddRoom = null; etSearch = null;
         chipAll = null; chipTrong = null; chipDangThue = null; chipDaDat = null;
     }
 

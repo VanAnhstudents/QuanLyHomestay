@@ -1,7 +1,5 @@
 package com.example.ql_homestay.ui.room;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -25,13 +23,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ql_homestay.MainActivity;
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.model.LoaiPhong;
 import com.example.ql_homestay.model.Phong;
 import com.example.ql_homestay.model.TienNghi;
 import com.example.ql_homestay.repository.RoomRepository;
-import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -47,11 +45,15 @@ public class RoomAddEditFragment extends Fragment {
 
     private static final String ARG_MA_PHONG = "ma_phong";
 
+    /** Flag tĩnh để báo cho RoomListFragment biết vừa thêm phòng mới → scroll xuống cuối */
+    public static volatile boolean sRoomJustAdded = false;
+
     private int maPhong = -1;
 
     private FrameLayout flPickImage;
     private ImageView ivRoomImagePreview;
     private View llImagePlaceholder;
+    private TextView btnClearImage;
     private EditText etTenPhong, etGiaMoiDem, etSucChua, etDienTich, etTang, etMoTa;
     private Spinner spinnerLoaiPhong, spinnerTrangThai;
     private LinearLayout llTienNghiContainer;
@@ -73,11 +75,7 @@ public class RoomAddEditFragment extends Fragment {
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
                 if (uri != null) {
                     selectedImageUri = uri;
-                    if (ivRoomImagePreview != null) {
-                        ivRoomImagePreview.setImageURI(uri);
-                        ivRoomImagePreview.setVisibility(View.VISIBLE);
-                    }
-                    if (llImagePlaceholder != null) llImagePlaceholder.setVisibility(View.GONE);
+                    showImagePreview(uri);
                 }
             });
 
@@ -111,11 +109,10 @@ public class RoomAddEditFragment extends Fragment {
         roomRepository = new RoomRepository(dbHelper);
 
         bindViews(view);
-        setupAppBarTitle(view);
+        updateAppBarTitle();
         setupImagePicker();
         setupCancelButton(view);
         setupSaveButton();
-        setupBackButton(view);
 
         loadFormData();
     }
@@ -124,6 +121,7 @@ public class RoomAddEditFragment extends Fragment {
         flPickImage         = view.findViewById(R.id.fl_pick_image);
         ivRoomImagePreview  = view.findViewById(R.id.iv_room_image_preview);
         llImagePlaceholder  = view.findViewById(R.id.ll_image_placeholder);
+        btnClearImage       = view.findViewById(R.id.btn_clear_image);
         etTenPhong          = view.findViewById(R.id.et_ten_phong);
         spinnerLoaiPhong    = view.findViewById(R.id.spinner_loai_phong);
         etGiaMoiDem         = view.findViewById(R.id.et_gia_moi_dem);
@@ -136,21 +134,11 @@ public class RoomAddEditFragment extends Fragment {
         btnSaveRoom         = view.findViewById(R.id.btn_save_room);
     }
 
-    private void setupAppBarTitle(View view) {
-        View appbarView = view.findViewById(R.id.appbar);
-        if (appbarView != null) {
-            android.widget.TextView tvTitle = appbarView.findViewById(R.id.tv_app_title);
-            if (tvTitle != null) tvTitle.setText(maPhong > 0 ? "Sửa phòng" : "Thêm phòng");
-        }
-    }
-
-    private void setupBackButton(View view) {
-        View appbarView = view.findViewById(R.id.appbar);
-        View btnBack = appbarView != null ? appbarView.findViewById(R.id.btn_appbar_back) : null;
-        if (btnBack == null) btnBack = view.findViewById(R.id.btn_appbar_back);
-        if (btnBack != null) {
-            btnBack.setVisibility(View.VISIBLE);
-            btnBack.setOnClickListener(v -> navigateBack());
+    /** Cập nhật tiêu đề AppBar dùng chung của MainActivity */
+    private void updateAppBarTitle() {
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).setAppBarTitle(
+                    maPhong > 0 ? "Sửa phòng" : "Thêm phòng");
         }
     }
 
@@ -168,6 +156,30 @@ public class RoomAddEditFragment extends Fragment {
         if (flPickImage != null) {
             flPickImage.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
         }
+        if (btnClearImage != null) {
+            btnClearImage.setOnClickListener(v -> clearImagePreview());
+        }
+    }
+
+    /** Hiện ảnh đã chọn / đã lưu */
+    private void showImagePreview(Uri uri) {
+        if (ivRoomImagePreview != null) {
+            ivRoomImagePreview.setImageURI(uri);
+            ivRoomImagePreview.setVisibility(View.VISIBLE);
+        }
+        if (llImagePlaceholder != null) llImagePlaceholder.setVisibility(View.GONE);
+        if (btnClearImage != null) btnClearImage.setVisibility(View.VISIBLE);
+    }
+
+    /** Xóa ảnh, trả về placeholder */
+    private void clearImagePreview() {
+        selectedImageUri = null;
+        if (ivRoomImagePreview != null) {
+            ivRoomImagePreview.setImageURI(null);
+            ivRoomImagePreview.setVisibility(View.GONE);
+        }
+        if (llImagePlaceholder != null) llImagePlaceholder.setVisibility(View.VISIBLE);
+        if (btnClearImage != null) btnClearImage.setVisibility(View.GONE);
     }
 
     private void setupSaveButton() {
@@ -255,6 +267,18 @@ public class RoomAddEditFragment extends Fragment {
         etTang.setText(String.valueOf(phong.getTang()));
         if (phong.getMoTa() != null) etMoTa.setText(phong.getMoTa());
 
+        // Hiện ảnh nếu là URI hợp lệ đã lưu
+        String hinhAnh = phong.getHinhAnh();
+        if (hinhAnh != null && !hinhAnh.isEmpty()) {
+            try {
+                Uri savedUri = Uri.parse(hinhAnh);
+                selectedImageUri = savedUri;
+                showImagePreview(savedUri);
+            } catch (Exception ignored) {
+                // Nếu không parse được URI thì bỏ qua, giữ placeholder
+            }
+        }
+
         for (int i = 0; i < loaiPhongList.size(); i++) {
             if (loaiPhongList.get(i).getMaLoaiPhong() == phong.getMaLoaiPhong()) {
                 spinnerLoaiPhong.setSelection(i);
@@ -294,6 +318,8 @@ public class RoomAddEditFragment extends Fragment {
         for (CheckBox cb : tienNghiCheckBoxes)
             if (cb.isChecked()) selectedTN.add((Integer) cb.getTag());
 
+        String hinhAnhStr = selectedImageUri != null ? selectedImageUri.toString() : null;
+
         Phong phong = new Phong();
         if (maPhong > 0) phong.setMaPhong(maPhong);
         phong.setTenPhong(tenPhong);
@@ -303,21 +329,46 @@ public class RoomAddEditFragment extends Fragment {
         phong.setDienTich(dienTich);
         phong.setTang(tang);
         phong.setTrangThai(trangThai);
+        phong.setHinhAnh(hinhAnhStr);
         phong.setMoTa(moTa);
 
+        // Disable nút tránh double-click
+        if (btnSaveRoom != null) btnSaveRoom.setEnabled(false);
+
+        final boolean isNew = (maPhong <= 0);
+
         dbExecutor.execute(() -> {
-            boolean success = maPhong > 0
-                    ? roomRepository.saveEditPhong(phong, selectedTN) > 0
-                    : roomRepository.saveNewPhong(phong, selectedTN) > 0;
+            // Kiểm tra trùng tên phòng (không phân biệt hoa thường)
+            boolean isDuplicate = roomRepository.isTenPhongDuplicate(tenPhong, maPhong);
+            if (isDuplicate) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    if (btnSaveRoom != null) btnSaveRoom.setEnabled(true);
+                    etTenPhong.setError("Tên phòng \"" + tenPhong + "\" đã tồn tại");
+                    etTenPhong.requestFocus();
+                });
+                return;
+            }
+
+            boolean success = isNew
+                    ? roomRepository.saveNewPhong(phong, selectedTN) > 0
+                    : roomRepository.saveEditPhong(phong, selectedTN) > 0;
 
             mainHandler.post(() -> {
                 if (!isAdded()) return;
+                if (btnSaveRoom != null) btnSaveRoom.setEnabled(true);
                 if (success) {
+                    // Gửi tín hiệu về RoomListFragment để scroll xuống cuối (chỉ khi thêm mới)
+                    if (isNew) {
+                        Bundle result = new Bundle();
+                        result.putBoolean("room_added", true);
+                        getParentFragmentManager().setFragmentResult("room_saved", result);
+                        sRoomJustAdded = true;   // flag tĩnh, đọc trong RoomListFragment.onResume
+                    }
                     Snackbar.make(requireView(),
-                            maPhong > 0 ? "Cập nhật phòng thành công" : "Thêm phòng thành công",
+                            isNew ? "Thêm phòng thành công" : "Cập nhật phòng thành công",
                             Snackbar.LENGTH_LONG).show();
-                    if (getParentFragmentManager().getBackStackEntryCount() > 0)
-                        getParentFragmentManager().popBackStack();
+                    navigateBack();
                 } else {
                     Snackbar.make(requireView(), "Lưu thất bại. Vui lòng thử lại.",
                             Snackbar.LENGTH_LONG).show();

@@ -47,11 +47,14 @@ public class DatPhongDAO {
         if (maNVIdx != -1) dp.setMaNV(c.getInt(maNVIdx));
         int ngayTaoIdx = c.getColumnIndex("NgayTao");
         if (ngayTaoIdx != -1) dp.setNgayTao(c.getString(ngayTaoIdx));
+        // GiaMoiDem từ JOIN Phong – dùng để tính tiền trong BookingDetail
+        int giaMoiDemIdx = c.getColumnIndex("GiaMoiDem");
+        if (giaMoiDemIdx != -1) dp.setGiaMoiDem(c.getDouble(giaMoiDemIdx));
         return dp;
     }
 
     private static final String SQL_SELECT_JOIN =
-            "SELECT dp.*, p.TenPhong, k.HoTen AS TenKhachHang " +
+            "SELECT dp.*, p.TenPhong, p.GiaMoiDem, k.HoTen AS TenKhachHang " +
             "FROM DatPhong dp " +
             "LEFT JOIN Phong p ON dp.MaPhong = p.MaPhong " +
             "LEFT JOIN KhachHang k ON dp.MaKH = k.MaKH ";
@@ -227,17 +230,19 @@ public class DatPhongDAO {
     // -------------------------------------------------------------------------
     private ContentValues toContentValues(DatPhong dp) {
         ContentValues cv = new ContentValues();
-        cv.put("MaKH",                  dp.getMaKH());
-        cv.put("MaPhong",               dp.getMaPhong());
-        cv.put("MaNV",                  dp.getMaNV());
-        cv.put("NgayCheckIn",           dp.getNgayCheckIn());
-        cv.put("NgayCheckOut",          dp.getNgayCheckOut());
-        cv.put("SoLuongKhach",          dp.getSoLuongKhach());
-        cv.put("SoDem",                 dp.getSoDem());
-        cv.put("TrangThai",             dp.getTrangThai());
-        cv.put("PhuongThucThanhToan",   dp.getPhuongThucThanhToan());
-        cv.put("GhiChu",                dp.getGhiChu());
-        cv.put("NgayTao",               dp.getNgayTao());
+        cv.put("MaKH",                dp.getMaKH());
+        cv.put("MaPhong",             dp.getMaPhong());
+        // MaNV là nullable FK – chỉ set khi > 0, tránh vi phạm FK với giá trị 0
+        if (dp.getMaNV() > 0) cv.put("MaNV", dp.getMaNV());
+        else                  cv.putNull("MaNV");
+        cv.put("NgayCheckIn",         dp.getNgayCheckIn());
+        cv.put("NgayCheckOut",        dp.getNgayCheckOut());
+        cv.put("SoLuongKhach",        dp.getSoLuongKhach());
+        cv.put("SoDem",               dp.getSoDem());
+        cv.put("TrangThai",           dp.getTrangThai());
+        cv.put("PhuongThucThanhToan", dp.getPhuongThucThanhToan());
+        cv.put("GhiChu",              dp.getGhiChu());
+        cv.put("NgayTao",             dp.getNgayTao());
         return cv;
     }
 }
