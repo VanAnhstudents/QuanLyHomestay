@@ -1,5 +1,6 @@
 package com.example.ql_homestay.ui.staff;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,9 +19,13 @@ import com.example.ql_homestay.R;
 import com.example.ql_homestay.model.PhanCongCa;
 import com.example.ql_homestay.repository.StaffRepository;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,16 +41,23 @@ import java.util.concurrent.Executors;
 public class ShiftAssignmentFragment extends Fragment {
 
     private static final String ARG_MA_NV = "maNV";
+    private static final String ARG_TUAN_BAT_DAU = "tuanBatDau";
 
     public static ShiftAssignmentFragment newInstance(int maNV) {
+        return newInstance(maNV, null);
+    }
+
+    public static ShiftAssignmentFragment newInstance(int maNV, @Nullable String tuanBatDau) {
         ShiftAssignmentFragment f = new ShiftAssignmentFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_MA_NV, maNV);
+        args.putString(ARG_TUAN_BAT_DAU, tuanBatDau);
         f.setArguments(args);
         return f;
     }
 
     private int maNV = -1;
+    private String initialTuanBatDau = null;
     private StaffRepository repository;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -58,11 +70,17 @@ public class ShiftAssignmentFragment extends Fragment {
     private CheckBox cbToiT2, cbToiT3, cbToiT4, cbToiT5, cbToiT6, cbToiT7, cbToiCN;
 
     private MaterialButton btnLuu;
+    private TextInputEditText etTuanBatDau;
+    private String tuanBatDau;
+    private final SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) maNV = getArguments().getInt(ARG_MA_NV, -1);
+        if (getArguments() != null) {
+            maNV = getArguments().getInt(ARG_MA_NV, -1);
+            initialTuanBatDau = getArguments().getString(ARG_TUAN_BAT_DAU);
+        }
     }
 
     @Nullable
@@ -79,6 +97,7 @@ public class ShiftAssignmentFragment extends Fragment {
 
         bindViews(view);
         setupBreadcrumb(view);
+        setupWeekPicker();
 
         btnLuu.setOnClickListener(v -> saveShifts());
         loadCurrentShifts();
@@ -101,6 +120,7 @@ public class ShiftAssignmentFragment extends Fragment {
         cbToiT6 = v.findViewById(R.id.cb_toi_t6); cbToiT7 = v.findViewById(R.id.cb_toi_t7);
         cbToiCN = v.findViewById(R.id.cb_toi_cn);
         btnLuu  = v.findViewById(R.id.btn_luu);
+        etTuanBatDau = v.findViewById(R.id.et_tuan_bat_dau);
     }
 
     private void setupBreadcrumb(View v) {
@@ -110,9 +130,51 @@ public class ShiftAssignmentFragment extends Fragment {
         if (tv != null) tv.setText("Trang chủ → Nhân viên → Phân công ca");
     }
 
+    private void setupWeekPicker() {
+        Calendar monday = initialTuanBatDau == null || "1970-01-05".equals(initialTuanBatDau)
+                ? mondayOf(Calendar.getInstance())
+                : calendarFromDbDate(initialTuanBatDau);
+        setWeek(monday);
+        etTuanBatDau.setOnClickListener(v -> new DatePickerDialog(requireContext(),
+                (picker, year, month, day) -> {
+                    Calendar selected = Calendar.getInstance();
+                    selected.set(year, month, day);
+                    setWeek(mondayOf(selected));
+                    loadCurrentShifts();
+                },
+                monday.get(Calendar.YEAR), monday.get(Calendar.MONTH), monday.get(Calendar.DAY_OF_MONTH))
+                .show());
+    }
+
+    private Calendar calendarFromDbDate(String date) {
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(dbDateFormat.parse(date));
+        } catch (Exception ignored) {
+            return mondayOf(Calendar.getInstance());
+        }
+        return c;
+    }
+
+    private void setWeek(Calendar monday) {
+        tuanBatDau = dbDateFormat.format(monday.getTime());
+        Calendar sunday = (Calendar) monday.clone();
+        sunday.add(Calendar.DAY_OF_MONTH, 6);
+        etTuanBatDau.setText(tuanBatDau + " - " + dbDateFormat.format(sunday.getTime()));
+    }
+
+    private Calendar mondayOf(Calendar date) {
+        Calendar c = (Calendar) date.clone();
+        c.setFirstDayOfWeek(Calendar.MONDAY);
+        while (c.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            c.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        return c;
+    }
+
     private void loadCurrentShifts() {
         executor.execute(() -> {
-            List<PhanCongCa> list = repository.getShiftAssignments(maNV);
+            List<PhanCongCa> list = repository.getShiftAssignments(maNV, tuanBatDau);
             mainHandler.post(() -> {
                 if (!isAdded()) return;
                 clearAll();
@@ -128,7 +190,7 @@ public class ShiftAssignmentFragment extends Fragment {
         List<PhanCongCa> list = collectChecked();
         btnLuu.setEnabled(false);
         executor.execute(() -> {
-            repository.saveShiftAssignments(maNV, list);
+            repository.saveShiftAssignments(maNV, tuanBatDau, list);
             mainHandler.post(() -> {
                 if (!isAdded()) return;
                 btnLuu.setEnabled(true);

@@ -1,43 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- F1. Danh sách nhân viên (Staff List) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/background_screen">
+    android:background="@color/background_screen"
+    android:orientation="vertical">
 
-    <include layout="@layout/layout_breadcrumb" android:id="@+id/breadcrumb" />
+    <include
+        android:id="@+id/breadcrumb"
+        layout="@layout/layout_breadcrumb" />
 
-    <!-- SearchBar -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_screen_horizontal"
-        android:layout_marginEnd="@dimen/margin_screen_horizontal"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/margin_screen_horizontal"
         android:layout_marginBottom="4dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxCornerRadiusTopStart="22dp"
-        app:boxCornerRadiusTopEnd="22dp"
-        app:boxCornerRadiusBottomStart="22dp"
         app:boxCornerRadiusBottomEnd="22dp"
-        app:startIconDrawable="@drawable/ic_search"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        app:boxCornerRadiusBottomStart="22dp"
+        app:boxCornerRadiusTopEnd="22dp"
+        app:boxCornerRadiusTopStart="22dp"
+        app:startIconDrawable="@drawable/ic_search">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@null"
             android:hint="Tìm kiếm nhân viên..."
-            android:textColorHint="@color/text_placeholder"
-            android:textSize="14sp"
-            android:inputType="text"
             android:imeOptions="actionSearch"
-            android:background="@null" />
+            android:inputType="text"
+            android:textColorHint="@color/text_placeholder"
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- List + FAB wrapper -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/chip_all"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_chip_filter_active"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Tất cả"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/chip_quan_ly"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_filter_inactive"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Quản lý"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/chip_le_tan"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_filter_inactive"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Lễ tân"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/chip_ke_toan"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_filter_inactive"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Kế toán"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/chip_don_phong"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_filter_inactive"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Dọn phòng"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/chip_bao_ve"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_filter_inactive"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Bảo vệ"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -52,10 +136,9 @@
             android:clipToPadding="false"
             android:paddingBottom="72dp" />
 
-        <!-- Empty state -->
         <include
-            layout="@layout/component_empty_state"
             android:id="@+id/empty_state"
+            layout="@layout/component_empty_state"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />
@@ -64,8 +147,8 @@
             android:id="@+id/fab_add_staff"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/margin_screen_horizontal"
             android:contentDescription="Thêm nhân viên"
             android:src="@drawable/ic_add"
@@ -73,5 +156,4 @@
             app:elevation="@dimen/elevation_fab"
             app:tint="@color/text_on_primary" />
     </RelativeLayout>
-
 </LinearLayout>

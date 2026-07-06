@@ -26,6 +26,7 @@ import com.example.ql_homestay.R;
 import com.example.ql_homestay.model.NhanVien;
 import com.example.ql_homestay.model.TaiKhoan;
 import com.example.ql_homestay.repository.StaffRepository;
+import com.example.ql_homestay.util.AvatarHelper;
 import com.example.ql_homestay.util.ImagePickerHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -33,6 +34,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import android.util.Base64;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -67,6 +69,20 @@ public class StaffAddEditFragment extends Fragment {
     private MaterialAutoCompleteTextView dropdownChucVu;
     private View cardTaiKhoan;
     private MaterialButton btnLuu;
+    private FrameLayout flAvatarPicker;
+    private ImageView ivAvatarPick;
+    private View tvAvatarPlaceholder;
+    private byte[] avatarBytes = null;
+    private String existingAvatar = null;
+
+    private final ActivityResultLauncher<Intent> imagePickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                    Uri imageUri = result.getData().getData();
+                    avatarBytes = ImagePickerHelper.handleImageResult(
+                            requireContext(), imageUri, ivAvatarPick, tvAvatarPlaceholder);
+                }
+            });
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,8 +116,12 @@ public class StaffAddEditFragment extends Fragment {
         dropdownChucVu = view.findViewById(R.id.dropdown_chuc_vu);
         cardTaiKhoan  = view.findViewById(R.id.card_tai_khoan);
         btnLuu        = view.findViewById(R.id.btn_luu);
+        flAvatarPicker = view.findViewById(R.id.fl_avatar_picker);
+        ivAvatarPick = view.findViewById(R.id.iv_avatar_pick);
+        tvAvatarPlaceholder = view.findViewById(R.id.tv_avatar_placeholder);
 
         setupBreadcrumb(view);
+        setupAvatarPicker();
         setupDropdown();
         setupDatePicker();
 
@@ -132,6 +152,11 @@ public class StaffAddEditFragment extends Fragment {
         dropdownChucVu.setAdapter(adapter);
     }
 
+    private void setupAvatarPicker() {
+        flAvatarPicker.setOnClickListener(v ->
+                ImagePickerHelper.pickImage(this, imagePickerLauncher));
+    }
+
     private void setupDatePicker() {
         etNgayVaoLam.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
@@ -148,6 +173,8 @@ public class StaffAddEditFragment extends Fragment {
             NhanVien nv = repository.getStaffById(maNV);
             mainHandler.post(() -> {
                 if (!isAdded() || nv == null) return;
+                existingAvatar = nv.getAvatar();
+                AvatarHelper.loadAvatarPreview(requireContext(), existingAvatar, ivAvatarPick, tvAvatarPlaceholder);
                 etHoTen.setText(nv.getHoTen());
                 etSdt.setText(nv.getSdt());
                 etEmail.setText(nv.getEmail());
@@ -234,6 +261,9 @@ public class StaffAddEditFragment extends Fragment {
         nv.setCccd(text(etCccd));
         nv.setNgayVaoLam(text(etNgayVaoLam));
         nv.setDiaChi(text(etDiaChi));
+        nv.setAvatar(avatarBytes != null && avatarBytes.length > 0
+                ? Base64.encodeToString(avatarBytes, Base64.DEFAULT)
+                : existingAvatar);
         return nv;
     }
 
@@ -242,6 +272,9 @@ public class StaffAddEditFragment extends Fragment {
         tk.setTenDangNhap(text(etUsername));
         tk.setMatKhau(text(etPassword));
         tk.setEmail(text(etEmail));
+        tk.setAvatar(avatarBytes != null && avatarBytes.length > 0
+                ? Base64.encodeToString(avatarBytes, Base64.DEFAULT)
+                : null);
         // Vai trò mặc định theo chức vụ
         String cv = selectedChucVu();
         tk.setVaiTro("LeTan".equals(cv) ? "LeTan"

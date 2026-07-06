@@ -100,6 +100,32 @@ public class AvatarHelper {
         imageView.setImageResource(R.drawable.ic_person);
     }
 
+    public static void loadAvatarPreview(Context context, String avatarStr,
+                                         ImageView imageView, android.view.View placeholderView) {
+        if (avatarStr != null && !avatarStr.trim().isEmpty()) {
+            int resId = context.getResources().getIdentifier(avatarStr.trim(), "drawable", context.getPackageName());
+            if (resId != 0) {
+                imageView.setImageResource(resId);
+                imageView.setVisibility(android.view.View.VISIBLE);
+                if (placeholderView != null) placeholderView.setVisibility(android.view.View.GONE);
+                return;
+            }
+
+            byte[] avatarBytes = stringToBytes(avatarStr);
+            if (avatarBytes != null && avatarBytes.length > 0) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(avatarBytes, 0, avatarBytes.length);
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
+                    imageView.setVisibility(android.view.View.VISIBLE);
+                    if (placeholderView != null) placeholderView.setVisibility(android.view.View.GONE);
+                    return;
+                }
+            }
+        }
+        imageView.setVisibility(android.view.View.GONE);
+        if (placeholderView != null) placeholderView.setVisibility(android.view.View.VISIBLE);
+    }
+
     /**
      * Convert String avatar (Base64 hoặc file path) thành byte[]
      */
