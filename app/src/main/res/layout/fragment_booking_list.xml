@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_booking_list.xml â€“ Danh sÃ¡ch Ä‘áº·t phÃ²ng (C1) -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_booking_list.xml – Danh sách đặt phòng (C1) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:contentDescription="TÃ¬m kiáº¿m"
+            android:contentDescription="Tìm kiếm"
             android:src="@drawable/ic_search"
             app:tint="@color/icon_inactive" />
 
@@ -38,7 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="TÃ¬m theo tÃªn khÃ¡ch, mÃ£ ÄP..."
+            android:hint="Tìm theo tên khách, mã ĐP..."
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
@@ -46,7 +46,7 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Filter chips: Táº¥t cáº£ / Sáº¯p Ä‘áº¿n / Äang á»Ÿ / ÄÃ£ tráº£ phÃ²ng / ÄÃ£ há»§y -->
+    <!-- Filter chips: Tất cả / Sắp đến / Đang ở / Đã trả phòng / Đã hủy -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:background="@drawable/bg_chip_filter_active"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="Táº¥t cáº£"
+                android:text="Tất cả"
                 android:textSize="13sp" />
 
             <TextView
@@ -78,7 +78,7 @@
                 android:background="@drawable/bg_chip_filter_inactive"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="Sáº¯p Ä‘áº¿n"
+                android:text="Sắp đến"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -90,7 +90,7 @@
                 android:background="@drawable/bg_chip_filter_inactive"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="Äang á»Ÿ"
+                android:text="Đang ở"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -102,7 +102,7 @@
                 android:background="@drawable/bg_chip_filter_inactive"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="ÄÃ£ tráº£ phÃ²ng"
+                android:text="Đã trả phòng"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -114,19 +114,19 @@
                 android:background="@drawable/bg_chip_filter_inactive"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="ÄÃ£ há»§y"
+                android:text="Đã hủy"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- RelativeLayout bá»c RecyclerView + FAB -->
+    <!-- RelativeLayout bọc RecyclerView + FAB -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <!-- RecyclerView Ä‘áº·t phÃ²ng -->
+        <!-- RecyclerView đặt phòng -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_booking_list"
             android:layout_width="match_parent"
@@ -148,7 +148,7 @@
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:contentDescription="Trá»‘ng"
+                android:contentDescription="Trống"
                 android:src="@drawable/ic_calendar"
                 app:tint="#C5DDE2" />
 
@@ -157,12 +157,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="KhÃ´ng cÃ³ Ä‘áº·t phÃ²ng nÃ o"
+                android:text="Không có đặt phòng nào"
                 android:textColor="@color/icon_inactive"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- FAB ThÃªm Ä‘áº·t phÃ²ng (áº©n náº¿u khÃ´ng cÃ³ quyá»n) -->
+        <!-- FAB Thêm đặt phòng (ẩn nếu không có quyền) -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_booking"
             android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:backgroundTint="@color/primary_main"
-            android:contentDescription="ThÃªm Ä‘áº·t phÃ²ng"
+            android:contentDescription="Thêm đặt phòng"
             android:src="@drawable/ic_add"
             android:visibility="gone" />
     </RelativeLayout>

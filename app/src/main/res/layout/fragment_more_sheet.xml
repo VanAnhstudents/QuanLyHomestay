@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-    fragment_more_sheet.xml â€” Bottom Sheet "HÆ¡n ná»¯a"
-    Root: LinearLayout vertical, ná»n tráº¯ng, cornerRadius top 20dp qua theme BottomSheet
+    fragment_more_sheet.xml — Bottom Sheet "Hơn nữa"
+    Root: LinearLayout vertical, nền trắng, cornerRadius top 20dp qua theme BottomSheet
 
-    CÃ¡c row item hiá»ƒn thá»‹ runtime theo RBAC trong MoreBottomSheetFragment.java.
-    Má»—i row: icon 24dp + label 16sp + chevron ">" (icon_inactive)
+    Các row item hiển thị runtime theo RBAC trong MoreBottomSheetFragment.java.
+    Mỗi row: icon 24dp + label 16sp + chevron ">" (icon_inactive)
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,7 +24,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/divider" />
 
-    <!-- TiÃªu Ä‘á» sheet -->
+    <!-- Tiêu đề sheet -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:paddingEnd="@dimen/margin_screen_horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="12dp"
-        android:text="ThÃªm tÃ­nh nÄƒng"
+        android:text="Thêm tính năng"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
         android:fontFamily="sans-serif-medium" />
@@ -43,7 +43,7 @@
         android:layout_height="1dp"
         android:background="@color/divider" />
 
-    <!-- Row: Thanh toÃ¡n -->
+    <!-- Row: Thanh toán -->
     <LinearLayout
         android:id="@+id/row_payment"
         android:layout_width="match_parent"
@@ -61,14 +61,14 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_calendar"
             app:tint="@color/primary_main"
-            android:contentDescription="Thanh toÃ¡n" />
+            android:contentDescription="Thanh toán" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="Thanh toÃ¡n"
+            android:text="Thanh toán"
             android:textColor="@color/text_primary"
             android:textSize="16sp" />
 
@@ -83,7 +83,7 @@
     <!-- Divider -->
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" android:layout_marginStart="56dp"/>
 
-    <!-- Row: NhÃ¢n viÃªn -->
+    <!-- Row: Nhân viên -->
     <LinearLayout
         android:id="@+id/row_staff"
         android:layout_width="match_parent"
@@ -101,14 +101,14 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_person"
             app:tint="@color/primary_main"
-            android:contentDescription="NhÃ¢n viÃªn" />
+            android:contentDescription="Nhân viên" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="NhÃ¢n viÃªn"
+            android:text="Nhân viên"
             android:textColor="@color/text_primary"
             android:textSize="16sp" />
 
@@ -123,7 +123,7 @@
     <!-- Divider -->
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" android:layout_marginStart="56dp"/>
 
-    <!-- Row: Thá»‘ng kÃª -->
+    <!-- Row: Thống kê -->
     <LinearLayout
         android:id="@+id/row_statistics"
         android:layout_width="match_parent"
@@ -141,14 +141,14 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_home"
             app:tint="@color/primary_main"
-            android:contentDescription="Thá»‘ng kÃª" />
+            android:contentDescription="Thống kê" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="Thá»‘ng kÃª &amp; BÃ¡o cÃ¡o"
+            android:text="Thống kê &amp; Báo cáo"
             android:textColor="@color/text_primary"
             android:textSize="16sp" />
 
@@ -163,7 +163,7 @@
     <!-- Divider -->
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" android:layout_marginStart="56dp"/>
 
-    <!-- Row: TÃ i khoáº£n -->
+    <!-- Row: Tài khoản -->
     <LinearLayout
         android:id="@+id/row_account"
         android:layout_width="match_parent"
@@ -181,14 +181,14 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_person"
             app:tint="@color/primary_main"
-            android:contentDescription="TÃ i khoáº£n" />
+            android:contentDescription="Tài khoản" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="Quáº£n lÃ½ tÃ i khoáº£n"
+            android:text="Quản lý tài khoản"
             android:textColor="@color/text_primary"
             android:textSize="16sp" />
 
@@ -203,7 +203,7 @@
     <!-- Divider -->
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" android:layout_marginTop="8dp"/>
 
-    <!-- Row: ÄÄƒng xuáº¥t -->
+    <!-- Row: Đăng xuất -->
     <LinearLayout
         android:id="@+id/row_logout"
         android:layout_width="match_parent"
@@ -221,13 +221,13 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_back"
             app:tint="@color/status_error"
-            android:contentDescription="ÄÄƒng xuáº¥t" />
+            android:contentDescription="Đăng xuất" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="ÄÄƒng xuáº¥t"
+            android:text="Đăng xuất"
             android:textColor="@color/status_error"
             android:textSize="16sp" />
     </LinearLayout>

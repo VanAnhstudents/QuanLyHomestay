@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_room_list.xml â€“ Danh sÃ¡ch phÃ²ng (B1) -->
-<!-- Root: LinearLayout vertical, chá»‰ dÃ¹ng LinearLayout/RelativeLayout/FrameLayout -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_room_list.xml – Danh sách phòng (B1) -->
+<!-- Root: LinearLayout vertical, chỉ dùng LinearLayout/RelativeLayout/FrameLayout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp" />
 
-    <!-- Row cÃ´ng cá»¥: SearchBar (nÃºt ThÃªm Ä‘Ã£ chuyá»ƒn sang FAB) -->
+    <!-- Row công cụ: SearchBar (nút Thêm đã chuyển sang FAB) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
@@ -34,7 +34,7 @@
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:contentDescription="TÃ¬m kiáº¿m"
+                android:contentDescription="Tìm kiếm"
                 android:src="@drawable/ic_search"
                 app:tint="@color/icon_inactive" />
 
@@ -45,7 +45,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="TÃ¬m phÃ²ng..."
+                android:hint="Tìm phòng..."
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
@@ -54,7 +54,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Filter chips: Táº¥t cáº£ / Trá»‘ng / Äang thuÃª / ÄÃ£ Ä‘áº·t -->
+    <!-- Filter chips: Tất cả / Trống / Đang thuê / Đã đặt -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 android:background="@drawable/bg_chip_filter_active"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="Táº¥t cáº£"
+                android:text="Tất cả"
                 android:textSize="13sp" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:background="@drawable/bg_chip_filter_inactive"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="Trá»‘ng"
+                android:text="Trống"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -98,7 +98,7 @@
                 android:background="@drawable/bg_chip_filter_inactive"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="Äang thuÃª"
+                android:text="Đang thuê"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -110,19 +110,19 @@
                 android:background="@drawable/bg_chip_filter_inactive"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="ÄÃ£ Ä‘áº·t"
+                android:text="Đã đặt"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- RelativeLayout bá»c RecyclerView + FAB -->
+    <!-- RelativeLayout bọc RecyclerView + FAB -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <!-- RecyclerView danh sÃ¡ch phÃ²ng -->
+        <!-- RecyclerView danh sách phòng -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_room_list"
             android:layout_width="match_parent"
@@ -144,7 +144,7 @@
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:contentDescription="Trá»‘ng"
+                android:contentDescription="Trống"
                 android:src="@drawable/ic_bed"
                 app:tint="#C5DDE2" />
 
@@ -153,12 +153,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="KhÃ´ng cÃ³ phÃ²ng nÃ o"
+                android:text="Không có phòng nào"
                 android:textColor="@color/icon_inactive"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- FAB ThÃªm phÃ²ng (áº©n náº¿u khÃ´ng pháº£i Admin) -->
+        <!-- FAB Thêm phòng (ẩn nếu không phải Admin) -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_room"
             android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:backgroundTint="@color/primary_main"
-            android:contentDescription="ThÃªm phÃ²ng"
+            android:contentDescription="Thêm phòng"
             android:src="@drawable/ic_add"
             android:visibility="gone" />
     </RelativeLayout>
