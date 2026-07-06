@@ -2,6 +2,7 @@
 <!-- fragment_booking_add_edit.xml – Thêm/Sửa đặt phòng (C3) -->
 <!-- Root: ScrollView bọc toàn bộ, không có AppBar inline (dùng AppBar chung của activity_main) -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen"
@@ -11,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="24dp">
+        android:paddingBottom="32dp">
+
+        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
 
         <!-- ===== Card form đặt phòng ===== -->
         <LinearLayout
@@ -188,13 +191,25 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner_phong"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_phong"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:paddingHorizontal="12dp" />
+                app:endIconMode="dropdown_menu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/actv_phong"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Chọn phòng..."
+                    android:inputType="none"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_placeholder"
+                    android:paddingHorizontal="4dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Ngày check-in -->
             <TextView
@@ -376,13 +391,25 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner_phuong_thuc_tt"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_phuong_thuc_tt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:paddingHorizontal="12dp" />
+                app:endIconMode="dropdown_menu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/actv_phuong_thuc_tt"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Chọn phương thức..."
+                    android:inputType="none"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_placeholder"
+                    android:paddingHorizontal="4dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Ghi chú -->
             <TextView
@@ -519,17 +546,22 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Button Hủy: nền trắng, viền xanh, chữ xanh -->
-            <Button
+            <!-- Button Hủy: outline, không nền solid -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cancel_booking"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_outline"
                 android:text="Hủy"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="@color/primary_main"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                app:backgroundTint="@color/background_card"
+                app:strokeColor="@color/primary_main"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="@dimen/radius_button" />
 
             <!-- Button Xác nhận -->
             <Button
@@ -538,8 +570,7 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:layout_weight="2"
-                android:background="@drawable/bg_button_primary"
-                android:text="Xác nhận đặt phòng"
+                android:text="XÁC NHẬN ĐẶT PHÒNG"
                 android:textColor="@color/text_on_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />

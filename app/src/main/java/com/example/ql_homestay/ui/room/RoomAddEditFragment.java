@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -31,6 +30,7 @@ import com.example.ql_homestay.model.Phong;
 import com.example.ql_homestay.model.TienNghi;
 import com.example.ql_homestay.repository.RoomRepository;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class RoomAddEditFragment extends Fragment {
     private View llImagePlaceholder;
     private TextView btnClearImage;
     private EditText etTenPhong, etGiaMoiDem, etSucChua, etDienTich, etTang, etMoTa;
-    private Spinner spinnerLoaiPhong, spinnerTrangThai;
+    private MaterialAutoCompleteTextView actvLoaiPhong, actvTrangThai;
     private LinearLayout llTienNghiContainer;
     private Button btnSaveRoom;
 
@@ -123,12 +123,12 @@ public class RoomAddEditFragment extends Fragment {
         llImagePlaceholder  = view.findViewById(R.id.ll_image_placeholder);
         btnClearImage       = view.findViewById(R.id.btn_clear_image);
         etTenPhong          = view.findViewById(R.id.et_ten_phong);
-        spinnerLoaiPhong    = view.findViewById(R.id.spinner_loai_phong);
+        actvLoaiPhong       = view.findViewById(R.id.actvLoaiPhong);
         etGiaMoiDem         = view.findViewById(R.id.et_gia_moi_dem);
         etSucChua           = view.findViewById(R.id.et_suc_chua);
         etDienTich          = view.findViewById(R.id.et_dien_tich);
         etTang              = view.findViewById(R.id.et_tang);
-        spinnerTrangThai    = view.findViewById(R.id.spinner_trang_thai);
+        actvTrangThai       = view.findViewById(R.id.actvTrangThai);
         llTienNghiContainer = view.findViewById(R.id.ll_tien_nghi_container);
         etMoTa              = view.findViewById(R.id.et_mo_ta);
         btnSaveRoom         = view.findViewById(R.id.btn_save_room);
@@ -206,22 +206,28 @@ public class RoomAddEditFragment extends Fragment {
     }
 
     private void setupLoaiPhongSpinner() {
-        if (spinnerLoaiPhong == null || loaiPhongList == null) return;
+        if (actvLoaiPhong == null || loaiPhongList == null) return;
         List<String> labels = new ArrayList<>();
         for (LoaiPhong lp : loaiPhongList) labels.add(lp.getTenLoai());
-        ArrayAdapter<String> a = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, labels);
-        a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLoaiPhong.setAdapter(a);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_dropdown_item_1line, labels);
+        actvLoaiPhong.setAdapter(adapter);
+        // Chọn mặc định item đầu tiên
+        if (!labels.isEmpty() && (actvLoaiPhong.getText() == null || actvLoaiPhong.getText().toString().isEmpty())) {
+            actvLoaiPhong.setText(labels.get(0), false);
+        }
     }
 
     private void setupTrangThaiSpinner() {
-        if (spinnerTrangThai == null) return;
+        if (actvTrangThai == null) return;
         String[] options = {"Trống", "Đang thuê", "Đã đặt"};
-        ArrayAdapter<String> a = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, options);
-        a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTrangThai.setAdapter(a);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_dropdown_item_1line, options);
+        actvTrangThai.setAdapter(adapter);
+        // Chọn mặc định "Trống"
+        if (actvTrangThai.getText() == null || actvTrangThai.getText().toString().isEmpty()) {
+            actvTrangThai.setText(options[0], false);
+        }
     }
 
     /** Tạo CheckBox tiện nghi theo 2 cột (2 item/hàng). */
@@ -267,28 +273,61 @@ public class RoomAddEditFragment extends Fragment {
         etTang.setText(String.valueOf(phong.getTang()));
         if (phong.getMoTa() != null) etMoTa.setText(phong.getMoTa());
 
-        // Hiện ảnh nếu là URI hợp lệ đã lưu
+        // Hiện ảnh: ưu tiên URI, fallback sang drawable name
         String hinhAnh = phong.getHinhAnh();
         if (hinhAnh != null && !hinhAnh.isEmpty()) {
-            try {
-                Uri savedUri = Uri.parse(hinhAnh);
-                selectedImageUri = savedUri;
-                showImagePreview(savedUri);
-            } catch (Exception ignored) {
-                // Nếu không parse được URI thì bỏ qua, giữ placeholder
+            if (hinhAnh.startsWith("content://") || hinhAnh.startsWith("file://")) {
+                // Ảnh từ thư viện thiết bị — thử load qua URI
+                try {
+                    Uri savedUri = Uri.parse(hinhAnh);
+                    selectedImageUri = savedUri;
+                    showImagePreview(savedUri);
+                } catch (Exception ignored) {
+                    loadDrawablePreview(hinhAnh);
+                }
+            } else {
+                // Tên drawable có sẵn (room_standard, room_deluxe, ...)
+                loadDrawablePreview(hinhAnh);
             }
         }
 
+        // Loại phòng
         for (int i = 0; i < loaiPhongList.size(); i++) {
             if (loaiPhongList.get(i).getMaLoaiPhong() == phong.getMaLoaiPhong()) {
-                spinnerLoaiPhong.setSelection(i);
+                if (actvLoaiPhong != null)
+                    actvLoaiPhong.setText(loaiPhongList.get(i).getTenLoai(), false);
                 break;
             }
         }
-        String tt = phong.getTrangThai();
-        if ("Trong".equals(tt))         spinnerTrangThai.setSelection(0);
-        else if ("DangThue".equals(tt)) spinnerTrangThai.setSelection(1);
-        else if ("DaDat".equals(tt))    spinnerTrangThai.setSelection(2);
+
+        // Trạng thái
+        if (actvTrangThai != null) {
+            String tt = phong.getTrangThai();
+            if ("Trong".equals(tt))         actvTrangThai.setText("Trống", false);
+            else if ("DangThue".equals(tt)) actvTrangThai.setText("Đang thuê", false);
+            else if ("DaDat".equals(tt))    actvTrangThai.setText("Đã đặt", false);
+        }
+    }
+
+    /**
+     * Tải ảnh từ drawable resource theo tên và hiển thị lên preview.
+     * selectedImageUri giữ nguyên null vì đây là ảnh mặc định (không cần lưu lại URI).
+     */
+    private void loadDrawablePreview(String drawableName) {
+        if (ivRoomImagePreview == null) return;
+        int resId;
+        switch (drawableName) {
+            case "room_deluxe":     resId = R.drawable.room_deluxe;     break;
+            case "room_deluxe_top": resId = R.drawable.room_deluxe_top; break;
+            case "room_suite":      resId = R.drawable.room_suite;      break;
+            default:                resId = R.drawable.room_standard;   break;
+        }
+        ivRoomImagePreview.setImageResource(resId);
+        ivRoomImagePreview.setVisibility(View.VISIBLE);
+        if (llImagePlaceholder != null) llImagePlaceholder.setVisibility(View.GONE);
+        if (btnClearImage != null) btnClearImage.setVisibility(View.VISIBLE);
+        // Ghi lại tên drawable vào selectedImageUri tạm thời để validateAndSave() có thể lưu lại đúng
+        selectedImageUri = Uri.parse("drawable://" + drawableName);
     }
 
     private void validateAndSave() {
@@ -303,10 +342,25 @@ public class RoomAddEditFragment extends Fragment {
             etGiaMoiDem.setError("Giá không hợp lệ"); return;
         }
 
-        int maLoaiPhong = loaiPhongList.isEmpty() ? 1
-                : loaiPhongList.get(spinnerLoaiPhong.getSelectedItemPosition()).getMaLoaiPhong();
-        String[] ttOptions = {"Trong", "DangThue", "DaDat"};
-        String trangThai = ttOptions[spinnerTrangThai.getSelectedItemPosition()];
+        int maLoaiPhong = 1;
+        if (!loaiPhongList.isEmpty() && actvLoaiPhong != null) {
+            String selectedLoai = actvLoaiPhong.getText() != null ? actvLoaiPhong.getText().toString() : "";
+            for (LoaiPhong lp : loaiPhongList) {
+                if (lp.getTenLoai().equals(selectedLoai)) {
+                    maLoaiPhong = lp.getMaLoaiPhong();
+                    break;
+                }
+            }
+        }
+
+        // Map label hiển thị → giá trị DB
+        String trangThai = "Trong"; // mặc định
+        if (actvTrangThai != null) {
+            String selectedTT = actvTrangThai.getText() != null ? actvTrangThai.getText().toString() : "";
+            if ("Đang thuê".equals(selectedTT))   trangThai = "DangThue";
+            else if ("Đã đặt".equals(selectedTT)) trangThai = "DaDat";
+            else                                   trangThai = "Trong";
+        }
 
         int sucChua = 0, tang = 0; double dienTich = 0.0;
         try { sucChua  = Integer.parseInt(etSucChua.getText().toString().trim()); } catch (Exception ignored) {}
@@ -318,7 +372,19 @@ public class RoomAddEditFragment extends Fragment {
         for (CheckBox cb : tienNghiCheckBoxes)
             if (cb.isChecked()) selectedTN.add((Integer) cb.getTag());
 
-        String hinhAnhStr = selectedImageUri != null ? selectedImageUri.toString() : null;
+        String hinhAnhStr;
+        if (selectedImageUri == null) {
+            hinhAnhStr = null;
+        } else {
+            String uriStr = selectedImageUri.toString();
+            if (uriStr.startsWith("drawable://")) {
+                // Ảnh drawable có sẵn — lưu tên drawable (bỏ prefix "drawable://")
+                hinhAnhStr = uriStr.substring("drawable://".length());
+            } else {
+                // Ảnh từ thư viện thiết bị — lưu full URI
+                hinhAnhStr = uriStr;
+            }
+        }
 
         Phong phong = new Phong();
         if (maPhong > 0) phong.setMaPhong(maPhong);
@@ -375,6 +441,15 @@ public class RoomAddEditFragment extends Fragment {
                 }
             });
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Khôi phục tiêu đề AppBar về "Lala House" khi rời khỏi màn hình Add/Edit
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).resetAppBarTitle();
+        }
     }
 
     @Override

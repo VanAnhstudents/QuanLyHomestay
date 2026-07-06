@@ -26,6 +26,7 @@ import com.example.ql_homestay.model.NhanVien;
 import com.example.ql_homestay.repository.BookingRepository;
 import com.example.ql_homestay.util.PermissionHelper;
 import com.example.ql_homestay.util.SessionManager;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
@@ -64,7 +65,7 @@ public class BookingDetailFragment extends Fragment {
     private TextView tvGhiChu;
     // Row actions
     private LinearLayout rowAction, row6a, row6b;
-    private Button btnEditBooking, btnDeleteBooking, btnCheckin, btnCheckout;
+    private MaterialButton btnEditBooking, btnDeleteBooking, btnCheckin, btnCheckout;
     private TextView tvTrangThaiReadonly;
 
     private DatPhong currentDatPhong;
