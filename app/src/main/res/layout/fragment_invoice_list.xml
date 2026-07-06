@@ -9,9 +9,6 @@
     android:orientation="vertical"
     android:background="@color/background_screen">
 
-    <!-- App Bar -->
-    <include layout="@layout/layout_appbar" />
-
     <!-- Breadcrumb -->
     <include
         android:id="@+id/breadcrumb"

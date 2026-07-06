@@ -98,11 +98,10 @@ public class InvoiceListFragment extends Fragment {
     }
 
     private void setupBreadcrumb(View view) {
-        // Set text breadcrumb nếu layout_breadcrumb expose TextView
-        try {
-            TextView tvBreadcrumb = view.findViewById(R.id.tv_breadcrumb);
-            if (tvBreadcrumb != null) tvBreadcrumb.setText("Trang chủ → Thanh toán");
-        } catch (Exception ignored) {}
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Thanh toán");
     }
 
     private void setupRecyclerView() {

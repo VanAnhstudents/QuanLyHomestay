@@ -10,11 +10,6 @@
     android:orientation="vertical"
     android:background="@color/background_screen">
 
-    <!-- App Bar -->
-    <include
-        android:id="@+id/appbar"
-        layout="@layout/layout_appbar" />
-
     <!-- ScrollView nội dung -->
     <ScrollView
         android:layout_width="match_parent"
