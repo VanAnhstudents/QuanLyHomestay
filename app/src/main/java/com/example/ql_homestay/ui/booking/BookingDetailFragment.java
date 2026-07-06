@@ -111,6 +111,7 @@ public class BookingDetailFragment extends Fragment {
         nhanVienDAO       = new NhanVienDAO(dbHelper);
 
         bindViews(view);
+        setupBreadcrumb(view);
         setupBackButton(view);
 
         if (maDatPhong > 0) loadDetail();
@@ -138,6 +139,13 @@ public class BookingDetailFragment extends Fragment {
         btnCheckin         = view.findViewById(R.id.btn_checkin);
         btnCheckout        = view.findViewById(R.id.btn_checkout);
         tvTrangThaiReadonly = view.findViewById(R.id.tv_trang_thai_readonly);
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Đặt phòng → Chi tiết");
     }
 
     private void setupBackButton(View view) {

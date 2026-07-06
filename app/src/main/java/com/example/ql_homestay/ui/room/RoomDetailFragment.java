@@ -95,6 +95,7 @@ public class RoomDetailFragment extends Fragment {
         roomRepository = new RoomRepository(dbHelper);
 
         bindViews(view);
+        setupBreadcrumb(view);
         setupBackButton();
 
         if (maPhong > 0) loadRoomDetail();
@@ -115,6 +116,13 @@ public class RoomDetailFragment extends Fragment {
         btnEditRoom        = view.findViewById(R.id.btn_edit_room);
         btnDeleteRoom      = view.findViewById(R.id.btn_delete_room);
         btnBookRoom        = view.findViewById(R.id.btn_book_room);
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Phòng → Chi tiết");
     }
 
     private void setupBackButton() {
