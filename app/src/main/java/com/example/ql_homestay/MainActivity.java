@@ -260,12 +260,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setAppBarTitle(String title) {
         TextView tvTitle = findViewById(R.id.tv_app_title);
-        if (tvTitle != null) tvTitle.setText(title != null ? title : "Lala House");
+        if (tvTitle != null) tvTitle.setText("Lala House");
     }
 
     /** Khôi phục tiêu đề mặc định "Lala House" */
     public void resetAppBarTitle() {
-        setAppBarTitle("Lala House");
+        setAppBarTitle(null);
     }
 
     public DatabaseHelper getDbHelper() { return dbHelper; }

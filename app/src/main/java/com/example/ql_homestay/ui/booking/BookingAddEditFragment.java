@@ -145,6 +145,7 @@ public class BookingAddEditFragment extends Fragment {
 
         bindViews(view);
         updateAppBarTitle();
+        setupBreadcrumb(view);
         setupCancelButton(view);
         setupKhachHangAutoComplete();
         setupDateTimePickers();
@@ -189,6 +190,17 @@ public class BookingAddEditFragment extends Fragment {
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).setAppBarTitle(
                     maDatPhong > 0 ? "Sửa đặt phòng" : "Đặt phòng");
+        }
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) {
+            tv.setText(maDatPhong > 0
+                    ? "Trang chủ → Đặt phòng → Chỉnh sửa"
+                    : "Trang chủ → Đặt phòng → Thêm mới");
         }
     }
 
