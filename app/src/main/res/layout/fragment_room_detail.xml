@@ -1,87 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- fragment_room_detail.xml – Chi tiết phòng (B2) -->
-<!-- Root: RelativeLayout để đặt Row nút cố định dưới cùng -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Root: ScrollView – không có appbar inline, không cố định button -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen">
 
-    <!-- Row 3 nút cố định dưới cùng -->
     <LinearLayout
-        android:id="@+id/row_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/background_card"
-        android:elevation="8dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:orientation="vertical">
 
-        <!-- Hàng 1: Chỉnh sửa + Xóa phòng -->
-        <LinearLayout
-            android:id="@+id/row_edit_delete"
+    <!-- Header ảnh phòng: 220dp -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:orientation="horizontal">
-
-            <!-- Button Chỉnh sửa (outline) -->
-            <Button
-                android:id="@+id/btn_edit_room"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_button_outline"
-                android:text="Chỉnh sửa"
-                android:textColor="@color/primary_main"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <!-- Button Xóa phòng (danger outline) -->
-            <Button
-                android:id="@+id/btn_delete_room"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_button_danger_outline"
-                android:text="Xóa phòng"
-                android:textColor="@color/status_error"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </LinearLayout>
-
-        <!-- Hàng 2: Đặt phòng -->
-        <Button
-            android:id="@+id/btn_book_room"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_button_primary"
-            android:text="Đặt phòng"
-            android:textColor="@color/text_on_primary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <!-- ScrollView nội dung chính (layout_above Row nút) -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/row_buttons">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Header ảnh phòng: 220dp -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="220dp">
+            android:layout_height="220dp">
 
                 <ImageView
                     android:id="@+id/iv_room_header"
@@ -96,7 +29,7 @@
                     android:layout_height="220dp"
                     android:background="@drawable/bg_gradient_overlay" />
 
-                <!-- Back button -->
+                <!-- Back button hình tròn -->
                 <ImageView
                     android:id="@+id/btn_back"
                     android:layout_width="40dp"
@@ -104,10 +37,11 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="16dp"
-                    android:background="#80FFFFFF"
+                    android:background="@drawable/bg_back_button_overlay"
                     android:contentDescription="Quay lại"
                     android:padding="8dp"
-                    android:src="@drawable/ic_back" />
+                    android:src="@drawable/ic_back"
+                    android:tint="@color/primary_main" />
 
                 <!-- Badge trạng thái -->
                 <TextView
@@ -337,7 +271,62 @@
                     android:layout_width="match_parent"
                     android:layout_height="16dp" />
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 
-</RelativeLayout>
+        <!-- ===== Row hành động: Chỉnh sửa / Xóa / Đặt phòng ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- Hàng 1: Chỉnh sửa + Xóa phòng -->
+            <LinearLayout
+                android:id="@+id/row_edit_delete"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_edit_room"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button_outline"
+                    android:text="Chỉnh sửa"
+                    android:textColor="@color/primary_main"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_delete_room"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button_danger_outline"
+                    android:text="Xóa phòng"
+                    android:textColor="@color/status_error"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Hàng 2: Đặt phòng -->
+            <Button
+                android:id="@+id/btn_book_room"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_primary"
+                android:text="Đặt phòng"
+                android:textColor="@color/text_on_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

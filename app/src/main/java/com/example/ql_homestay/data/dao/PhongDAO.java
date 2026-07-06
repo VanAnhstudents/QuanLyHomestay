@@ -118,6 +118,26 @@ public class PhongDAO {
         return 0;
     }
 
+    /**
+     * Kiểm tra tên phòng đã tồn tại chưa.
+     * @param tenPhong  Tên cần kiểm tra (so sánh không phân biệt hoa thường).
+     * @param excludeMaPhong  MaPhong cần bỏ qua (khi edit, bỏ qua chính nó). Truyền -1 khi thêm mới.
+     * @return true nếu đã tồn tại phòng khác có tên này.
+     */
+    public boolean isTenPhongDuplicate(String tenPhong, int excludeMaPhong) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = excludeMaPhong > 0
+                ? "SELECT COUNT(*) FROM Phong WHERE LOWER(TenPhong) = LOWER(?) AND MaPhong != ?"
+                : "SELECT COUNT(*) FROM Phong WHERE LOWER(TenPhong) = LOWER(?)";
+        String[] args = excludeMaPhong > 0
+                ? new String[]{tenPhong, String.valueOf(excludeMaPhong)}
+                : new String[]{tenPhong};
+        try (Cursor c = db.rawQuery(sql, args)) {
+            if (c.moveToFirst()) return c.getInt(0) > 0;
+        }
+        return false;
+    }
+
     // -------------------------------------------------------------------------
     // WRITE
     // -------------------------------------------------------------------------

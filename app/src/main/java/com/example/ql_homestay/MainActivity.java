@@ -185,6 +185,20 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Cập nhật tiêu đề hiển thị trên AppBar dùng chung.
+     * Các Fragment detail/add-edit gọi method này trong onViewCreated.
+     */
+    public void setAppBarTitle(String title) {
+        TextView tvTitle = findViewById(R.id.tv_app_title);
+        if (tvTitle != null) tvTitle.setText(title != null ? title : "Lala House");
+    }
+
+    /** Khôi phục tiêu đề mặc định "Lala House" */
+    public void resetAppBarTitle() {
+        setAppBarTitle("Lala House");
+    }
+
     public DatabaseHelper getDbHelper() { return dbHelper; }
     public SessionManager getSession()  { return session;  }
 }

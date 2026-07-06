@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/background_card" />
-    <stroke
-        android:width="1dp"
-        android:color="@color/primary_main" />
-    <corners android:radius="@dimen/radius_button" />
-</shape>
+<!-- Button outline: nền trắng, viền xanh primary, chữ xanh primary -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Trạng thái pressed: nền xanh nhạt -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/primary_light" />
+            <stroke android:width="1.5dp" android:color="@color/primary_main" />
+            <corners android:radius="@dimen/radius_button" />
+        </shape>
+    </item>
+    <!-- Trạng thái disabled -->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="#F5F5F5" />
+            <stroke android:width="1.5dp" android:color="#CCCCCC" />
+            <corners android:radius="@dimen/radius_button" />
+        </shape>
+    </item>
+    <!-- Trạng thái mặc định: nền trắng, viền xanh -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/background_card" />
+            <stroke android:width="1.5dp" android:color="@color/primary_main" />
+            <corners android:radius="@dimen/radius_button" />
+        </shape>
+    </item>
+</selector>

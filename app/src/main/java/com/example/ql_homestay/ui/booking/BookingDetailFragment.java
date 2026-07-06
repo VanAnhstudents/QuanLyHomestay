@@ -191,18 +191,40 @@ public class BookingDetailFragment extends Fragment {
 
         // Card thanh toán
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
-        double tienPhong = dp.getGiaMoiDem() > 0
-                ? dp.getGiaMoiDem() * dp.getSoDem()
-                : 0;
-        tvTienPhong.setText(nf.format((long) tienPhong) + " đ");
+
+        // Tính tiền: GiaMoiDem * SoDem (GiaMoiDem được JOIN từ Phong)
+        double giaMoiDem = dp.getGiaMoiDem();
+        int soDem = dp.getSoDem();
+
+        // Nếu GiaMoiDem = 0 (dữ liệu cũ chưa có JOIN), thử lấy từ SoDem đã lưu
+        double tienPhong = giaMoiDem > 0 ? giaMoiDem * soDem : 0;
+
+        tvTienPhong.setText(giaMoiDem > 0
+                ? nf.format((long) giaMoiDem) + " đ × " + soDem + " đêm"
+                : "—");
         tvSoLuongKhach.setText(dp.getSoLuongKhach() + " người");
-        tvPhuongThucTT.setText(dp.getPhuongThucThanhToan() != null
-                ? dp.getPhuongThucThanhToan() : "—");
-        tvTongCong.setText(nf.format((long) tienPhong) + " đ");
+
+        // Hiển thị tên đầy đủ phương thức thanh toán
+        tvPhuongThucTT.setText(getPhuongThucLabel(dp.getPhuongThucThanhToan()));
+
+        tvTongCong.setText(tienPhong > 0
+                ? nf.format((long) tienPhong) + " đ"
+                : "—");
 
         // Ghi chú
         tvGhiChu.setText(dp.getGhiChu() != null && !dp.getGhiChu().isEmpty()
                 ? dp.getGhiChu() : "(Không có ghi chú)");
+    }
+
+    /** Chuyển mã ngắn thành tên đầy đủ phương thức thanh toán */
+    private String getPhuongThucLabel(String code) {
+        if (code == null) return "—";
+        switch (code) {
+            case "TM":    return "Tiền mặt";
+            case "CK":    return "Chuyển khoản";
+            case "VNPAY": return "VNPAY";
+            default:      return code;
+        }
     }
 
     /**

@@ -82,30 +82,36 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <!-- Nút "Hủy" — outline -->
+        <!-- Nút "Hủy" — nền trắng viền xanh -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dialog_cancel"
-            style="@style/Widget.LalaHouse.Button.Outline"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
             android:text="Hủy"
             android:textSize="15sp"
+            android:textColor="@color/primary_main"
+            app:backgroundTint="@color/background_card"
+            app:strokeColor="@color/primary_main"
+            app:strokeWidth="1.5dp"
             app:cornerRadius="@dimen/radius_button" />
 
-        <!-- Nút "Xóa" — filled đỏ -->
+        <!-- Nút "Xóa" — nền trắng viền đỏ chữ đỏ -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dialog_confirm"
-            style="@style/Widget.LalaHouse.Button.Primary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginStart="@dimen/spacing_xs"
             android:layout_weight="1"
-            android:backgroundTint="@color/status_error"
             android:text="Xóa"
             android:textSize="15sp"
-            app:cornerRadius="@dimen/radius_button"
-            app:rippleColor="@color/badge_dadat_bg" />
+            android:textColor="@color/status_error"
+            app:backgroundTint="@color/background_card"
+            app:strokeColor="@color/status_error"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="@dimen/radius_button" />
 
     </LinearLayout>
 

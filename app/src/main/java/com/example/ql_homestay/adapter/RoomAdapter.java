@@ -121,10 +121,18 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     }
 
     private void setRoomImage(ImageView iv, String hinhAnh) {
-        if (hinhAnh == null) {
+        if (hinhAnh == null || hinhAnh.isEmpty()) {
             iv.setImageResource(R.drawable.room_standard);
             return;
         }
+        // Thử load từ URI người dùng chọn (content:// hoặc file://)
+        if (hinhAnh.startsWith("content://") || hinhAnh.startsWith("file://")) {
+            try {
+                iv.setImageURI(android.net.Uri.parse(hinhAnh));
+                if (iv.getDrawable() != null) return;
+            } catch (Exception ignored) {}
+        }
+        // Fallback: map tên drawable tĩnh
         switch (hinhAnh) {
             case "room_deluxe":     iv.setImageResource(R.drawable.room_deluxe);     break;
             case "room_deluxe_top": iv.setImageResource(R.drawable.room_deluxe_top); break;

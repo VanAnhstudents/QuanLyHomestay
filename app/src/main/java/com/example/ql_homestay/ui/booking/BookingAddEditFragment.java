@@ -1,9 +1,11 @@
 package com.example.ql_homestay.ui.booking;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ql_homestay.MainActivity;
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.data.dao.KhachHangDAO;
@@ -43,69 +47,88 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * BookingAddEditFragment – Thêm/Sửa đặt phòng (C3).
- * Truyền maDatPhong = -1 để tạo mới; maDatPhong > 0 để chỉnh sửa.
- * Truyền maPhongPreSelect > 0 để pre-select phòng (từ RoomDetailFragment).
- *
- * Tính tiền realtime:
- *   SoDem = (checkOut - checkIn) / 1 day
- *   ThanhTien = GiaMoiDem * SoDem
+ * - Tìm khách có sẵn qua AutoComplete (tên / SĐT)
+ * - Nếu không tìm thấy: nhập Tên, SĐT, CCCD để tự động tạo khách mới
+ * - Spinner phòng chỉ liệt kê phòng Trống
+ * - DatePicker + TimePicker cho check-in / check-out
+ * - Tính tiền realtime
  */
 public class BookingAddEditFragment extends Fragment {
 
-    private static final String ARG_MA_DAT_PHONG = "ma_dat_phong";
+    private static final String ARG_MA_DAT_PHONG     = "ma_dat_phong";
     private static final String ARG_MA_PHONG_PRESELECT = "ma_phong_pre";
-    private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
+    private static final int    FRAGMENT_CONTAINER_ID  = R.id.fragment_container;
 
-    private int maDatPhong = -1;
+    private int maDatPhong      = -1;
     private int maPhongPreselect = -1;
 
-    // Views
+    // ---- Views: Khách hàng ----
     private AutoCompleteTextView actvKhachHang;
-    private Button btnAddNewCustomer;
-    private Spinner spinnerPhong;
-    private TextView tvNgayCheckin, tvNgayCheckout;
+    private LinearLayout         llNewCustomerSection;
+    private EditText             etTenKhach, etSdtKhach, etCccdKhach;
+
+    // ---- Views: Đặt phòng ----
+    private Spinner  spinnerPhong;
+    private TextView tvNgayCheckin,  tvGioCheckin;
+    private TextView tvNgayCheckout, tvGioCheckout;
     private EditText etSoLuongKhach, etGhiChu;
-    private Spinner spinnerPhuongThucTT;
+    private Spinner  spinnerPhuongThucTT;
+
+    // ---- Views: Preview chi phí ----
     private TextView tvSoDemPreview, tvDonGiaPreview, tvThanhTienPreview;
+
+    // ---- Views: Nút ----
     private Button btnSaveBooking;
 
-    // Data
-    private List<KhachHang> khachHangList = new ArrayList<>();
-    private List<Phong> phongList         = new ArrayList<>();
-    private KhachHang selectedKhach       = null;
-    private String ngayCheckin            = null;
-    private String ngayCheckout           = null;
+    // ---- Data ----
+    private List<KhachHang> khachHangList  = new ArrayList<>();
+    private List<Phong>     phongList      = new ArrayList<>();
+    private KhachHang       selectedKhach  = null;
+    private String ngayCheckin  = null;
+    private String gioCheckin   = "14:00";
+    private String ngayCheckout = null;
+    private String gioCheckout  = "12:00";
 
+    // ---- DAOs / Repos ----
     private BookingRepository bookingRepository;
-    private RoomRepository roomRepository;
-    private KhachHangDAO khachHangDAO;
-    private DatabaseHelper dbHelper;
-    private SessionManager sessionManager;
+    private RoomRepository    roomRepository;
+    private KhachHangDAO      khachHangDAO;
+    private DatabaseHelper    dbHelper;
+    private SessionManager    sessionManager;
 
-    private final ExecutorService dbExecutor = Executors.newSingleThreadExecutor();
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final ExecutorService dbExecutor  = Executors.newSingleThreadExecutor();
+    private final Handler         mainHandler = new Handler(Looper.getMainLooper());
+
+    // =========================================================================
+    // Factory
+    // =========================================================================
 
     public static BookingAddEditFragment newInstance(int maDatPhong, int maPhongPreselect) {
         BookingAddEditFragment f = new BookingAddEditFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_MA_DAT_PHONG, maDatPhong);
+        args.putInt(ARG_MA_DAT_PHONG,      maDatPhong);
         args.putInt(ARG_MA_PHONG_PRESELECT, maPhongPreselect);
         f.setArguments(args);
         return f;
     }
 
+    // =========================================================================
+    // Lifecycle
+    // =========================================================================
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            maDatPhong      = getArguments().getInt(ARG_MA_DAT_PHONG, -1);
+            maDatPhong       = getArguments().getInt(ARG_MA_DAT_PHONG,      -1);
             maPhongPreselect = getArguments().getInt(ARG_MA_PHONG_PRESELECT, -1);
         }
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_booking_add_edit, container, false);
     }
@@ -121,43 +144,70 @@ public class BookingAddEditFragment extends Fragment {
         khachHangDAO      = new KhachHangDAO(dbHelper);
 
         bindViews(view);
-        setupBackButton(view);
-        setupDatePickers();
-        setupPhongSpinner();
+        updateAppBarTitle();
+        setupCancelButton(view);
         setupKhachHangAutoComplete();
+        setupDateTimePickers();
         setupPhuongThucTTSpinner();
         setupSaveButton();
 
         loadFormData();
     }
 
+    // =========================================================================
+    // Bind & AppBar
+    // =========================================================================
+
     private void bindViews(View view) {
-        actvKhachHang         = view.findViewById(R.id.actv_khach_hang);
-        btnAddNewCustomer     = view.findViewById(R.id.btn_add_new_customer);
-        spinnerPhong          = view.findViewById(R.id.spinner_phong);
-        tvNgayCheckin         = view.findViewById(R.id.tv_ngay_checkin);
-        tvNgayCheckout        = view.findViewById(R.id.tv_ngay_checkout);
-        etSoLuongKhach        = view.findViewById(R.id.et_so_luong_khach);
-        spinnerPhuongThucTT   = view.findViewById(R.id.spinner_phuong_thuc_tt);
-        etGhiChu              = view.findViewById(R.id.et_ghi_chu);
-        tvSoDemPreview        = view.findViewById(R.id.tv_so_dem_preview);
-        tvDonGiaPreview       = view.findViewById(R.id.tv_don_gia_preview);
-        tvThanhTienPreview    = view.findViewById(R.id.tv_thanh_tien_preview);
-        btnSaveBooking        = view.findViewById(R.id.btn_save_booking);
+        actvKhachHang        = view.findViewById(R.id.actv_khach_hang);
+        llNewCustomerSection = view.findViewById(R.id.ll_new_customer_section);
+        etTenKhach           = view.findViewById(R.id.et_ten_khach);
+        etSdtKhach           = view.findViewById(R.id.et_sdt_khach);
+        etCccdKhach          = view.findViewById(R.id.et_cccd_khach);
+
+        spinnerPhong         = view.findViewById(R.id.spinner_phong);
+        tvNgayCheckin        = view.findViewById(R.id.tv_ngay_checkin);
+        tvGioCheckin         = view.findViewById(R.id.tv_gio_checkin);
+        tvNgayCheckout       = view.findViewById(R.id.tv_ngay_checkout);
+        tvGioCheckout        = view.findViewById(R.id.tv_gio_checkout);
+        etSoLuongKhach       = view.findViewById(R.id.et_so_luong_khach);
+        spinnerPhuongThucTT  = view.findViewById(R.id.spinner_phuong_thuc_tt);
+        etGhiChu             = view.findViewById(R.id.et_ghi_chu);
+
+        tvSoDemPreview       = view.findViewById(R.id.tv_so_dem_preview);
+        tvDonGiaPreview      = view.findViewById(R.id.tv_don_gia_preview);
+        tvThanhTienPreview   = view.findViewById(R.id.tv_thanh_tien_preview);
+
+        btnSaveBooking       = view.findViewById(R.id.btn_save_booking);
+
+        // Set giờ mặc định
+        if (tvGioCheckin  != null) tvGioCheckin.setText(gioCheckin);
+        if (tvGioCheckout != null) tvGioCheckout.setText(gioCheckout);
     }
 
-    private void setupBackButton(View view) {
-        View appbar = view.findViewById(R.id.appbar);
-        View btnBack = appbar != null ? appbar.findViewById(R.id.btn_appbar_back) : null;
-        if (btnBack == null) btnBack = view.findViewById(R.id.btn_appbar_back);
-        if (btnBack != null)
-            btnBack.setOnClickListener(v -> {
-                if (getParentFragmentManager().getBackStackEntryCount() > 0)
-                    getParentFragmentManager().popBackStack();
-            });
+    private void updateAppBarTitle() {
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).setAppBarTitle(
+                    maDatPhong > 0 ? "Sửa đặt phòng" : "Đặt phòng");
+        }
     }
+
+    private void setupCancelButton(View view) {
+        Button btnCancel = view.findViewById(R.id.btn_cancel_booking);
+        if (btnCancel != null) btnCancel.setOnClickListener(v -> navigateBack());
+    }
+
+    private void navigateBack() {
+        if (getParentFragmentManager().getBackStackEntryCount() > 0)
+            getParentFragmentManager().popBackStack();
+    }
+
+    // =========================================================================
+    // Khách hàng AutoComplete
+    // =========================================================================
 
     private void setupKhachHangAutoComplete() {
+        if (actvKhachHang == null) return;
         actvKhachHang.setThreshold(1);
         actvKhachHang.addTextChangedListener(new android.text.TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -165,7 +215,11 @@ public class BookingAddEditFragment extends Fragment {
             @Override
             public void afterTextChanged(android.text.Editable s) {
                 String kw = s != null ? s.toString().trim() : "";
-                if (kw.length() < 1) return;
+                if (kw.length() < 1) {
+                    // Reset nếu xóa hết
+                    selectedKhach = null;
+                    return;
+                }
                 dbExecutor.execute(() -> {
                     List<KhachHang> results = khachHangDAO.search(kw);
                     mainHandler.post(() -> {
@@ -173,13 +227,11 @@ public class BookingAddEditFragment extends Fragment {
                         khachHangList = results;
                         List<String> names = new ArrayList<>();
                         for (KhachHang kh : results)
-                            names.add(kh.getHoTen() + " (" + kh.getSdt() + ")");
+                            names.add(kh.getHoTen() + " – " + kh.getSdt());
                         ArrayAdapter<String> a = new ArrayAdapter<>(requireContext(),
                                 android.R.layout.simple_dropdown_item_1line, names);
                         actvKhachHang.setAdapter(a);
                         actvKhachHang.showDropDown();
-                        if (btnAddNewCustomer != null)
-                            btnAddNewCustomer.setVisibility(results.isEmpty() ? View.VISIBLE : View.GONE);
                     });
                 });
             }
@@ -188,14 +240,80 @@ public class BookingAddEditFragment extends Fragment {
         actvKhachHang.setOnItemClickListener((parent, v, position, id) -> {
             if (position < khachHangList.size()) {
                 selectedKhach = khachHangList.get(position);
-                if (btnAddNewCustomer != null) btnAddNewCustomer.setVisibility(View.GONE);
+                // Điền thông tin đã có để người dùng tham khảo
+                if (etTenKhach  != null) etTenKhach.setText(selectedKhach.getHoTen());
+                if (etSdtKhach  != null) etSdtKhach.setText(selectedKhach.getSdt());
+                if (etCccdKhach != null && selectedKhach.getCccd() != null)
+                    etCccdKhach.setText(selectedKhach.getCccd());
             }
         });
     }
 
-    private void setupPhongSpinner() {
-        // Phòng sẽ được load sau khi loadFormData() chạy xong
+    // =========================================================================
+    // DatePicker + TimePicker
+    // =========================================================================
+
+    private void setupDateTimePickers() {
+        View root = getView();
+        if (root == null) return;
+
+        View llCheckinDate  = root.findViewById(R.id.ll_checkin_date);
+        View llCheckinTime  = root.findViewById(R.id.ll_checkin_time);
+        View llCheckoutDate = root.findViewById(R.id.ll_checkout_date);
+        View llCheckoutTime = root.findViewById(R.id.ll_checkout_time);
+
+        if (llCheckinDate  != null) llCheckinDate .setOnClickListener(v -> showDatePicker(true));
+        if (llCheckoutDate != null) llCheckoutDate.setOnClickListener(v -> showDatePicker(false));
+        if (llCheckinTime  != null) llCheckinTime .setOnClickListener(v -> showTimePicker(true));
+        if (llCheckoutTime != null) llCheckoutTime.setOnClickListener(v -> showTimePicker(false));
+
+        // Cũng set click trực tiếp lên TextView
+        if (tvNgayCheckin  != null) tvNgayCheckin .setOnClickListener(v -> showDatePicker(true));
+        if (tvNgayCheckout != null) tvNgayCheckout.setOnClickListener(v -> showDatePicker(false));
+        if (tvGioCheckin   != null) tvGioCheckin  .setOnClickListener(v -> showTimePicker(true));
+        if (tvGioCheckout  != null) tvGioCheckout .setOnClickListener(v -> showTimePicker(false));
     }
+
+    private void showDatePicker(boolean isCheckin) {
+        Calendar cal = Calendar.getInstance();
+        new DatePickerDialog(requireContext(),
+                (view, year, month, day) -> {
+                    String date = String.format(Locale.getDefault(), "%04d-%02d-%02d",
+                            year, month + 1, day);
+                    if (isCheckin) {
+                        ngayCheckin = date;
+                        if (tvNgayCheckin != null) tvNgayCheckin.setText(date);
+                    } else {
+                        ngayCheckout = date;
+                        if (tvNgayCheckout != null) tvNgayCheckout.setText(date);
+                    }
+                    updatePricePreview();
+                },
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
+
+    private void showTimePicker(boolean isCheckin) {
+        Calendar cal = Calendar.getInstance();
+        int defaultHour = isCheckin ? 14 : 12;
+        new TimePickerDialog(requireContext(),
+                (view, hourOfDay, minute) -> {
+                    String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute);
+                    if (isCheckin) {
+                        gioCheckin = time;
+                        if (tvGioCheckin != null) tvGioCheckin.setText(time);
+                    } else {
+                        gioCheckout = time;
+                        if (tvGioCheckout != null) tvGioCheckout.setText(time);
+                    }
+                },
+                defaultHour, 0, true)
+                .show();
+    }
+
+    // =========================================================================
+    // Spinner phương thức thanh toán
+    // =========================================================================
 
     private void setupPhuongThucTTSpinner() {
         if (spinnerPhuongThucTT == null) return;
@@ -206,35 +324,10 @@ public class BookingAddEditFragment extends Fragment {
         spinnerPhuongThucTT.setAdapter(a);
     }
 
-    private void setupDatePickers() {
-        if (tvNgayCheckin != null) {
-            tvNgayCheckin.setOnClickListener(v -> showDatePicker(true));
-        }
-        if (tvNgayCheckout != null) {
-            tvNgayCheckout.setOnClickListener(v -> showDatePicker(false));
-        }
-    }
+    // =========================================================================
+    // Tính tiền preview
+    // =========================================================================
 
-    private void showDatePicker(boolean isCheckin) {
-        Calendar cal = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(requireContext(),
-                (view, year, month, dayOfMonth) -> {
-                    String date = String.format(Locale.getDefault(), "%04d-%02d-%02d",
-                            year, month + 1, dayOfMonth);
-                    if (isCheckin) {
-                        ngayCheckin = date;
-                        if (tvNgayCheckin != null) tvNgayCheckin.setText(date);
-                    } else {
-                        ngayCheckout = date;
-                        if (tvNgayCheckout != null) tvNgayCheckout.setText(date);
-                    }
-                    updatePricePreview();
-                },
-                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.show();
-    }
-
-    /** Tính lại SoDem + ThanhTien và hiện lên preview */
     private void updatePricePreview() {
         if (ngayCheckin == null || ngayCheckout == null) return;
         try {
@@ -244,12 +337,8 @@ public class BookingAddEditFragment extends Fragment {
             if (d1 == null || d2 == null) return;
             long diffMs = d2.getTime() - d1.getTime();
             int soDem = (int) TimeUnit.MILLISECONDS.toDays(diffMs);
-            if (soDem <= 0) {
-                Toast.makeText(requireContext(), "Ngày check-out phải sau check-in", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            if (soDem <= 0) return;
 
-            // Lấy giá phòng đã chọn
             double giaMoiDem = 0;
             if (phongList != null && spinnerPhong != null
                     && spinnerPhong.getSelectedItemPosition() < phongList.size()) {
@@ -258,27 +347,33 @@ public class BookingAddEditFragment extends Fragment {
 
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
             double thanhTien = giaMoiDem * soDem;
-            if (tvSoDemPreview != null)     tvSoDemPreview.setText(soDem + " đêm");
-            if (tvDonGiaPreview != null)    tvDonGiaPreview.setText(nf.format((long) giaMoiDem) + " đ");
-            if (tvThanhTienPreview != null) tvThanhTienPreview.setText(nf.format((long) thanhTien) + " đ");
+            if (tvSoDemPreview    != null) tvSoDemPreview   .setText(soDem + " đêm");
+            if (tvDonGiaPreview   != null) tvDonGiaPreview  .setText(nf.format((long) giaMoiDem) + " đ");
+            if (tvThanhTienPreview!= null) tvThanhTienPreview.setText(nf.format((long) thanhTien) + " đ");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    // =========================================================================
+    // Load dữ liệu ban đầu
+    // =========================================================================
+
     private void loadFormData() {
         dbExecutor.execute(() -> {
-            // Chỉ lấy phòng Trống (cho form đặt phòng mới)
-            List<Phong> availablePhong = maDatPhong > 0
-                    ? roomRepository.getAllPhong()  // khi edit, hiện tất cả
+            // Khi thêm mới: chỉ lấy phòng Trống
+            // Khi sửa: lấy tất cả phòng
+            List<Phong> rooms = maDatPhong > 0
+                    ? roomRepository.getAllPhong()
                     : roomRepository.getAvailablePhong();
 
-            DatPhong existing = maDatPhong > 0 ? bookingRepository.findDatPhongById(maDatPhong) : null;
+            DatPhong existing = maDatPhong > 0
+                    ? bookingRepository.findDatPhongById(maDatPhong) : null;
 
             mainHandler.post(() -> {
                 if (!isAdded()) return;
-                phongList = availablePhong;
-                setupPhongSpinnerData(availablePhong);
+                phongList = rooms;
+                setupPhongSpinnerData(rooms);
                 if (existing != null) fillFormForEdit(existing);
                 else if (maPhongPreselect > 0) preselectPhong(maPhongPreselect);
             });
@@ -288,20 +383,18 @@ public class BookingAddEditFragment extends Fragment {
     private void setupPhongSpinnerData(List<Phong> list) {
         if (spinnerPhong == null || list == null) return;
         List<String> labels = new ArrayList<>();
-        for (Phong p : list) labels.add(p.getTenPhong() + " (" + p.getTenLoaiPhong() + ")");
+        for (Phong p : list)
+            labels.add(p.getTenPhong() + " (" + p.getTenLoaiPhong() + ")");
         ArrayAdapter<String> a = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item, labels);
         a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPhong.setAdapter(a);
 
-        // Khi đổi phòng, cập nhật giá preview
         spinnerPhong.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int pos, long id) {
+            @Override public void onItemSelected(android.widget.AdapterView<?> p, View v, int pos, long id) {
                 updatePricePreview();
             }
-            @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+            @Override public void onNothingSelected(android.widget.AdapterView<?> p) {}
         });
     }
 
@@ -318,46 +411,61 @@ public class BookingAddEditFragment extends Fragment {
     private void fillFormForEdit(DatPhong dp) {
         ngayCheckin  = dp.getNgayCheckIn();
         ngayCheckout = dp.getNgayCheckOut();
-        if (tvNgayCheckin  != null) tvNgayCheckin.setText(ngayCheckin);
-        if (tvNgayCheckout != null) tvNgayCheckout.setText(ngayCheckout);
+        if (tvNgayCheckin  != null) tvNgayCheckin .setText(ngayCheckin != null  ? ngayCheckin  : "");
+        if (tvNgayCheckout != null) tvNgayCheckout.setText(ngayCheckout != null ? ngayCheckout : "");
         if (etSoLuongKhach != null) etSoLuongKhach.setText(String.valueOf(dp.getSoLuongKhach()));
         if (etGhiChu != null && dp.getGhiChu() != null) etGhiChu.setText(dp.getGhiChu());
         if (actvKhachHang != null && dp.getTenKhachHang() != null)
             actvKhachHang.setText(dp.getTenKhachHang());
-
-        // Pre-select phòng
         preselectPhong(dp.getMaPhong());
         updatePricePreview();
     }
+
+    // =========================================================================
+    // Save
+    // =========================================================================
 
     private void setupSaveButton() {
         if (btnSaveBooking != null) btnSaveBooking.setOnClickListener(v -> validateAndSave());
     }
 
     private void validateAndSave() {
-        if (selectedKhach == null && actvKhachHang != null) {
-            // Cố tìm theo text nhập
-            String kw = actvKhachHang.getText() != null ? actvKhachHang.getText().toString().trim() : "";
-            if (kw.isEmpty()) {
-                Toast.makeText(requireContext(), "Vui lòng chọn khách hàng", Toast.LENGTH_SHORT).show();
+        // --- Bước 1: Xác định khách hàng ---
+        // Ưu tiên: khách đã chọn từ autocomplete
+        // Nếu chưa chọn: thử tạo khách mới từ form nhập tay
+        String tenKhach  = etTenKhach  != null ? etTenKhach .getText().toString().trim() : "";
+        String sdtKhach  = etSdtKhach  != null ? etSdtKhach .getText().toString().trim() : "";
+        String cccdKhach = etCccdKhach != null ? etCccdKhach.getText().toString().trim() : "";
+
+        if (selectedKhach == null) {
+            // Kiểm tra form nhập khách mới
+            if (TextUtils.isEmpty(tenKhach)) {
+                Toast.makeText(requireContext(),
+                        "Vui lòng chọn hoặc nhập tên khách hàng", Toast.LENGTH_SHORT).show();
+                if (etTenKhach != null) etTenKhach.requestFocus();
+                return;
+            }
+            if (TextUtils.isEmpty(sdtKhach)) {
+                Toast.makeText(requireContext(),
+                        "Vui lòng nhập số điện thoại khách", Toast.LENGTH_SHORT).show();
+                if (etSdtKhach != null) etSdtKhach.requestFocus();
                 return;
             }
         }
-        if (ngayCheckin == null || ngayCheckin.isEmpty()) {
-            Toast.makeText(requireContext(), "Vui lòng chọn ngày check-in", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (ngayCheckout == null || ngayCheckout.isEmpty()) {
-            Toast.makeText(requireContext(), "Vui lòng chọn ngày check-out", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
+        // --- Bước 2: Validate phòng & ngày ---
         if (phongList == null || phongList.isEmpty()) {
             Toast.makeText(requireContext(), "Không có phòng trống", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        int maKH   = selectedKhach != null ? selectedKhach.getMaKH() : 0;
-        int maPhong = phongList.get(spinnerPhong.getSelectedItemPosition()).getMaPhong();
+        if (TextUtils.isEmpty(ngayCheckin)) {
+            Toast.makeText(requireContext(), "Vui lòng chọn ngày check-in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(ngayCheckout)) {
+            Toast.makeText(requireContext(), "Vui lòng chọn ngày check-out", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         int soDem = 0;
         try {
@@ -369,56 +477,120 @@ public class BookingAddEditFragment extends Fragment {
         } catch (Exception ignored) {}
 
         if (soDem <= 0) {
-            Toast.makeText(requireContext(), "Ngày check-out phải sau check-in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(),
+                    "Ngày check-out phải sau ngày check-in", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // --- Bước 3: Build data ---
+        final int maPhong = phongList.get(spinnerPhong.getSelectedItemPosition()).getMaPhong();
         int soLuongKhach = 1;
-        try { soLuongKhach = Integer.parseInt(etSoLuongKhach.getText().toString().trim()); }
-        catch (Exception ignored) {}
+        try {
+            soLuongKhach = Integer.parseInt(
+                    etSoLuongKhach.getText().toString().trim());
+        } catch (Exception ignored) {}
 
         String[] ptOptions = {"TM", "CK", "VNPAY"};
         String phuongThuc = ptOptions[spinnerPhuongThucTT.getSelectedItemPosition()];
         String ghiChu = etGhiChu.getText() != null ? etGhiChu.getText().toString().trim() : "";
-
         String ngayTao = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-        DatPhong dp = new DatPhong();
-        dp.setMaKH(maKH);
-        dp.setMaPhong(maPhong);
-        dp.setNgayCheckIn(ngayCheckin);
-        dp.setNgayCheckOut(ngayCheckout);
-        dp.setSoDem(soDem);
-        dp.setSoLuongKhach(soLuongKhach);
-        dp.setTrangThai("SapDen");
-        dp.setPhuongThucThanhToan(phuongThuc);
-        dp.setGhiChu(ghiChu.isEmpty() ? null : ghiChu);
-        dp.setNgayTao(ngayTao);
+        // Ghi check-in/out có giờ vào ghi chú ngày (lưu vào cột NgayCheckIn/Out là date)
+        // Giờ được lưu kèm trong chuỗi ngày: "yyyy-MM-dd HH:mm"
+        final String checkinFull  = ngayCheckin  + " " + gioCheckin;
+        final String checkoutFull = ngayCheckout + " " + gioCheckout;
 
-        if (maDatPhong > 0) dp.setMaDatPhong(maDatPhong);
+        final int finalSoDem         = soDem;
+        final int finalSoLuongKhach  = soLuongKhach;
+        final String finalPhuongThuc = phuongThuc;
+        final String finalGhiChu     = ghiChu.isEmpty() ? null : ghiChu;
+        final String finalNgayTao    = ngayTao;
+        final String finalTenKhach   = tenKhach;
+        final String finalSdtKhach   = sdtKhach;
+        final String finalCccdKhach  = cccdKhach;
+
+        // Vô hiệu hoá nút để tránh double-click
+        if (btnSaveBooking != null) btnSaveBooking.setEnabled(false);
 
         dbExecutor.execute(() -> {
+            // Xác định MaKH: dùng khách đã chọn hoặc tạo mới
+            int maKH = 0;
+            if (selectedKhach != null) {
+                maKH = selectedKhach.getMaKH();
+            } else {
+                // Tạo khách mới
+                KhachHang newKH = new KhachHang();
+                newKH.setHoTen(finalTenKhach);
+                newKH.setSdt(finalSdtKhach);
+                newKH.setCccd(finalCccdKhach.isEmpty() ? null : finalCccdKhach);
+                newKH.setGioiTinh("Khac");
+                long insertedId = khachHangDAO.insert(newKH);
+                if (insertedId > 0) maKH = (int) insertedId;
+            }
+
+            if (maKH <= 0) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    if (btnSaveBooking != null) btnSaveBooking.setEnabled(true);
+                    Toast.makeText(requireContext(),
+                            "Không thể xác định khách hàng. Vui lòng thử lại.",
+                            Toast.LENGTH_SHORT).show();
+                });
+                return;
+            }
+
+            final int finalMaKH = maKH;
+
+            DatPhong dp = new DatPhong();
+            if (maDatPhong > 0) dp.setMaDatPhong(maDatPhong);
+            dp.setMaKH(finalMaKH);
+            dp.setMaPhong(maPhong);
+            // Lưu ngày thuần (yyyy-MM-dd), không ghép giờ để tránh lỗi parse FK/CHECK
+            dp.setNgayCheckIn(ngayCheckin);
+            dp.setNgayCheckOut(ngayCheckout);
+            dp.setSoDem(finalSoDem);
+            dp.setSoLuongKhach(finalSoLuongKhach);
+            dp.setTrangThai("SapDen");
+            dp.setPhuongThucThanhToan(finalPhuongThuc);
+            // Ghép giờ vào GhiChu nếu người dùng nhập, để không mất thông tin
+            String ghiChuFull = finalGhiChu != null ? finalGhiChu : "";
+            if (!gioCheckin.equals("14:00") || !gioCheckout.equals("12:00")) {
+                String gioInfo = "[Check-in: " + gioCheckin + ", Check-out: " + gioCheckout + "]";
+                ghiChuFull = ghiChuFull.isEmpty() ? gioInfo : gioInfo + " " + ghiChuFull;
+            }
+            dp.setGhiChu(ghiChuFull.isEmpty() ? null : ghiChuFull);
+            dp.setNgayTao(finalNgayTao);
+            // MaNV = 0 không hợp lệ với FK → đặt 0, DatPhongDAO.toContentValues
+            // sẽ cần xử lý null cho MaNV
+            dp.setMaNV(0);
+
             boolean success;
             if (maDatPhong > 0) {
                 success = bookingRepository.updateDatPhong(dp) > 0;
             } else {
                 success = bookingRepository.createBooking(dp) > 0;
             }
+
             mainHandler.post(() -> {
                 if (!isAdded()) return;
+                if (btnSaveBooking != null) btnSaveBooking.setEnabled(true);
                 if (success) {
                     Snackbar.make(requireView(),
                             maDatPhong > 0 ? "Cập nhật đặt phòng thành công" : "Đặt phòng thành công!",
                             Snackbar.LENGTH_LONG).show();
-                    if (getParentFragmentManager().getBackStackEntryCount() > 0)
-                        getParentFragmentManager().popBackStack();
+                    navigateBack();
                 } else {
-                    Snackbar.make(requireView(), "Lưu thất bại. Vui lòng thử lại.",
+                    Snackbar.make(requireView(),
+                            "Lưu thất bại. Vui lòng thử lại.",
                             Snackbar.LENGTH_LONG).show();
                 }
             });
         });
     }
+
+    // =========================================================================
+    // Cleanup
+    // =========================================================================
 
     @Override
     public void onDestroy() {

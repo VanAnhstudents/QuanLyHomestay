@@ -236,6 +236,15 @@ public class RoomDetailFragment extends Fragment {
     }
 
     private void showDeleteConfirm(Phong phong) {
+        // Chỉ cho xóa phòng có trạng thái Trống
+        if (!"Trong".equals(phong.getTrangThai())) {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Không thể xóa")
+                    .setMessage("Chỉ có thể xóa phòng có trạng thái \"Trống\".\nPhòng " + phong.getTenPhong() + " hiện đang " + getTrangThaiLabel(phong.getTrangThai()) + ".")
+                    .setPositiveButton("Đã hiểu", null)
+                    .show();
+            return;
+        }
         new AlertDialog.Builder(requireContext())
                 .setTitle("Xóa phòng")
                 .setMessage("Bạn có chắc chắn muốn xóa phòng " + phong.getTenPhong() + "?\nHành động này không thể hoàn tác.")
@@ -250,12 +259,18 @@ public class RoomDetailFragment extends Fragment {
             mainHandler.post(() -> {
                 if (!isAdded()) return;
                 if (rows > 0) {
-                    Snackbar.make(requireView(), "Đã xóa phòng " + phong.getTenPhong(),
-                            Snackbar.LENGTH_LONG).show();
-                    if (getParentFragmentManager().getBackStackEntryCount() > 0)
-                        getParentFragmentManager().popBackStack();
+                    // Lưu context trước khi pop (sau pop fragment bị detach)
+                    android.content.Context ctx = requireContext().getApplicationContext();
+                    String msg = "Đã xóa phòng " + phong.getTenPhong();
+
+                    // popBackStack() quay về RoomListFragment (replace() chỉ tạo 1 entry)
+                    androidx.fragment.app.FragmentManager fm = getParentFragmentManager();
+                    fm.popBackStack();
+
+                    android.widget.Toast.makeText(ctx, msg, android.widget.Toast.LENGTH_LONG).show();
                 } else {
-                    Snackbar.make(requireView(), "Xóa thất bại. Phòng có thể đang được sử dụng.",
+                    Snackbar.make(requireView(),
+                            "Xóa thất bại. Phòng có thể đang được sử dụng.",
                             Snackbar.LENGTH_LONG).show();
                 }
             });
@@ -264,7 +279,18 @@ public class RoomDetailFragment extends Fragment {
 
     private void setRoomImage(ImageView iv, String hinhAnh) {
         if (iv == null) return;
-        if (hinhAnh == null) { iv.setImageResource(R.drawable.room_standard); return; }
+        if (hinhAnh == null || hinhAnh.isEmpty()) {
+            iv.setImageResource(R.drawable.room_standard);
+            return;
+        }
+        // Thử load từ URI (ảnh người dùng chọn từ thiết bị)
+        if (hinhAnh.startsWith("content://") || hinhAnh.startsWith("file://")) {
+            try {
+                iv.setImageURI(android.net.Uri.parse(hinhAnh));
+                if (iv.getDrawable() != null) return;
+            } catch (Exception ignored) {}
+        }
+        // Fallback: map tên drawable
         switch (hinhAnh) {
             case "room_deluxe":     iv.setImageResource(R.drawable.room_deluxe);     break;
             case "room_deluxe_top": iv.setImageResource(R.drawable.room_deluxe_top); break;

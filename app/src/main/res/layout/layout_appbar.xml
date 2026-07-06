@@ -23,16 +23,17 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <!-- ── Nút back (ẩn mặc định, hiện khi fragment cần) ── -->
+    <!-- ── Nút back hình tròn (ẩn mặc định, hiện khi fragment cần) ── -->
     <ImageButton
         android:id="@+id/btn_appbar_back"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/bg_button_back_circle"
         android:contentDescription="Quay lại"
-        android:padding="12dp"
+        android:padding="8dp"
         android:src="@drawable/ic_back"
-        android:tint="@color/icon_action"
+        android:tint="@color/primary_main"
         android:visibility="gone" />
 
     <!-- ── Nhóm bên trái: Logo tròn + Tên app ── -->

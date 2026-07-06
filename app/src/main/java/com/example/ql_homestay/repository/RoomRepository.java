@@ -57,6 +57,10 @@ public class RoomRepository {
 
     public int countAllPhong() { return phongDAO.countAll(); }
 
+    public boolean isTenPhongDuplicate(String tenPhong, int excludeMaPhong) {
+        return phongDAO.isTenPhongDuplicate(tenPhong, excludeMaPhong);
+    }
+
     // -------- LoaiPhong --------
     public List<LoaiPhong> getAllLoaiPhong() { return loaiPhongDAO.getAll(); }
 
