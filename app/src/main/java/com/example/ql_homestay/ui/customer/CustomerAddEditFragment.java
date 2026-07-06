@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.model.KhachHang;
 import com.example.ql_homestay.repository.CustomerRepository;
+import com.example.ql_homestay.util.AvatarHelper;
 import com.example.ql_homestay.util.ImagePickerHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -64,6 +65,7 @@ public class CustomerAddEditFragment extends Fragment {
     private MaterialButton btnLuu;
     
     private byte[] avatarBytes = null;
+    private String existingAvatar = null;
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -158,6 +160,8 @@ public class CustomerAddEditFragment extends Fragment {
             KhachHang kh = repository.getCustomerById(maKH);
             mainHandler.post(() -> {
                 if (!isAdded() || kh == null) return;
+                existingAvatar = kh.getAvatar();
+                AvatarHelper.loadAvatarPreview(requireContext(), existingAvatar, ivAvatarPick, tvAvatarPlaceholder);
                 etHoTen.setText(kh.getHoTen());
                 etSdt.setText(kh.getSdt());
                 etEmail.setText(kh.getEmail());
@@ -208,7 +212,7 @@ public class CustomerAddEditFragment extends Fragment {
         if (avatarBytes != null && avatarBytes.length > 0) {
             kh.setAvatar(Base64.encodeToString(avatarBytes, Base64.DEFAULT));
         } else {
-            kh.setAvatar(null);
+            kh.setAvatar(existingAvatar);
         }
 
         btnLuu.setEnabled(false);

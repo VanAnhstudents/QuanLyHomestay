@@ -35,7 +35,7 @@ import androidx.annotation.NonNull;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "lalahouse.db";
-    private static final int DB_VERSION = 3; // Đã tăng DB_VESION từ 1 -> 2 -> 3 để onUpgrade() chạy lại và tạo bảng mới ==> tăng dần lên nếu có sự thay đổi ở đây!
+    private static final int DB_VERSION = 4; // Tăng khi đổi schema để onUpgrade() tạo lại DB demo.
     private static volatile DatabaseHelper instance;
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -227,6 +227,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "MaNV INTEGER NOT NULL," +
                 "MaCa INTEGER NOT NULL," +
                 "ThuTrongTuan INTEGER NOT NULL CHECK (ThuTrongTuan BETWEEN 1 AND 7)," +
+                "TuanBatDau TEXT NOT NULL DEFAULT '1970-01-05'," +
                 "FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE," +
                 "FOREIGN KEY (MaCa) REFERENCES CaLamViec(MaCa))");
 
@@ -553,6 +554,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("MaNV",         r[0]);
             cv.put("MaCa",         r[1]);
             cv.put("ThuTrongTuan", r[2]);
+            cv.put("TuanBatDau",   "1970-01-05");
             db.insert("PhanCongCa", null, cv);
         }
     }

@@ -8,6 +8,7 @@ import com.example.ql_homestay.data.dao.KhachHangDAO;
 import com.example.ql_homestay.model.DatPhong;
 import com.example.ql_homestay.model.KhachHang;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepository {
@@ -45,13 +46,24 @@ public class CustomerRepository {
         return khachHangDAO.delete(maKH);
     }
 
-    /** Gọi khi 1 DatPhong của khách chuyển sang DaTraPhong (sẽ nối với module Đặt phòng sau). */
     public void increaseRentalCount(int maKH) {
         khachHangDAO.incrementSoLanThue(maKH);
     }
 
-    /** Lấy tối đa 3 đặt phòng gần nhất của khách (JOIN với Phong để lấy TenPhong). */
     public List<DatPhong> getRecentBookings(int maKH) {
-        return datPhongDAO.getRecentByKhachHang(maKH, 3);
+        List<DatPhong> all = getAllBookings(maKH);
+        return all.size() > 3 ? new ArrayList<>(all.subList(0, 3)) : all;
+    }
+
+    public List<DatPhong> getAllBookings(int maKH) {
+        List<DatPhong> stayed = new ArrayList<>();
+        for (DatPhong dp : datPhongDAO.getByKhachHang(maKH)) {
+            if ("DaTraPhong".equals(dp.getTrangThai())) stayed.add(dp);
+        }
+        return stayed;
+    }
+
+    public int getStayCount(int maKH) {
+        return getAllBookings(maKH).size();
     }
 }

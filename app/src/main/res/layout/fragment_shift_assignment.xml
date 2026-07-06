@@ -9,6 +9,36 @@
 
     <include layout="@layout/layout_breadcrumb" android:id="@+id/breadcrumb" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_tuan_bat_dau"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_screen_horizontal"
+        android:layout_marginEnd="@dimen/margin_screen_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Tuần phân công"
+        app:boxCornerRadiusTopStart="@dimen/radius_input"
+        app:boxCornerRadiusTopEnd="@dimen/radius_input"
+        app:boxCornerRadiusBottomStart="@dimen/radius_input"
+        app:boxCornerRadiusBottomEnd="@dimen/radius_input"
+        app:boxStrokeColor="@color/border_input"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_calendar"
+        app:endIconTint="@color/icon_inactive">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_tuan_bat_dau"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <!-- Header 7 ngày -->
     <LinearLayout
         android:layout_width="match_parent"

@@ -53,6 +53,7 @@ public class StaffDetailFragment extends Fragment {
     private StaffRepository repository;
     private SessionManager session;
     private DatabaseHelper dbHelper;
+    private String displayedWeekStart = StaffRepository.currentWeekStart();
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -182,6 +183,7 @@ public class StaffDetailFragment extends Fragment {
     private void bindShifts(List<PhanCongCa> list) {
         clearAllCheckboxes();
         if (list == null) return;
+        displayedWeekStart = StaffRepository.currentWeekStart();
         for (PhanCongCa pc : list) {
             CheckBox cb = getCheckBox(pc.getMaCa(), pc.getThuTrongTuan());
             if (cb != null) cb.setChecked(true);
@@ -236,9 +238,15 @@ public class StaffDetailFragment extends Fragment {
     private void openShiftAssignment(int maNV) {
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(FRAGMENT_CONTAINER_ID, ShiftAssignmentFragment.newInstance(maNV))
+                .replace(FRAGMENT_CONTAINER_ID, ShiftAssignmentFragment.newInstance(maNV, displayedWeekStart))
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (repository != null) loadData();
     }
 
     private void confirmDelete(NhanVien nv) {
