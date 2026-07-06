@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    item_invoice_row.xml – Item hóa đơn trong RecyclerView (cao 88dp)
+    Cấu trúc: icon + mã HĐ + ngày | tên KH + phòng | tổng tiền + badge trạng thái
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="88dp"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card_listitem"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Hàng trên: Icon + Mã HĐ + Ngày -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_invoice_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_invoice"
+            android:layout_marginEnd="8dp"
+            android:tint="@color/primary_main" />
+
+        <TextView
+            android:id="@+id/tv_ma_hd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/text_primary"
+            android:text="HĐ #001" />
+
+        <TextView
+            android:id="@+id/tv_ngay_lap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:text="17/06/2026" />
+    </LinearLayout>
+
+    <!-- Hàng giữa: Tên khách hàng + Tên phòng -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_ten_khach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:text="Nguyễn Thị Mai" />
+
+        <TextView
+            android:id="@+id/tv_ten_phong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:text="Phòng P101" />
+    </LinearLayout>
+
+    <!-- Hàng dưới: Tổng tiền + Badge trạng thái -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_tong_cong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-bold"
+            android:textColor="@color/primary_main"
+            android:text="1.800.000 đ" />
+
+        <TextView
+            android:id="@+id/tv_trang_thai"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="11sp"
+            android:background="@drawable/bg_badge_chuathanhtoan"
+            android:textColor="@color/badge_chuathanhtoan_text"
+            android:text="Chưa TT" />
+    </LinearLayout>
+
+</LinearLayout>
