@@ -553,11 +553,48 @@ public class BookingAddEditFragment extends Fragment {
             return;
         }
 
+        // --- Validate số lượng khách theo loại phòng ---
         int soLuongKhach = 1;
         try {
             soLuongKhach = Integer.parseInt(
                     etSoLuongKhach.getText().toString().trim());
         } catch (Exception ignored) {}
+
+        if (soLuongKhach <= 0) {
+            Toast.makeText(requireContext(),
+                    "Số lượng khách phải lớn hơn 0", Toast.LENGTH_SHORT).show();
+            if (etSoLuongKhach != null) etSoLuongKhach.requestFocus();
+            return;
+        }
+
+        // Tìm loại phòng đang được chọn để kiểm tra giới hạn
+        String tenLoaiPhong = "";
+        for (Phong p : phongList) {
+            if (p.getMaPhong() == maPhong) {
+                tenLoaiPhong = p.getTenLoaiPhong() != null ? p.getTenLoaiPhong().trim() : "";
+                break;
+            }
+        }
+
+        int maxKhach;
+        String tenLoaiPhongLower = tenLoaiPhong.toLowerCase(Locale.getDefault());
+        if (tenLoaiPhongLower.contains("suite")) {
+            maxKhach = 6;
+        } else if (tenLoaiPhongLower.contains("deluxe")) {
+            maxKhach = 4;
+        } else {
+            // standard hoặc các loại khác → giới hạn 2
+            maxKhach = 2;
+        }
+
+        if (soLuongKhach > maxKhach) {
+            Toast.makeText(requireContext(),
+                    "Phòng " + (tenLoaiPhong.isEmpty() ? "Standard" : tenLoaiPhong)
+                            + " tối đa " + maxKhach + " khách",
+                    Toast.LENGTH_SHORT).show();
+            if (etSoLuongKhach != null) etSoLuongKhach.requestFocus();
+            return;
+        }
 
         // Xác định phương thức thanh toán từ dropdown
         String phuongThuc = "TM"; // mặc định
