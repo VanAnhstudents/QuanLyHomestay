@@ -1,16 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-    layout_appbar.xml â€” App Bar dÃ¹ng chung
-    Root: LinearLayout (horizontal), height = 64dp, ná»n tráº¯ng, elevation 4dp
+    layout_appbar.xml — App Bar dùng chung
+    Root: LinearLayout (horizontal), height = 64dp, nền trắng, elevation 4dp
 
-    CÃ¡ch include:
+    Cách include:
         <include layout="@layout/layout_appbar" android:id="@+id/appbar" />
 
-    CÃ¡ch set tiÃªu Ä‘á» runtime (náº¿u cáº§n override text logo):
+    Cách set tiêu đề runtime (nếu cần override text logo):
         TextView tvAppTitle = findViewById(R.id.tv_app_title);
-        tvAppTitle.setText("TÃªn mÃ n hÃ¬nh");
+        tvAppTitle.setText("Tên màn hình");
 
-    Badge thÃ´ng bÃ¡o: sá»‘ Ä‘á» trÃªn iv_bell Ä‘Æ°á»£c set runtime bá»Ÿi HomeFragment/MainActivity.
+    Badge thông báo: số đỏ trên iv_bell được set runtime bởi HomeFragment/MainActivity.
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,20 +23,20 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <!-- â”€â”€ NÃºt back hÃ¬nh trÃ²n (áº©n máº·c Ä‘á»‹nh, hiá»‡n khi fragment cáº§n) â”€â”€ -->
+    <!-- ── Nút back hình tròn (ẩn mặc định, hiện khi fragment cần) ── -->
     <ImageButton
         android:id="@+id/btn_appbar_back"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="10dp"
         android:background="@drawable/bg_button_back_circle"
-        android:contentDescription="Quay láº¡i"
+        android:contentDescription="Quay lại"
         android:padding="8dp"
         android:src="@drawable/ic_back"
         app:tint="@color/primary_main"
         android:visibility="gone" />
 
-    <!-- â”€â”€ NhÃ³m bÃªn trÃ¡i: Logo trÃ²n + TÃªn app â”€â”€ -->
+    <!-- ── Nhóm bên trái: Logo tròn + Tên app ── -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,8 +45,8 @@
         android:orientation="horizontal"
         android:paddingStart="@dimen/margin_screen_horizontal">
 
-        <!-- Logo trÃ²n 40dp â€” logo_home.jpg lÃ  áº£nh VUÃ”NG nÃªn dÃ¹ng
-             ShapeableImageView + shapeAppearanceOverlay Ä‘á»ƒ cáº¯t trÃ²n tháº­t sá»± -->
+        <!-- Logo tròn 40dp — logo_home.jpg là ảnh VUÔNG nên dùng
+             ShapeableImageView + shapeAppearanceOverlay để cắt tròn thật sự -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_logo"
             android:layout_width="@dimen/icon_size_logo_header"
@@ -56,7 +56,7 @@
             android:src="@drawable/logo_home"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
 
-        <!-- TÃªn app -->
+        <!-- Tên app -->
         <TextView
             android:id="@+id/tv_app_title"
             android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
 
     </LinearLayout>
 
-    <!-- â”€â”€ NhÃ³m bÃªn pháº£i: ChuÃ´ng + Avatar + TÃªn user â”€â”€ -->
+    <!-- ── Nhóm bên phải: Chuông + Avatar + Tên user ── -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
         android:orientation="horizontal"
         android:paddingEnd="@dimen/margin_screen_horizontal">
 
-        <!-- Icon chuÃ´ng thÃ´ng bÃ¡o (bá»c trong RelativeLayout Ä‘á»ƒ Ä‘áº·t badge sá»‘) -->
+        <!-- Icon chuông thông báo (bọc trong RelativeLayout để đặt badge số) -->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,13 +90,13 @@
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="ThÃ´ng bÃ¡o"
+                android:contentDescription="Thông báo"
                 android:focusable="true"
                 android:padding="6dp"
                 android:src="@drawable/ic_bell"
                 app:tint="@color/icon_action" />
 
-            <!-- Badge sá»‘ thÃ´ng bÃ¡o chÆ°a Ä‘á»c (áº©n khi = 0, set runtime) -->
+            <!-- Badge số thông báo chưa đọc (ẩn khi = 0, set runtime) -->
             <TextView
                 android:id="@+id/tv_badge_count"
                 android:layout_width="20dp"
@@ -114,24 +114,24 @@
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <!-- Avatar trÃ²n 36dp.
-             DÃ¹ng ShapeableImageView Ä‘á»ƒ sáºµn sÃ ng bo trÃ²n áº£nh Ä‘áº¡i diá»‡n THáº¬T
-             (JPG/PNG tá»« camera, thÆ° viá»‡n áº£nh, hoáº·c Glide/Picasso load URL) sau nÃ y.
-             Hiá»‡n táº¡i src = ic_person (icon vector placeholder) nÃªn váº«n giá»¯
-             app:tint + padding + background trÃ²n cho Ä‘áº¹p.
-             LÆ¯U Ã KHI LOAD áº¢NH THáº¬T (Java):
-               imageView.setImageTintList(null);   // gá»¡ tint trÆ°á»›c
-               imageView.setPadding(0,0,0,0);      // gá»¡ padding trÆ°á»›c
-               imageView.setBackground(null);      // gá»¡ ná»n bg_fab trÆ°á»›c
+        <!-- Avatar tròn 36dp.
+             Dùng ShapeableImageView để sẵn sàng bo tròn ảnh đại diện THẬT
+             (JPG/PNG từ camera, thư viện ảnh, hoặc Glide/Picasso load URL) sau này.
+             Hiện tại src = ic_person (icon vector placeholder) nên vẫn giữ
+             app:tint + padding + background tròn cho đẹp.
+             LƯU Ý KHI LOAD ẢNH THẬT (Java):
+               imageView.setImageTintList(null);   // gỡ tint trước
+               imageView.setPadding(0,0,0,0);      // gỡ padding trước
+               imageView.setBackground(null);      // gỡ nền bg_fab trước
                Glide.with(ctx).load(avatarUrl).circleCrop().into(imageView);
-             Náº¿u bá» qua bÆ°á»›c gá»¡ tint, áº£nh tháº­t sáº½ bá»‹ nhuá»™m tráº¯ng y nhÆ° lá»—i logo trÆ°á»›c Ä‘Ã³. -->
+             Nếu bỏ qua bước gỡ tint, ảnh thật sẽ bị nhuộm trắng y như lỗi logo trước đó. -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/avatar_header_size"
             android:layout_height="@dimen/avatar_header_size"
             android:background="@drawable/bg_fab"
             android:clickable="true"
-            android:contentDescription="Avatar ngÆ°á»i dÃ¹ng"
+            android:contentDescription="Avatar người dùng"
             android:focusable="true"
             android:padding="8dp"
             android:scaleType="centerCrop"
@@ -139,7 +139,7 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle"
             app:tint="@color/text_on_primary" />
 
-        <!-- TÃªn user (hiá»ƒn thá»‹ role ngáº¯n hoáº·c tÃªn) -->
+        <!-- Tên user (hiển thị role ngắn hoặc tên) -->
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"

@@ -1,15 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-    item_booking_compact.xml â€” Booking item compact (spec A6 má»¥c 4, ux_ui.md)
+    item_booking_compact.xml — Booking item compact (spec A6 mục 4, ux_ui.md)
     Height = height_listitem_title_only (56dp)
-    DÃ¹ng trong RecyclerView "Äáº·t phÃ²ng hÃ´m nay" vÃ  "Hoáº¡t Ä‘á»™ng gáº§n Ä‘Ã¢y"
-    táº¡i fragment_home.xml.
+    Dùng trong RecyclerView "Đặt phòng hôm nay" và "Hoạt động gần đây"
+    tại fragment_home.xml.
 
     Java (BookingCompactAdapter.java) bind:
-        tv_booking_code  â†’ DatPhong.getMaDatPhong() â†’ "DP-001"
-        tv_customer_name â†’ KhachHang.getHoTen()
-        tv_room_name     â†’ Phong.getTenPhong()
-        badge_status     â†’ DatPhong.getTrangThai() â†’ StatusBadgeView.setState()
+        tv_booking_code  → DatPhong.getMaDatPhong() → "DP-001"
+        tv_customer_name → KhachHang.getHoTen()
+        tv_room_name     → Phong.getTenPhong()
+        badge_status     → DatPhong.getTrangThai() → StatusBadgeView.setState()
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,23 +22,23 @@
     android:paddingStart="@dimen/margin_screen_horizontal"
     android:paddingEnd="@dimen/margin_screen_horizontal">
 
-    <!-- Icon lá»‹ch bÃªn trÃ¡i -->
+    <!-- Icon lịch bên trái -->
     <ImageView
         android:layout_width="@dimen/icon_size_listitem"
         android:layout_height="@dimen/icon_size_listitem"
         android:layout_marginEnd="10dp"
-        android:contentDescription="Äáº·t phÃ²ng"
+        android:contentDescription="Đặt phòng"
         android:src="@drawable/ic_calendar"
         app:tint="@color/primary_main" />
 
-    <!-- Cá»™t text giá»¯a -->
+    <!-- Cột text giữa -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <!-- TÃªn khÃ¡ch / phÃ²ng (16sp Medium) -->
+        <!-- Tên khách / phòng (16sp Medium) -->
         <TextView
             android:id="@+id/tv_compact_customer"
             android:layout_width="wrap_content"
@@ -46,11 +46,11 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
-            android:text="Nguyá»…n VÄƒn A"
+            android:text="Nguyễn Văn A"
             android:textColor="@color/text_primary"
             android:textSize="14sp" />
 
-        <!-- TÃªn phÃ²ng (12sp gray) -->
+        <!-- Tên phòng (12sp gray) -->
         <TextView
             android:id="@+id/tv_compact_room"
             android:layout_width="wrap_content"
@@ -58,13 +58,13 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif"
             android:maxLines="1"
-            android:text="PhÃ²ng 101"
+            android:text="Phòng 101"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
     </LinearLayout>
 
-    <!-- Badge tráº¡ng thÃ¡i bÃªn pháº£i -->
+    <!-- Badge trạng thái bên phải -->
     <TextView
         android:id="@+id/badge_compact_status"
         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
         android:gravity="center"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:text="Sáº¯p Ä‘áº¿n"
+        android:text="Sắp đến"
         android:textColor="@color/badge_dadat_text"
         android:textSize="11sp" />
 

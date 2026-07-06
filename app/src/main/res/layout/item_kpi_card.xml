@@ -1,21 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-    item_kpi_card.xml â€” KPI Card (spec A6 má»¥c 3.3-3.6, ux_ui.md)
+    item_kpi_card.xml — KPI Card (spec A6 mục 3.3-3.6, ux_ui.md)
     Height = kpi_card_height (80dp), width = 0dp / weight = 1
-    DÃ¹ng bÃªn trong 2 LinearLayout horizontal lá»“ng trong 1 LinearLayout vertical
-    Ä‘á»ƒ táº¡o lÆ°á»›i 2Ã—2 trong fragment_home.xml.
+    Dùng bên trong 2 LinearLayout horizontal lồng trong 1 LinearLayout vertical
+    để tạo lưới 2×2 trong fragment_home.xml.
 
-    Java (HomeFragment.java) set runtime cho tá»«ng card:
-        iv_kpi_icon  â†’ setImageResource() + setColorFilter(accent)
-        tv_kpi_value â†’ setText(...)
-        tv_kpi_label â†’ setText(...)
-        tv_kpi_value â†’ setTextColor(accent)
+    Java (HomeFragment.java) set runtime cho từng card:
+        iv_kpi_icon  → setImageResource() + setColorFilter(accent)
+        tv_kpi_value → setText(...)
+        tv_kpi_label → setText(...)
+        tv_kpi_value → setTextColor(accent)
 
-    Báº£ng accent theo thá»© tá»± 4 card:
-        1. Tá»•ng phÃ²ng   â†’ primary_main   #4B9DA8  ic_bed
-        2. PhÃ²ng trá»‘ng  â†’ status_success #38A169  ic_home
-        3. Äang thuÃª    â†’ status_warning #D97706  ic_person
-        4. Doanh thu HN â†’ primary_main   #4B9DA8  ic_calendar
+    Bảng accent theo thứ tự 4 card:
+        1. Tổng phòng   → primary_main   #4B9DA8  ic_bed
+        2. Phòng trống  → status_success #38A169  ic_home
+        3. Đang thuê    → status_warning #D97706  ic_person
+        4. Doanh thu HN → primary_main   #4B9DA8  ic_calendar
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,7 +29,7 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <!-- Icon KPI (24Ã—24, mÃ u accent set runtime) -->
+    <!-- Icon KPI (24×24, màu accent set runtime) -->
     <ImageView
         android:id="@+id/iv_kpi_icon"
         android:layout_width="@dimen/icon_size_appbar"
@@ -38,7 +38,7 @@
         android:src="@drawable/ic_home"
         app:tint="@color/primary_main" />
 
-    <!-- GiÃ¡ trá»‹ (22sp Bold, mÃ u accent set runtime) -->
+    <!-- Giá trị (22sp Bold, màu accent set runtime) -->
     <TextView
         android:id="@+id/tv_kpi_value"
         android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Tá»•ng phÃ²ng"
+        android:text="Tổng phòng"
         android:textColor="@color/text_secondary"
         android:textSize="11sp" />
 
