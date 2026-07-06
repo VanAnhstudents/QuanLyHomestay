@@ -9,9 +9,6 @@
     android:orientation="vertical"
     android:background="@color/background_screen">
 
-    <!-- App Bar -->
-    <include layout="@layout/layout_appbar" />
-
     <!-- ScrollView -->
     <ScrollView
         android:layout_width="match_parent"

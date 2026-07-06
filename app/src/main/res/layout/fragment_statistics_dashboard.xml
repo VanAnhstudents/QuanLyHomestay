@@ -10,9 +10,6 @@
     android:orientation="vertical"
     android:background="@color/background_screen">
 
-    <!-- App Bar -->
-    <include layout="@layout/layout_appbar" />
-
     <!-- Row chọn kỳ -->
     <HorizontalScrollView
         android:layout_width="match_parent"

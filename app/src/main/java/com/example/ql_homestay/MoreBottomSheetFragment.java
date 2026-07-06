@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 
 import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.ui.account.AccountListFragment;
+import com.example.ql_homestay.ui.payment.InvoiceListFragment;
 import com.example.ql_homestay.ui.staff.StaffListFragment;
+import com.example.ql_homestay.ui.statistics.StatisticsDashboardFragment;
 import com.example.ql_homestay.util.PermissionHelper;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -37,12 +39,26 @@ public class MoreBottomSheetFragment extends BottomSheetDialogFragment {
         DatabaseHelper dbHelper = DatabaseHelper.getInstance(requireContext());
         String vaiTro = session.getVaiTro();
 
+        // Thanh toán — LeTan (XemVaTao) và KeToan/Admin (ToanQuyen)
+        View rowPayment = view.findViewById(R.id.row_payment);
+        boolean canSeePayment = PermissionHelper.canAccess(
+                dbHelper.getReadableDatabase(), vaiTro, PermissionHelper.MODULE_HOA_DON);
+        rowPayment.setVisibility(canSeePayment ? View.VISIBLE : View.GONE);
+        rowPayment.setOnClickListener(v -> navigate(new InvoiceListFragment()));
+
         // Nhân viên — ẩn nếu không có quyền truy cập
         View rowStaff = view.findViewById(R.id.row_staff);
         boolean canSeeStaff = PermissionHelper.canAccess(
                 dbHelper.getReadableDatabase(), vaiTro, PermissionHelper.MODULE_NHAN_VIEN);
         rowStaff.setVisibility(canSeeStaff ? View.VISIBLE : View.GONE);
         rowStaff.setOnClickListener(v -> navigate(new StaffListFragment()));
+
+        // Thống kê — chỉ Admin và KeToan (ToanQuyen)
+        View rowStatistics = view.findViewById(R.id.row_statistics);
+        boolean canSeeStats = PermissionHelper.hasFullAccess(
+                dbHelper, vaiTro, PermissionHelper.MODULE_BAO_CAO);
+        rowStatistics.setVisibility(canSeeStats ? View.VISIBLE : View.GONE);
+        rowStatistics.setOnClickListener(v -> navigate(new StatisticsDashboardFragment()));
 
         // Tài khoản — chỉ Admin
         View rowAccount = view.findViewById(R.id.row_account);
