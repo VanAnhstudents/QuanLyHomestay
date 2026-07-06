@@ -7,13 +7,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.data.dao.TaiKhoanDAO;
+import com.example.ql_homestay.data.dao.ThongBaoDAO;
 import com.example.ql_homestay.model.TaiKhoan;
+import com.example.ql_homestay.model.ThongBao;
 import com.example.ql_homestay.ui.auth.LoginActivity;
 import com.example.ql_homestay.ui.booking.BookingListFragment;
 import com.example.ql_homestay.ui.customer.CustomerListFragment;
@@ -23,13 +27,17 @@ import com.example.ql_homestay.util.AvatarHelper;
 import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNav;
     private TextView tvUserName;
     private TextView tvBadgeCount;
+    private ImageView ivBell;
 
     private SessionManager session;
     private DatabaseHelper dbHelper;
+    private ThongBaoDAO thongBaoDAO;
 
     private HomeFragment homeFragment;
     private CustomerListFragment customerFragment;
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         session = SessionManager.getInstance(this);
         dbHelper = DatabaseHelper.getInstance(this);
+        thongBaoDAO = new ThongBaoDAO(dbHelper);
 
         if (!session.isLoggedIn()) {
             goToLogin();
@@ -54,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNav    = findViewById(R.id.bottom_navigation);
         tvUserName   = findViewById(R.id.tv_user_name);
         tvBadgeCount = findViewById(R.id.tv_badge_count);
+        ivBell       = findViewById(R.id.iv_bell);
 
         setupAppBar();
 
@@ -62,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupBottomNav();
+        setupBackHandler();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (session != null && session.isLoggedIn() && thongBaoDAO != null) {
+            refreshNotificationBadge();
+        }
     }
 
     private void setupAppBar() {
@@ -80,9 +99,56 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         
-        if (tvBadgeCount != null) {
-            tvBadgeCount.setVisibility(View.GONE); // TODO: ThongBaoDAO.countUnread()
+        if (ivBell != null) {
+            ivBell.setOnClickListener(v -> showNotificationsDialog());
         }
+        refreshNotificationBadge();
+    }
+
+    private void refreshNotificationBadge() {
+        if (tvBadgeCount == null) return;
+
+        int unread = thongBaoDAO.countUnread(session.getMaTK());
+        if (unread <= 0) {
+            tvBadgeCount.setVisibility(View.GONE);
+            return;
+        }
+
+        tvBadgeCount.setText(unread > 99 ? "99+" : String.valueOf(unread));
+        tvBadgeCount.setVisibility(View.VISIBLE);
+    }
+
+    private void showNotificationsDialog() {
+        List<ThongBao> notifications = thongBaoDAO.getAllByTaiKhoan(session.getMaTK());
+        if (notifications.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Thông báo")
+                    .setMessage("Không có thông báo.")
+                    .setPositiveButton("Đóng", null)
+                    .show();
+            return;
+        }
+
+        String[] items = new String[notifications.size()];
+        for (int i = 0; i < notifications.size(); i++) {
+            ThongBao tb = notifications.get(i);
+            String prefix = tb.isDaDoc() ? "" : "Mới - ";
+            String time = tb.getThoiGian() == null ? "" : "\n" + tb.getThoiGian();
+            items[i] = prefix + tb.getNoiDung() + time;
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Thông báo")
+                .setItems(items, (dialog, which) -> {
+                    thongBaoDAO.markAsRead(notifications.get(which).getMaTB());
+                    refreshNotificationBadge();
+                })
+                .setPositiveButton("Đánh dấu đã đọc", (dialog, which) -> {
+                    thongBaoDAO.markAllAsRead(session.getMaTK());
+                    refreshNotificationBadge();
+                })
+                .setNegativeButton("Đóng", null)
+                .show();
     }
 
     private void initFragments() {
@@ -148,14 +214,17 @@ public class MainActivity extends AppCompatActivity {
         activeFragment = target;
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-        if (count > 0) {
-            getSupportFragmentManager().popBackStack();
-        } else {
-            moveTaskToBack(true);
-        }
+    private void setupBackHandler() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    moveTaskToBack(true);
+                }
+            }
+        });
     }
 
     /**

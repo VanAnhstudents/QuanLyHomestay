@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_booking_add_edit.xml – Thêm/Sửa đặt phòng (C3) -->
-<!-- Root: ScrollView bọc toàn bộ, không có AppBar inline (dùng AppBar chung của activity_main) -->
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_booking_add_edit.xml â€“ ThÃªm/Sá»­a Ä‘áº·t phÃ²ng (C3) -->
+<!-- Root: ScrollView bá»c toÃ n bá»™, khÃ´ng cÃ³ AppBar inline (dÃ¹ng AppBar chung cá»§a activity_main) -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen"
@@ -13,7 +14,7 @@
         android:orientation="vertical"
         android:paddingBottom="24dp">
 
-        <!-- ===== Card form đặt phòng ===== -->
+        <!-- ===== Card form Ä‘áº·t phÃ²ng ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,22 +23,22 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Phần 1: Thông tin khách hàng -->
+            <!-- Pháº§n 1: ThÃ´ng tin khÃ¡ch hÃ ng -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="THÔNG TIN KHÁCH HÀNG"
+                android:text="THÃ”NG TIN KHÃCH HÃ€NG"
                 android:textColor="@color/primary_main"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.05" />
 
-            <!-- Tìm khách hàng có sẵn -->
+            <!-- TÃ¬m khÃ¡ch hÃ ng cÃ³ sáºµn -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Tìm khách hàng (nhập tên/SĐT)"
+                android:text="TÃ¬m khÃ¡ch hÃ ng (nháº­p tÃªn/SÄT)"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -49,13 +50,13 @@
                 android:layout_marginTop="4dp"
                 android:background="@drawable/bg_input_normal"
                 android:completionThreshold="1"
-                android:hint="Nhập tên hoặc SĐT khách..."
+                android:hint="Nháº­p tÃªn hoáº·c SÄT khÃ¡ch..."
                 android:inputType="text"
                 android:paddingHorizontal="12dp"
                 android:textColorHint="@color/text_placeholder"
                 android:textSize="14sp" />
 
-            <!-- Divider "Hoặc nhập mới" -->
+            <!-- Divider "Hoáº·c nháº­p má»›i" -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:text="Hoặc nhập khách mới"
+                    android:text="Hoáº·c nháº­p khÃ¡ch má»›i"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
 
@@ -85,18 +86,18 @@
                     android:background="@color/divider" />
             </LinearLayout>
 
-            <!-- Section thông tin khách mới -->
+            <!-- Section thÃ´ng tin khÃ¡ch má»›i -->
             <LinearLayout
                 android:id="@+id/ll_new_customer_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Tên khách -->
+                <!-- TÃªn khÃ¡ch -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tên khách hàng *"
+                    android:text="TÃªn khÃ¡ch hÃ ng *"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -107,18 +108,18 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/bg_input_normal"
-                    android:hint="Họ và tên khách"
+                    android:hint="Há» vÃ  tÃªn khÃ¡ch"
                     android:inputType="textPersonName|textCapWords"
                     android:paddingHorizontal="12dp"
                     android:textColorHint="@color/text_placeholder"
                     android:textSize="14sp" />
 
-                <!-- Số điện thoại -->
+                <!-- Sá»‘ Ä‘iá»‡n thoáº¡i -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Số điện thoại *"
+                    android:text="Sá»‘ Ä‘iá»‡n thoáº¡i *"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -140,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="CCCD / Hộ chiếu"
+                    android:text="CCCD / Há»™ chiáº¿u"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -151,7 +152,7 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/bg_input_normal"
-                    android:hint="Số CCCD hoặc hộ chiếu"
+                    android:hint="Sá»‘ CCCD hoáº·c há»™ chiáº¿u"
                     android:inputType="number"
                     android:paddingHorizontal="12dp"
                     android:textColorHint="@color/text_placeholder"
@@ -160,7 +161,7 @@
 
         </LinearLayout>
 
-        <!-- ===== Card chọn phòng & ngày ===== -->
+        <!-- ===== Card chá»n phÃ²ng & ngÃ y ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -172,18 +173,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="THÔNG TIN ĐẶT PHÒNG"
+                android:text="THÃ”NG TIN Äáº¶T PHÃ’NG"
                 android:textColor="@color/primary_main"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.05" />
 
-            <!-- Chọn phòng (chỉ phòng Trống) -->
+            <!-- Chá»n phÃ²ng (chá»‰ phÃ²ng Trá»‘ng) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Phòng *"
+                android:text="PhÃ²ng *"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -196,12 +197,12 @@
                 android:background="@drawable/bg_input_normal"
                 android:paddingHorizontal="12dp" />
 
-            <!-- Ngày check-in -->
+            <!-- NgÃ y check-in -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Ngày check-in *"
+                android:text="NgÃ y check-in *"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -221,24 +222,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Chọn ngày check-in"
+                    android:hint="Chá»n ngÃ y check-in"
                     android:textColorHint="@color/text_placeholder"
                     android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="Chọn ngày"
+                    android:contentDescription="Chá»n ngÃ y"
                     android:src="@drawable/ic_calendar"
-                    android:tint="@color/primary_main" />
+                    app:tint="@color/primary_main" />
             </LinearLayout>
 
-            <!-- Giờ check-in -->
+            <!-- Giá» check-in -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Giờ check-in"
+                android:text="Giá» check-in"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -265,17 +266,17 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="Chọn giờ"
+                    android:contentDescription="Chá»n giá»"
                     android:src="@drawable/ic_calendar"
-                    android:tint="@color/primary_main" />
+                    app:tint="@color/primary_main" />
             </LinearLayout>
 
-            <!-- Ngày check-out -->
+            <!-- NgÃ y check-out -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Ngày check-out *"
+                android:text="NgÃ y check-out *"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -295,24 +296,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Chọn ngày check-out"
+                    android:hint="Chá»n ngÃ y check-out"
                     android:textColorHint="@color/text_placeholder"
                     android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="Chọn ngày"
+                    android:contentDescription="Chá»n ngÃ y"
                     android:src="@drawable/ic_calendar"
-                    android:tint="@color/primary_main" />
+                    app:tint="@color/primary_main" />
             </LinearLayout>
 
-            <!-- Giờ check-out -->
+            <!-- Giá» check-out -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Giờ check-out"
+                android:text="Giá» check-out"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -339,17 +340,17 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="Chọn giờ"
+                    android:contentDescription="Chá»n giá»"
                     android:src="@drawable/ic_calendar"
-                    android:tint="@color/primary_main" />
+                    app:tint="@color/primary_main" />
             </LinearLayout>
 
-            <!-- Số lượng khách -->
+            <!-- Sá»‘ lÆ°á»£ng khÃ¡ch -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Số lượng khách"
+                android:text="Sá»‘ lÆ°á»£ng khÃ¡ch"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -366,12 +367,12 @@
                 android:textColorHint="@color/text_placeholder"
                 android:textSize="14sp" />
 
-            <!-- Phương thức thanh toán -->
+            <!-- PhÆ°Æ¡ng thá»©c thanh toÃ¡n -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Phương thức thanh toán"
+                android:text="PhÆ°Æ¡ng thá»©c thanh toÃ¡n"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -384,12 +385,12 @@
                 android:background="@drawable/bg_input_normal"
                 android:paddingHorizontal="12dp" />
 
-            <!-- Ghi chú -->
+            <!-- Ghi chÃº -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Ghi chú"
+                android:text="Ghi chÃº"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -401,7 +402,7 @@
                 android:layout_marginTop="4dp"
                 android:background="@drawable/bg_input_normal"
                 android:gravity="top"
-                android:hint="Ghi chú thêm..."
+                android:hint="Ghi chÃº thÃªm..."
                 android:inputType="textMultiLine"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
@@ -409,7 +410,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- ===== Card tính tiền tự động ===== -->
+        <!-- ===== Card tÃ­nh tiá»n tá»± Ä‘á»™ng ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -422,13 +423,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="THÔNG TIN CHI PHÍ"
+                android:text="THÃ”NG TIN CHI PHÃ"
                 android:textColor="@color/primary_main"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.05" />
 
-            <!-- Số đêm -->
+            <!-- Sá»‘ Ä‘Ãªm -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -439,7 +440,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Số đêm"
+                    android:text="Sá»‘ Ä‘Ãªm"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
 
@@ -447,13 +448,13 @@
                     android:id="@+id/tv_so_dem_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 đêm"
+                    android:text="0 Ä‘Ãªm"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Đơn giá -->
+            <!-- ÄÆ¡n giÃ¡ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -464,7 +465,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Đơn giá/đêm"
+                    android:text="ÄÆ¡n giÃ¡/Ä‘Ãªm"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
 
@@ -472,7 +473,7 @@
                     android:id="@+id/tv_don_gia_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 đ"
+                    android:text="0 Ä‘"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -484,7 +485,7 @@
                 android:layout_marginVertical="10dp"
                 android:background="@color/divider" />
 
-            <!-- Thành tiền -->
+            <!-- ThÃ nh tiá»n -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -494,7 +495,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Thành tiền"
+                    android:text="ThÃ nh tiá»n"
                     android:textColor="@color/text_primary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -503,14 +504,14 @@
                     android:id="@+id/tv_thanh_tien_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 đ"
+                    android:text="0 Ä‘"
                     android:textColor="@color/primary_main"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Row nút Hủy + Xác nhận – nằm trong scroll, không cố định -->
+        <!-- Row nÃºt Há»§y + XÃ¡c nháº­n â€“ náº±m trong scroll, khÃ´ng cá»‘ Ä‘á»‹nh -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -519,19 +520,19 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Button Hủy: nền trắng, viền xanh, chữ xanh -->
+            <!-- Button Há»§y: ná»n tráº¯ng, viá»n xanh, chá»¯ xanh -->
             <Button
                 android:id="@+id/btn_cancel_booking"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_outline"
-                android:text="Hủy"
+                android:text="Há»§y"
                 android:textColor="@color/primary_main"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <!-- Button Xác nhận -->
+            <!-- Button XÃ¡c nháº­n -->
             <Button
                 android:id="@+id/btn_save_booking"
                 android:layout_width="0dp"
@@ -539,7 +540,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="2"
                 android:background="@drawable/bg_button_primary"
-                android:text="Xác nhận đặt phòng"
+                android:text="XÃ¡c nháº­n Ä‘áº·t phÃ²ng"
                 android:textColor="@color/text_on_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -547,3 +548,5 @@
 
     </LinearLayout>
 </ScrollView>
+
+

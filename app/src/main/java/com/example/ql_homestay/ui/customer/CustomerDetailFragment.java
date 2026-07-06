@@ -57,7 +57,7 @@ public class CustomerDetailFragment extends Fragment {
     private TextView tvInitials, tvTenKhach, tvBadgeSoLanThue;
     private TextView tvSdt, tvEmail, tvCccd, tvDiaChi, tvNgaySinh;
     private RecyclerView rvLichSu;
-    private TextView tvNoHistory;
+    private TextView tvNoHistory, tvXemTatCa;
     private View rowActionButtons;
     private MaterialButton btnChinhSua, btnXoa;
 
@@ -93,6 +93,7 @@ public class CustomerDetailFragment extends Fragment {
         tvNgaySinh        = view.findViewById(R.id.tv_ngay_sinh_detail);
         rvLichSu          = view.findViewById(R.id.rv_lich_su_dat_phong);
         tvNoHistory       = view.findViewById(R.id.tv_no_history);
+        tvXemTatCa        = view.findViewById(R.id.tv_xem_tat_ca);
         rowActionButtons  = view.findViewById(R.id.row_action_buttons);
         btnChinhSua       = view.findViewById(R.id.btn_chinh_sua);
         btnXoa            = view.findViewById(R.id.btn_xoa);
@@ -100,6 +101,7 @@ public class CustomerDetailFragment extends Fragment {
         setupBreadcrumb(view);
         applyPermission();
         rvLichSu.setLayoutManager(new LinearLayoutManager(requireContext()));
+        tvXemTatCa.setOnClickListener(v -> openAllHistory());
         loadData();
     }
 
@@ -121,18 +123,19 @@ public class CustomerDetailFragment extends Fragment {
         executor.execute(() -> {
             KhachHang kh = repository.getCustomerById(maKH);
             List<DatPhong> bookings = repository.getRecentBookings(maKH);
+            int stayCount = repository.getStayCount(maKH);
             mainHandler.post(() -> {
                 if (!isAdded()) return;
-                if (kh != null) bindCustomer(kh);
+                if (kh != null) bindCustomer(kh, stayCount);
                 bindBookings(bookings);
             });
         });
     }
 
-    private void bindCustomer(KhachHang kh) {
+    private void bindCustomer(KhachHang kh, int stayCount) {
         AvatarHelper.loadAvatar(requireContext(), kh.getAvatar(), kh.getHoTen(), ivAvatar, tvInitials);
         tvTenKhach.setText(kh.getHoTen());
-        tvBadgeSoLanThue.setText("Đã thuê " + kh.getSoLanThue() + " lần");
+        tvBadgeSoLanThue.setText("Đã thuê " + stayCount + " lần");
         tvSdt.setText(orDash(kh.getSdt()));
         tvEmail.setText(orDash(kh.getEmail()));
         tvCccd.setText(orDash(kh.getCccd()));
@@ -156,11 +159,21 @@ public class CustomerDetailFragment extends Fragment {
         if (list == null || list.isEmpty()) {
             rvLichSu.setVisibility(View.GONE);
             tvNoHistory.setVisibility(View.VISIBLE);
+            tvXemTatCa.setVisibility(View.GONE);
             return;
         }
         rvLichSu.setVisibility(View.VISIBLE);
         tvNoHistory.setVisibility(View.GONE);
+        tvXemTatCa.setVisibility(View.VISIBLE);
         rvLichSu.setAdapter(new BookingHistoryAdapter(list));
+    }
+
+    private void openAllHistory() {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(FRAGMENT_CONTAINER_ID, CustomerStayHistoryFragment.newInstance(maKH))
+                .addToBackStack(null)
+                .commit();
     }
 
     private void openEdit(int maKH) {

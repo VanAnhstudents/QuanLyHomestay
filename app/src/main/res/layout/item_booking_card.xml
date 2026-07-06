@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- item_booking_card.xml – Item card cho RecyclerView đặt phòng (C1) -->
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- item_booking_card.xml â€“ Item card cho RecyclerView Ä‘áº·t phÃ²ng (C1) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background_card"
@@ -11,7 +12,7 @@
     android:layout_marginHorizontal="0dp"
     android:layout_marginBottom="0dp">
 
-    <!-- Hàng trên: icon lịch + mã đặt phòng + ngày -->
+    <!-- HÃ ng trÃªn: icon lá»‹ch + mÃ£ Ä‘áº·t phÃ²ng + ngÃ y -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,9 +22,9 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:contentDescription="Lịch"
+            android:contentDescription="Lá»‹ch"
             android:src="@drawable/ic_calendar"
-            android:tint="@color/primary_main" />
+            app:tint="@color/primary_main" />
 
         <TextView
             android:id="@+id/tv_booking_id"
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_weight="1"
-            android:text="ĐP #1"
+            android:text="ÄP #1"
             android:textColor="@color/text_primary"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -46,7 +47,7 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <!-- Hàng giữa: tên khách + tên phòng -->
+    <!-- HÃ ng giá»¯a: tÃªn khÃ¡ch + tÃªn phÃ²ng -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Nguyễn Văn A"
+            android:text="Nguyá»…n VÄƒn A"
             android:textColor="@color/text_primary"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -74,7 +75,7 @@
             android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- Hàng dưới: CI → CO + badge trạng thái -->
+    <!-- HÃ ng dÆ°á»›i: CI â†’ CO + badge tráº¡ng thÃ¡i -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2026-06-15 → 2026-06-19"
+            android:text="2026-06-15 â†’ 2026-06-19"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -98,11 +99,11 @@
             android:background="@drawable/bg_badge_dangthue"
             android:gravity="center"
             android:paddingHorizontal="10dp"
-            android:text="Đang ở"
+            android:text="Äang á»Ÿ"
             android:textSize="11sp" />
     </LinearLayout>
 
-    <!-- Divider dưới -->
+    <!-- Divider dÆ°á»›i -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -110,3 +111,5 @@
         android:background="@color/divider" />
 
 </LinearLayout>
+
+

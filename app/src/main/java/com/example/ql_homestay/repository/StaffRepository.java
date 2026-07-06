@@ -13,7 +13,10 @@ import com.example.ql_homestay.model.NhanVien;
 import com.example.ql_homestay.model.PhanCongCa;
 import com.example.ql_homestay.model.TaiKhoan;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class StaffRepository {
     private final DatabaseHelper dbHelper;
@@ -83,10 +86,28 @@ public class StaffRepository {
     }
 
     public List<PhanCongCa> getShiftAssignments(int maNV) {
-        return phanCongCaDAO.getByNhanVien(maNV);
+        return getShiftAssignments(maNV, currentWeekStart());
+    }
+
+    public List<PhanCongCa> getShiftAssignments(int maNV, String tuanBatDau) {
+        List<PhanCongCa> list = phanCongCaDAO.getByNhanVienAndWeek(maNV, tuanBatDau);
+        return list.isEmpty() ? phanCongCaDAO.getByNhanVien(maNV) : list;
     }
 
     public void saveShiftAssignments(int maNV, List<PhanCongCa> danhSach) {
         phanCongCaDAO.replaceAll(maNV, danhSach);
+    }
+
+    public void saveShiftAssignments(int maNV, String tuanBatDau, List<PhanCongCa> danhSach) {
+        phanCongCaDAO.replaceWeek(maNV, tuanBatDau, danhSach);
+    }
+
+    public static String currentWeekStart() {
+        Calendar c = Calendar.getInstance();
+        c.setFirstDayOfWeek(Calendar.MONDAY);
+        while (c.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            c.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(c.getTime());
     }
 }
