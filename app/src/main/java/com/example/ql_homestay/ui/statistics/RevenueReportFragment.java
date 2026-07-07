@@ -74,7 +74,7 @@ public class RevenueReportFragment extends Fragment {
         invoiceRepo = new InvoiceRepository(dbHelper);
 
         bindViews(view);
-        setupBackButton(view);
+        setupBreadcrumb(view);
         setupDatePickers();
         setupButtons();
 
@@ -83,14 +83,6 @@ public class RevenueReportFragment extends Fragment {
     }
 
     // ─── Setup ────────────────────────────────────────────────────────────────
-
-    private void setupBackButton(View view) {
-        View btnBack = view.findViewById(R.id.btn_back);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v ->
-                    requireActivity().getSupportFragmentManager().popBackStack());
-        }
-    }
 
     private void bindViews(View view) {
         tvFromDate      = view.findViewById(R.id.tv_from_date);
@@ -106,6 +98,13 @@ public class RevenueReportFragment extends Fragment {
         chartContainer  = view.findViewById(R.id.chart_container);
         llInvoiceList   = view.findViewById(R.id.ll_invoice_list);
         btnExport       = view.findViewById(R.id.btn_export);
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Thống kê → Doanh thu");
     }
 
     private void setDefaultMonth() {
@@ -163,9 +162,6 @@ public class RevenueReportFragment extends Fragment {
     private void setupButtons() {
         btnViewReport.setOnClickListener(v -> loadReport());
         btnExport.setOnClickListener(v -> exportReport());
-
-        View backBtn = requireView().findViewById(R.id.btn_back);
-        if (backBtn != null) backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
     }
 
     // ─── Load data ────────────────────────────────────────────────────────────

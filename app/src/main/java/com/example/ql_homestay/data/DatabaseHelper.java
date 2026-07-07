@@ -27,7 +27,7 @@ import androidx.annotation.NonNull;
  *     nhưng vẫn dễ kiểm soát tính nhất quán (trạng thái Phong khớp DatPhong,
  *     SoDem khớp NgayCheckIn/NgayCheckOut, TongCong khớp TienPhong + PhuThu
  *     - GiamGia, ChiTietPhuThu khớp tổng PhuThuDichVu của hóa đơn, v.v.)
- *   - Mốc thời gian "hiện tại" dùng để tạo dữ liệu tương đối là 17/06/2026,
+ *   - Mốc thời gian "hiện tại" dùng để tạo dữ liệu tương đối là 08/07/2026,
  *     vì vậy các đặt phòng "DangO"/"SapDen"/"DaTraPhong"/"DaHuy" được rải
  *     quanh mốc này để khi mở app, danh sách trông như một hệ thống đang
  *     hoạt động thật.
@@ -35,7 +35,7 @@ import androidx.annotation.NonNull;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "lalahouse.db";
-    private static final int DB_VERSION = 4; // Tăng khi đổi schema để onUpgrade() tạo lại DB demo.
+    private static final int DB_VERSION = 5; // Tăng khi đổi schema HOẶC khi đổi mốc "hôm nay" của seed, để onUpgrade() tạo lại DB demo.
     private static volatile DatabaseHelper instance;
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -687,21 +687,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // =========================================================================
     // SEED 13: DatPhong (14 đặt phòng)
     //
-    // Mốc "hôm nay" = 17/06/2026
+    // Mốc "hôm nay" = 08/07/2026 (trước đó là 17/06/2026 — toàn bộ mốc thời
+    // gian bên dưới đã dịch chuyển +21 ngày, tức đúng 3 tuần nên thứ trong
+    // tuần của từng ngày được giữ nguyên so với bản gốc).
     //
-    // Trạng thái phân bố (phải khớp seedPhong):
+    // Trạng thái phân bố (phải khớp seedPhong, KHÔNG đổi ở SEED 11):
     //   DangO      → MaPhong 3 (P103), 4 (P201), 6 (P203), 9 (P302)
     //   DaDat      → MaPhong 5 (P202), 11 (P401)  [check-in tương lai]
     //   DaTraPhong → các đặt phòng đã trả về phòng Trong
-    //   DaHuy      → 1-2 đặt phòng đã hủy
-    //   SapDen     → 2-3 đặt phòng sắp tới (phòng Trong sẽ chuyển DaDat khi
+    //   DaHuy      → 2 đặt phòng đã hủy (1 trong số đó có phát sinh hóa đơn
+    //                 hoàn tiền – xem SEED 15, MaDatPhong 7)
+    //   SapDen     → 3 đặt phòng sắp tới (phòng Trong sẽ chuyển DaDat khi
     //                 nhân viên bấm "Đặt" – trong seed ta để phòng = DaDat cho
     //                 nhất quán vì SapDen = đã đặt nhưng chưa check-in)
+    //   => Cả 4 giá trị TrangThai cho phép của DatPhong đều có mặt.
     //
     // Lưu ý:
     //   - MaPhong 5 & 11 có TrangThai = 'DaDat' trong Phong → bao gồm cả
     //     DatPhong trạng thái 'SapDen' (chưa check-in) và 'DaDat' (đã đặt
     //     online, chưa check-in, phòng đang giữ chỗ).
+    //   - (*) MaDatPhong 14 (MaPhong 12 / P402) là 'SapDen' nhưng Phong vẫn
+    //     giữ 'Trong' vì check-in còn khá xa (ngày 13/07) nên NV lễ tân chưa
+    //     bấm khóa phòng; đây là dữ liệu gốc từ SEED 11 nên KHÔNG chỉnh sửa
+    //     ở đây theo đúng yêu cầu giữ nguyên SEED 1-12.
     //   - SoDem được tính chính xác = (CheckOut - CheckIn) tính theo ngày.
     //   - MaNV = 2 (lê tân Bich) là người xử lý chính.
     // =========================================================================
@@ -709,26 +717,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // {MaKH, MaPhong, MaNV, NgayCI, NgayCO, SoKhach, SoDem, TrangThai, PhuongThuc, GhiChu, NgayTao}
         Object[][] dps = {
                 // ---- ĐÃ TRẢ PHÒNG (lịch sử) ----
-                {1,  1, 2, "2026-06-01", "2026-06-04", 2, 3, "DaTraPhong", "CK",    "Khách quen, ưu tiên phòng sân vườn.", "2026-05-28"},
-                {2,  2, 2, "2026-06-05", "2026-06-08", 2, 3, "DaTraPhong", "TM",    null,                                  "2026-06-04"},
-                {4,  7, 3, "2026-06-08", "2026-06-12", 2, 4, "DaTraPhong", "CK",    "Khách công tác dài hạn.",             "2026-06-07"},
-                {8, 10, 2, "2026-06-10", "2026-06-14", 2, 4, "DaTraPhong", "TM",    null,                                  "2026-06-09"},
-                {11, 8, 3, "2026-06-12", "2026-06-15", 3, 3, "DaTraPhong", "VNPAY", "Đoàn gia đình, yêu cầu jacuzzi.",     "2026-06-11"},
+                {1,  1, 2, "2026-06-22", "2026-06-25", 2, 3, "DaTraPhong", "CK",    "Khách quen, ưu tiên phòng sân vườn.", "2026-06-18"},
+                {2,  2, 2, "2026-06-26", "2026-06-29", 2, 3, "DaTraPhong", "TM",    null,                                  "2026-06-25"},
+                {4,  7, 3, "2026-06-29", "2026-07-03", 2, 4, "DaTraPhong", "CK",    "Khách công tác dài hạn.",             "2026-06-28"},
+                {8, 10, 2, "2026-07-01", "2026-07-05", 2, 4, "DaTraPhong", "TM",    null,                                  "2026-06-30"},
+                {11, 8, 3, "2026-07-03", "2026-07-06", 3, 3, "DaTraPhong", "VNPAY", "Đoàn gia đình, yêu cầu jacuzzi.",     "2026-07-02"},
 
                 // ---- ĐÃ HỦY ----
-                {5,  1, 2, "2026-06-20", "2026-06-22", 1, 2, "DaHuy",      "TM",    "Khách đổi lịch đột xuất.",            "2026-06-15"},
-                {10, 2, 2, "2026-06-25", "2026-06-27", 2, 2, "DaHuy",      "CK",    null,                                  "2026-06-16"},
+                {5,  1, 2, "2026-07-11", "2026-07-13", 1, 2, "DaHuy",      "TM",    "Khách đổi lịch đột xuất.",            "2026-07-06"},
+                {10, 2, 2, "2026-07-16", "2026-07-18", 2, 2, "DaHuy",      "CK",    "Đã hủy, cọc đã hoàn qua CK (xem HoaDon #10).", "2026-07-07"},
 
-                // ---- ĐANG Ở (check-in trước 17/06, check-out sau 17/06) ----
-                {3,  3, 2, "2026-06-15", "2026-06-19", 2, 4, "DangO",      "TM",    null,                                  "2026-06-14"},
-                {6,  4, 3, "2026-06-16", "2026-06-20", 2, 4, "DangO",      "CK",    "Khách doanh nhân, cần hóa đơn VAT.",  "2026-06-15"},
-                {9,  6, 2, "2026-06-14", "2026-06-18", 3, 4, "DangO",      "VNPAY", null,                                  "2026-06-13"},
-                {12, 9, 3, "2026-06-13", "2026-06-18", 4, 5, "DangO",      "TM",    "Gia đình 4 người, 2 trẻ em.",         "2026-06-12"},
+                // ---- ĐANG Ở (check-in trước 08/07, check-out sau 08/07) ----
+                {3,  3, 2, "2026-07-06", "2026-07-10", 2, 4, "DangO",      "TM",    null,                                  "2026-07-05"},
+                {6,  4, 3, "2026-07-07", "2026-07-11", 2, 4, "DangO",      "CK",    "Khách doanh nhân, cần hóa đơn VAT.",  "2026-07-06"},
+                {9,  6, 2, "2026-07-05", "2026-07-09", 3, 4, "DangO",      "VNPAY", null,                                  "2026-07-04"},
+                {12, 9, 3, "2026-07-04", "2026-07-09", 4, 5, "DangO",      "TM",    "Gia đình 4 người, 2 trẻ em.",         "2026-07-03"},
 
-                // ---- SẮP ĐẾN (check-in sau 17/06) – Phòng đang ở trạng thái 'DaDat' ----
-                {7,  5, 2, "2026-06-19", "2026-06-22", 2, 3, "SapDen",     "CK",    null,                                  "2026-06-17"},
-                {2, 11, 3, "2026-06-20", "2026-06-24", 3, 4, "SapDen",     "TM",    "Tặng báo nước chào mừng.",            "2026-06-17"},
-                {4, 12, 2, "2026-06-22", "2026-06-25", 2, 3, "SapDen",     "CK",    null,                                  "2026-06-17"},
+                // ---- SẮP ĐẾN (check-in sau 08/07) – Phòng đang ở trạng thái 'DaDat' ----
+                {7,  5, 2, "2026-07-10", "2026-07-13", 2, 3, "SapDen",     "CK",    null,                                  "2026-07-08"},
+                {2, 11, 3, "2026-07-11", "2026-07-15", 3, 4, "SapDen",     "TM",    "Tặng báo nước chào mừng.",            "2026-07-08"},
+                {4, 12, 2, "2026-07-13", "2026-07-16", 2, 3, "SapDen",     "CK",    null,                                  "2026-07-08"},
         };
         for (Object[] dp : dps) {
             ContentValues cv = getContentValues(dp);
@@ -761,26 +769,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //   6..7  = DaHuy       → không có log
     //   8..11 = DangO       → chỉ có CheckIn
     //   12..14= SapDen      → không có log
+    // Mốc "hôm nay" = 08/07/2026 → toàn bộ mốc giờ dưới đây dịch +21 ngày
+    // so với bản gốc (17/06/2026), giữ nguyên giờ trong ngày.
     // =========================================================================
     private void seedCheckInOut(SQLiteDatabase db) {
         // {MaDatPhong, MaNV, Loai, ThoiGian}
         Object[][] logs = {
                 // DaTraPhong (MaDatPhong 1..5): CheckIn + CheckOut
-                {1, 2, "CheckIn",  "2026-06-01 13:45:00"},
-                {1, 2, "CheckOut", "2026-06-04 11:20:00"},
-                {2, 3, "CheckIn",  "2026-06-05 14:10:00"},
-                {2, 3, "CheckOut", "2026-06-08 10:55:00"},
-                {3, 2, "CheckIn",  "2026-06-08 15:00:00"},
-                {3, 3, "CheckOut", "2026-06-12 11:30:00"},
-                {4, 3, "CheckIn",  "2026-06-10 13:20:00"},
-                {4, 2, "CheckOut", "2026-06-14 12:00:00"},
-                {5, 2, "CheckIn",  "2026-06-12 14:50:00"},
-                {5, 3, "CheckOut", "2026-06-15 10:40:00"},
+                {1, 2, "CheckIn",  "2026-06-22 13:45:00"},
+                {1, 2, "CheckOut", "2026-06-25 11:20:00"},
+                {2, 3, "CheckIn",  "2026-06-26 14:10:00"},
+                {2, 3, "CheckOut", "2026-06-29 10:55:00"},
+                {3, 2, "CheckIn",  "2026-06-29 15:00:00"},
+                {3, 3, "CheckOut", "2026-07-03 11:30:00"},
+                {4, 3, "CheckIn",  "2026-07-01 13:20:00"},
+                {4, 2, "CheckOut", "2026-07-05 12:00:00"},
+                {5, 2, "CheckIn",  "2026-07-03 14:50:00"},
+                {5, 3, "CheckOut", "2026-07-06 10:40:00"},
                 // DangO (MaDatPhong 8..11): chỉ CheckIn
-                {8, 2, "CheckIn",  "2026-06-15 14:30:00"},
-                {9, 3, "CheckIn",  "2026-06-16 15:15:00"},
-                {10, 2, "CheckIn", "2026-06-14 13:00:00"},
-                {11, 3, "CheckIn", "2026-06-13 14:00:00"},
+                {8, 2, "CheckIn",  "2026-07-06 14:30:00"},
+                {9, 3, "CheckIn",  "2026-07-07 15:15:00"},
+                {10, 2, "CheckIn", "2026-07-05 13:00:00"},
+                {11, 3, "CheckIn", "2026-07-04 14:00:00"},
         };
         for (Object[] log : logs) {
             ContentValues cv = new ContentValues();
@@ -796,10 +806,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // =========================================================================
     // SEED 15: HoaDon
     //
-    // Chỉ tạo hóa đơn cho DatPhong đã có dịch vụ thực tế:
+    // Chỉ tạo hóa đơn cho DatPhong đã có dịch vụ/giao dịch thực tế:
     //   DaTraPhong (MaDatPhong 1..5) → DaThanhToan
     //   DangO (MaDatPhong 8..11)     → ChuaThanhToan (thanh toán khi trả phòng)
-    //   DaHuy / SapDen               → không có hóa đơn
+    //   DaHuy / SapDen               → thường không có hóa đơn, TRỪ 1 ngoại lệ:
+    //   DaHuy (MaDatPhong 7)         → HoanTien (khách đã chuyển khoản cọc lúc
+    //                                  đặt phòng rồi hủy, được hoàn lại toàn bộ)
+    //                                  → minh họa đủ 3 trạng thái của HoaDon.
     //
     // Công thức: TongCong = TienPhong + PhuThuDichVu - GiamGia
     //
@@ -809,20 +822,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //   MaPhong 6 (P203 Deluxe)   = 950.000 x SoDem
     //   MaPhong 9 (P302 Suite)    = 1.900.000 x SoDem
     //   ...
+    //
+    // Mốc "hôm nay" = 08/07/2026 → NgayLap/NgayTT dịch +21 ngày so với bản
+    // gốc (17/06/2026); 4 hóa đơn ChuaThanhToan có NgayLap = hôm nay (lập khi
+    // khách vẫn đang ở, chờ thanh toán lúc trả phòng).
     // =========================================================================
     private void seedHoaDon(SQLiteDatabase db) {
         // {MaDatPhong, NgayLap, TienPhong, PhuThu, GiamGia, TongCong, TrangThai, PhuongThucTT, NgayTT, MaNV}
         // TienPhong = GiaMoiDem x SoDem (theo seedPhong + seedDatPhong)
         Object[][] hds = {
-                {1,  "2026-06-04", 1_650_000.0, 150_000.0, 0.0,       1_800_000.0, "DaThanhToan",   "CK",    "2026-06-04", 2},
-                {2,  "2026-06-08", 1_650_000.0, 50_000.0,  0.0,       1_700_000.0, "DaThanhToan",   "TM",    "2026-06-08", 3},
-                {3,  "2026-06-12", 3_800_000.0, 300_000.0, 200_000.0, 3_900_000.0, "DaThanhToan",   "CK",    "2026-06-12", 2},
-                {4,  "2026-06-14", 7_400_000.0, 500_000.0, 0.0,       7_900_000.0, "DaThanhToan",   "TM",    "2026-06-14", 3},
-                {5,  "2026-06-15", 5_700_000.0, 700_000.0, 500_000.0, 5_900_000.0, "DaThanhToan",   "VNPAY", "2026-06-15", 2},
-                {8,  "2026-06-17", 2_200_000.0, 100_000.0, 0.0,       2_300_000.0, "ChuaThanhToan", null,    null,         2},
-                {9,  "2026-06-17", 3_800_000.0, 200_000.0, 0.0,       4_000_000.0, "ChuaThanhToan", null,    null,         3},
-                {10, "2026-06-17", 3_800_000.0, 380_000.0, 0.0,       4_180_000.0, "ChuaThanhToan", null,    null,         2},
-                {11, "2026-06-17", 9_500_000.0, 500_000.0, 200_000.0, 9_800_000.0, "ChuaThanhToan", null,    null,         3},
+                {1,  "2026-06-25", 1_650_000.0, 150_000.0, 0.0,       1_800_000.0, "DaThanhToan",   "CK",    "2026-06-25", 2},
+                {2,  "2026-06-29", 1_650_000.0, 50_000.0,  0.0,       1_700_000.0, "DaThanhToan",   "TM",    "2026-06-29", 3},
+                {3,  "2026-07-03", 3_800_000.0, 300_000.0, 200_000.0, 3_900_000.0, "DaThanhToan",   "CK",    "2026-07-03", 2},
+                {4,  "2026-07-05", 7_400_000.0, 500_000.0, 0.0,       7_900_000.0, "DaThanhToan",   "TM",    "2026-07-05", 3},
+                {5,  "2026-07-06", 5_700_000.0, 700_000.0, 500_000.0, 5_900_000.0, "DaThanhToan",   "VNPAY", "2026-07-06", 2},
+                {8,  "2026-07-08", 2_200_000.0, 100_000.0, 0.0,       2_300_000.0, "ChuaThanhToan", null,    null,         2},
+                {9,  "2026-07-08", 3_800_000.0, 200_000.0, 0.0,       4_000_000.0, "ChuaThanhToan", null,    null,         3},
+                {10, "2026-07-08", 3_800_000.0, 380_000.0, 0.0,       4_180_000.0, "ChuaThanhToan", null,    null,         2},
+                {11, "2026-07-08", 9_500_000.0, 500_000.0, 200_000.0, 9_800_000.0, "ChuaThanhToan", null,    null,         3},
+                // HĐ 10 (MỚI): MaDatPhong 7 (DaHuy, P102) – cọc CK lúc đặt phòng
+                // (07/07), hủy trước hôm nay và được hoàn tiền toàn bộ (08/07).
+                {7,  "2026-07-07", 1_100_000.0, 0.0,       0.0,       1_100_000.0, "HoanTien",      "CK",    "2026-07-08", 4},
         };
         for (Object[] hd : hds) {
             ContentValues cv = new ContentValues();
@@ -854,6 +874,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //   HĐ 7 = MaDatPhong 9  → PhuThu tổng 200.000
     //   HĐ 8 = MaDatPhong 10 → PhuThu tổng 380.000
     //   HĐ 9 = MaDatPhong 11 → PhuThu tổng 500.000
+    //   HĐ 10= MaDatPhong 7  → PhuThu tổng 0 (hoàn tiền cọc phòng, không phát
+    //                          sinh dịch vụ nên KHÔNG có dòng ở bảng này)
     // =========================================================================
     private void seedChiTietPhuThu(SQLiteDatabase db) {
         // {MaHD, TenPhuThu, SoTien}

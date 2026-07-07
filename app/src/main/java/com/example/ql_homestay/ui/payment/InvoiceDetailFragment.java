@@ -72,19 +72,11 @@ public class InvoiceDetailFragment extends Fragment {
         session     = SessionManager.getInstance(requireContext());
 
         bindViews(view);
-        setupBackButton(view);
+        setupBreadcrumb(view);
         loadData();
     }
 
     // ─── Setup ────────────────────────────────────────────────────────────────
-
-    private void setupBackButton(View view) {
-        View btnBack = view.findViewById(R.id.btn_back);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v ->
-                    requireActivity().getSupportFragmentManager().popBackStack());
-        }
-    }
 
     private void bindViews(View view) {
         tvMaHD              = view.findViewById(R.id.tv_ma_hd);
@@ -105,6 +97,13 @@ public class InvoiceDetailFragment extends Fragment {
         tvNguoiThu          = view.findViewById(R.id.tv_nguoi_thu);
         btnPrint            = view.findViewById(R.id.btn_print);
         btnConfirmPayment   = view.findViewById(R.id.btn_confirm_payment);
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Thanh toán → Chi tiết");
     }
 
     // ─── Data ─────────────────────────────────────────────────────────────────

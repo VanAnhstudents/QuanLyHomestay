@@ -7,7 +7,10 @@ import com.example.ql_homestay.data.dao.KhachHangDAO;
 import com.example.ql_homestay.data.dao.PhongDAO;
 import com.example.ql_homestay.model.CheckInOut;
 import com.example.ql_homestay.model.DatPhong;
+import com.example.ql_homestay.model.HoaDon;
+import com.example.ql_homestay.model.Phong;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,12 +22,14 @@ public class BookingRepository {
     private final CheckInOutDAO checkInOutDAO;
     private final PhongDAO phongDAO;
     private final KhachHangDAO khachHangDAO;
+    private final InvoiceRepository invoiceRepository;
 
     public BookingRepository(DatabaseHelper dbHelper) {
         this.datPhongDAO   = new DatPhongDAO(dbHelper);
         this.checkInOutDAO = new CheckInOutDAO(dbHelper);
         this.phongDAO      = new PhongDAO(dbHelper);
         this.khachHangDAO  = new KhachHangDAO(dbHelper);
+        this.invoiceRepository = new InvoiceRepository(dbHelper);
     }
 
     // -------- DatPhong --------
@@ -117,8 +122,29 @@ public class BookingRepository {
     public long createBooking(DatPhong dp) {
         long maDatPhong = datPhongDAO.insert(dp);
         if (maDatPhong > 0) {
+            createInvoiceForBooking(dp, (int) maDatPhong);
             phongDAO.updateTrangThai(dp.getMaPhong(), "DaDat");
         }
         return maDatPhong;
+    }
+
+    private void createInvoiceForBooking(DatPhong dp, int maDatPhong) {
+        if (invoiceRepository.getInvoiceByDatPhong(maDatPhong) != null) return;
+
+        Phong phong = phongDAO.findById(dp.getMaPhong());
+        double tienPhong = (phong != null ? phong.getGiaMoiDem() : 0) * dp.getSoDem();
+
+        HoaDon hd = new HoaDon();
+        hd.setMaDatPhong(maDatPhong);
+        hd.setNgayLap(dp.getNgayTao());
+        hd.setTienPhong(tienPhong);
+        hd.setPhuThuDichVu(0);
+        hd.setGiamGia(0);
+        hd.setTongCong(tienPhong);
+        hd.setTrangThai("ChuaThanhToan");
+        hd.setPhuongThucTT(dp.getPhuongThucThanhToan());
+        hd.setMaNV(dp.getMaNV());
+
+        invoiceRepository.createInvoice(hd, Collections.emptyList());
     }
 }

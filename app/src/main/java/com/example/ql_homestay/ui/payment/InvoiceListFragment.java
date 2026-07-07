@@ -20,6 +20,7 @@ import com.example.ql_homestay.adapter.InvoiceAdapter;
 import com.example.ql_homestay.data.DatabaseHelper;
 import com.example.ql_homestay.model.HoaDon;
 import com.example.ql_homestay.repository.InvoiceRepository;
+import com.example.ql_homestay.ui.booking.BookingAddEditFragment;
 import com.example.ql_homestay.util.SessionManager;
 
 import java.text.NumberFormat;
@@ -112,7 +113,7 @@ public class InvoiceListFragment extends Fragment {
 
         TextView tvSub = emptyView.findViewById(R.id.tv_empty_sub);
         if (tvSub != null) {
-            tvSub.setText("Nhấn nút bên dưới để tạo hóa đơn mới");
+            tvSub.setText("Nhấn nút bên dưới để tạo đặt phòng mới");
             tvSub.setVisibility(View.VISIBLE);
         }
 
@@ -125,11 +126,11 @@ public class InvoiceListFragment extends Fragment {
         }
     }
 
-    /** Mở màn hình tạo hóa đơn mới */
+    /** Mở màn hình tạo đặt phòng mới; hóa đơn sẽ được tạo tự động theo đặt phòng. */
     private void navigateToCreate() {
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, new InvoiceCreateFragment())
+                .replace(R.id.fragment_container, BookingAddEditFragment.newInstance(-1, -1))
                 .addToBackStack(null)
                 .commit();
     }

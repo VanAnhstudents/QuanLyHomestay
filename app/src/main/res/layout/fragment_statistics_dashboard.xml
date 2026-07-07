@@ -11,6 +11,10 @@
     android:orientation="vertical"
     android:background="@color/background_screen">
 
+    <include
+        android:id="@+id/breadcrumb"
+        layout="@layout/layout_breadcrumb" />
+
     <!-- ══════════════════════════════════════════════════════
          Row chọn kỳ — CỐ ĐỊNH trên cùng, không cuộn
          ══════════════════════════════════════════════════════ -->
