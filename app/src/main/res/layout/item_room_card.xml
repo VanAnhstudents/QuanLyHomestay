@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- item_room_card.xml – Item card cho RecyclerView danh sách phòng (B1) -->
-<!-- Cao 90dp, layout theo spec ux_ui.md B1 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="90dp"
     android:background="@color/background_card"
     android:paddingHorizontal="8dp"
     android:paddingVertical="4dp">
 
-    <!-- Hình ảnh phòng: 80x80dp, căn trái, bo tròn -->
+    <!-- Hình ảnh phòng -->
     <ImageView
         android:id="@+id/iv_room_image"
         android:layout_width="80dp"
@@ -20,21 +19,32 @@
         android:contentDescription="Hình phòng"
         android:scaleType="centerCrop" />
 
-    <!-- Badge trạng thái: góc trên phải -->
+    <!-- Icon > -->
+    <ImageView
+        android:id="@+id/iv_chevron"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_chevron_right"
+        app:tint="@color/icon_inactive" />
+
+    <!-- Badge trạng thái -->
     <TextView
         android:id="@+id/tv_room_status"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
+        android:layout_toStartOf="@id/iv_chevron"
+        android:layout_alignTop="@id/iv_chevron"
+        android:layout_marginEnd="12dp"
         android:background="@drawable/bg_badge_trong"
         android:gravity="center"
         android:paddingHorizontal="10dp"
         android:text="Trống"
         android:textSize="11sp" />
 
-    <!-- Cột thông tin chữ: nằm bên phải ảnh, giữa theo chiều dọc -->
+    <!-- Thông tin phòng -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,7 +85,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Divider dưới cùng -->
+    <!-- Divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
