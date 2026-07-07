@@ -47,7 +47,7 @@ public class RoomDetailFragment extends Fragment {
 
     private int maPhong;
 
-    private ImageView ivRoomHeader, btnBack;
+    private ImageView ivRoomHeader;
     private TextView tvRoomStatusHeader;
     private TextView tvRoomName, tvRoomType, tvRoomPrice;
     private TextView tvSucChua, tvDienTich, tvTang;
@@ -96,14 +96,12 @@ public class RoomDetailFragment extends Fragment {
 
         bindViews(view);
         setupBreadcrumb(view);
-        setupBackButton();
 
         if (maPhong > 0) loadRoomDetail();
     }
 
     private void bindViews(View view) {
         ivRoomHeader       = view.findViewById(R.id.iv_room_header);
-        btnBack            = view.findViewById(R.id.btn_back);
         tvRoomStatusHeader = view.findViewById(R.id.tv_room_status_header);
         tvRoomName         = view.findViewById(R.id.tv_room_name);
         tvRoomType         = view.findViewById(R.id.tv_room_type);
@@ -123,15 +121,6 @@ public class RoomDetailFragment extends Fragment {
         if (bc == null) return;
         TextView tv = bc.findViewById(R.id.tv_breadcrumb);
         if (tv != null) tv.setText("Trang chủ → Phòng → Chi tiết");
-    }
-
-    private void setupBackButton() {
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> {
-                if (getParentFragmentManager().getBackStackEntryCount() > 0)
-                    getParentFragmentManager().popBackStack();
-            });
-        }
     }
 
     private void loadRoomDetail() {

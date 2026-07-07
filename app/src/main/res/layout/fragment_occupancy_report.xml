@@ -10,38 +10,9 @@
     android:orientation="vertical"
     android:background="@color/background_screen">
 
-    <!-- ── Header: Nút back + Tiêu đề ── -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/background_card"
-        android:paddingStart="12dp"
-        android:paddingEnd="16dp"
-        android:elevation="2dp">
-
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@drawable/bg_button_back_circle"
-            android:contentDescription="Quay lại"
-            android:padding="8dp"
-            android:src="@drawable/ic_back"
-            android:layout_marginEnd="10dp"
-            app:tint="@color/primary_main" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Báo cáo công suất phòng"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif-bold"
-            android:textColor="@color/text_primary" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/breadcrumb"
+        layout="@layout/layout_breadcrumb" />
 
     <!-- DateRange Picker + Button Xem -->
     <LinearLayout
@@ -52,6 +23,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
+        android:paddingTop="16dp"
         android:elevation="2dp">
 
         <LinearLayout

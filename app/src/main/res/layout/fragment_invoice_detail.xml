@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-    fragment_invoice_detail.xml – G2: Chi tiết hóa đơn
+    fragment_invoice_detail.xml â€“ G2: Chi tiáº¿t hÃ³a Ä‘Æ¡n
     Root: ScrollView > LinearLayout (vertical)
-    Cards: thông tin HĐ → đặt phòng → chi tiết tiền → thanh toán → row nút
+    Cards: thÃ´ng tin HÄ â†’ Ä‘áº·t phÃ²ng â†’ chi tiáº¿t tiá»n â†’ thanh toÃ¡n â†’ row nÃºt
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,7 +11,11 @@
     android:orientation="vertical"
     android:background="@color/background_screen">
 
-    <!-- ScrollView nội dung -->
+    <include
+                android:id="@+id/breadcrumb"
+                layout="@layout/layout_breadcrumb" />
+
+    <!-- ScrollView ná»™i dung -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,40 +27,7 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-            <!-- ── Header: Nút back + Tiêu đề màn hình ── -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@color/background_card"
-                android:paddingStart="12dp"
-                android:paddingEnd="16dp"
-                android:elevation="2dp">
-
-                <ImageButton
-                    android:id="@+id/btn_back"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/bg_button_back_circle"
-                    android:contentDescription="Quay lại"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_back"
-                    android:layout_marginEnd="10dp"
-                    app:tint="@color/primary_main" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Chi tiết hóa đơn"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-bold"
-                    android:textColor="@color/text_primary" />
-
-            </LinearLayout>
-
-            <!-- Card thông tin tổng quan hóa đơn -->
+            <!-- Card thÃ´ng tin tá»•ng quan hÃ³a Ä‘Æ¡n -->
             <LinearLayout
                 android:id="@+id/card_info"
                 android:layout_width="match_parent"
@@ -68,7 +39,7 @@
                 android:layout_marginTop="16dp"
                 android:padding="16dp">
 
-                <!-- Hàng: Mã HĐ + Badge trạng thái -->
+                <!-- HÃ ng: MÃ£ HÄ + Badge tráº¡ng thÃ¡i -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,7 +54,7 @@
                         android:textSize="18sp"
                         android:fontFamily="sans-serif-bold"
                         android:textColor="@color/text_primary"
-                        android:text="Hóa đơn #001" />
+                        android:text="HÃ³a Ä‘Æ¡n #001" />
 
                     <TextView
                         android:id="@+id/tv_trang_thai"
@@ -95,10 +66,10 @@
                         android:textSize="12sp"
                         android:background="@drawable/bg_badge_chuathanhtoan"
                         android:textColor="@color/badge_chuathanhtoan_text"
-                        android:text="Chưa TT" />
+                        android:text="ChÆ°a TT" />
                 </LinearLayout>
 
-                <!-- Ngày lập -->
+                <!-- NgÃ y láº­p -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,7 +82,7 @@
                         android:layout_weight="1"
                         android:textSize="13sp"
                         android:textColor="@color/text_secondary"
-                        android:text="Ngày lập:" />
+                        android:text="NgÃ y láº­p:" />
 
                     <TextView
                         android:id="@+id/tv_ngay_lap"
@@ -123,7 +94,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Card thông tin đặt phòng -->
+            <!-- Card thÃ´ng tin Ä‘áº·t phÃ²ng -->
             <LinearLayout
                 android:id="@+id/card_booking"
                 android:layout_width="match_parent"
@@ -141,10 +112,10 @@
                     android:textSize="15sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
-                    android:text="Thông tin đặt phòng"
+                    android:text="ThÃ´ng tin Ä‘áº·t phÃ²ng"
                     android:layout_marginBottom="10dp" />
 
-                <!-- Tên phòng -->
+                <!-- TÃªn phÃ²ng -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -152,14 +123,14 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Phòng:" />
+                        android:textColor="@color/text_secondary" android:text="PhÃ²ng:" />
                     <TextView android:id="@+id/tv_ten_phong" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
                         android:fontFamily="sans-serif-medium" android:textColor="@color/text_primary"
                         android:text="P101" />
                 </LinearLayout>
 
-                <!-- Khách hàng -->
+                <!-- KhÃ¡ch hÃ ng -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -167,10 +138,10 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Khách hàng:" />
+                        android:textColor="@color/text_secondary" android:text="KhÃ¡ch hÃ ng:" />
                     <TextView android:id="@+id/tv_ten_khach" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="Nguyễn Thị Mai" />
+                        android:textColor="@color/text_primary" android:text="Nguyá»…n Thá»‹ Mai" />
                 </LinearLayout>
 
                 <!-- Check-in -->
@@ -201,7 +172,7 @@
                         android:textColor="@color/text_primary" android:text="19/06/2026" />
                 </LinearLayout>
 
-                <!-- Số đêm -->
+                <!-- Sá»‘ Ä‘Ãªm -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -209,14 +180,14 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Số đêm:" />
+                        android:textColor="@color/text_secondary" android:text="Sá»‘ Ä‘Ãªm:" />
                     <TextView android:id="@+id/tv_so_dem" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="4 đêm" />
+                        android:textColor="@color/text_primary" android:text="4 Ä‘Ãªm" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Card chi tiết tiền -->
+            <!-- Card chi tiáº¿t tiá»n -->
             <LinearLayout
                 android:id="@+id/card_finance"
                 android:layout_width="match_parent"
@@ -234,10 +205,10 @@
                     android:textSize="15sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
-                    android:text="Chi tiết tiền"
+                    android:text="Chi tiáº¿t tiá»n"
                     android:layout_marginBottom="10dp" />
 
-                <!-- Tiền phòng -->
+                <!-- Tiá»n phÃ²ng -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
@@ -245,20 +216,20 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Tiền phòng:" />
+                        android:textColor="@color/text_secondary" android:text="Tiá»n phÃ²ng:" />
                     <TextView android:id="@+id/tv_tien_phong" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="2.200.000 đ" />
+                        android:textColor="@color/text_primary" android:text="2.200.000 Ä‘" />
                 </LinearLayout>
 
-                <!-- Container phụ thu (thêm dòng dynamically) -->
+                <!-- Container phá»¥ thu (thÃªm dÃ²ng dynamically) -->
                 <LinearLayout
                     android:id="@+id/ll_phu_thu_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
 
-                <!-- Giảm giá -->
+                <!-- Giáº£m giÃ¡ -->
                 <LinearLayout
                     android:id="@+id/ll_giam_gia_row"
                     android:layout_width="match_parent"
@@ -267,10 +238,10 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Giảm giá:" />
+                        android:textColor="@color/text_secondary" android:text="Giáº£m giÃ¡:" />
                     <TextView android:id="@+id/tv_giam_gia" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/status_success" android:text="-0 đ" />
+                        android:textColor="@color/status_success" android:text="-0 Ä‘" />
                 </LinearLayout>
 
                 <!-- Divider -->
@@ -281,7 +252,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp" />
 
-                <!-- Tổng cộng -->
+                <!-- Tá»•ng cá»™ng -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -290,15 +261,15 @@
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="15sp"
                         android:fontFamily="sans-serif-bold" android:textColor="@color/text_primary"
-                        android:text="TỔNG CỘNG:" />
+                        android:text="Tá»”NG Cá»˜NG:" />
                     <TextView android:id="@+id/tv_tong_cong" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="18sp"
                         android:fontFamily="sans-serif-bold" android:textColor="@color/primary_main"
-                        android:text="2.300.000 đ" />
+                        android:text="2.300.000 Ä‘" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Card thanh toán -->
+            <!-- Card thanh toÃ¡n -->
             <LinearLayout
                 android:id="@+id/card_payment"
                 android:layout_width="match_parent"
@@ -316,10 +287,10 @@
                     android:textSize="15sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
-                    android:text="Thông tin thanh toán"
+                    android:text="ThÃ´ng tin thanh toÃ¡n"
                     android:layout_marginBottom="10dp" />
 
-                <!-- Phương thức -->
+                <!-- PhÆ°Æ¡ng thá»©c -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
@@ -327,13 +298,13 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Phương thức:" />
+                        android:textColor="@color/text_secondary" android:text="PhÆ°Æ¡ng thá»©c:" />
                     <TextView android:id="@+id/tv_phuong_thuc" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="—" />
+                        android:textColor="@color/text_primary" android:text="â€”" />
                 </LinearLayout>
 
-                <!-- Ngày thanh toán -->
+                <!-- NgÃ y thanh toÃ¡n -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
@@ -341,13 +312,13 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Ngày TT:" />
+                        android:textColor="@color/text_secondary" android:text="NgÃ y TT:" />
                     <TextView android:id="@+id/tv_ngay_tt" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="—" />
+                        android:textColor="@color/text_primary" android:text="â€”" />
                 </LinearLayout>
 
-                <!-- Người thu -->
+                <!-- NgÆ°á»i thu -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
@@ -355,68 +326,64 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Người thu:" />
+                        android:textColor="@color/text_secondary" android:text="NgÆ°á»i thu:" />
                     <TextView android:id="@+id/tv_nguoi_thu" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="—" />
+                        android:textColor="@color/text_primary" android:text="â€”" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:id="@+id/btn_print"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/bg_button_outline"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="In hÃ³a Ä‘Æ¡n"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-bold"
+                        android:textColor="@color/primary_main" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_confirm_payment"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_button_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XÃ¡c nháº­n Ä‘Ã£ TT"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-bold"
+                        android:textColor="@color/text_on_primary" />
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- Row nút hành động cố định dưới -->
-    <LinearLayout
-        android:id="@+id/row_actions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/background_card"
-        android:elevation="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-
-        <!-- Nút "In hóa đơn" – Lễ tân và Kế toán đều thấy -->
-        <LinearLayout
-            android:id="@+id/btn_print"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/bg_button_outline"
-            android:clickable="true"
-            android:focusable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="In hóa đơn"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-bold"
-                android:textColor="@color/primary_main" />
-        </LinearLayout>
-
-        <!-- Nút "Xác nhận đã TT" – chỉ Kế toán / Admin thấy -->
-        <LinearLayout
-            android:id="@+id/btn_confirm_payment"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:gravity="center"
-            android:background="@drawable/bg_button_primary"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Xác nhận đã TT"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-bold"
-                android:textColor="@color/text_on_primary" />
-        </LinearLayout>
-    </LinearLayout>
 
 </LinearLayout>

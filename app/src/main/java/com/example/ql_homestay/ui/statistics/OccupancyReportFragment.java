@@ -68,21 +68,13 @@ public class OccupancyReportFragment extends Fragment {
         statsRepo = new StatisticsRepository(dbHelper);
 
         bindViews(view);
-        setupBackButton(view);
+        setupBreadcrumb(view);
         setupDatePickers();
         setupButtons();
         setDefaultMonth();
     }
 
     // ─── Setup ────────────────────────────────────────────────────────────────
-
-    private void setupBackButton(View view) {
-        View btnBack = view.findViewById(R.id.btn_back);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v ->
-                    requireActivity().getSupportFragmentManager().popBackStack());
-        }
-    }
 
     private void bindViews(View view) {
         tvFromDate        = view.findViewById(R.id.tv_from_date);
@@ -98,6 +90,13 @@ public class OccupancyReportFragment extends Fragment {
         tvEmpty           = view.findViewById(R.id.tv_empty);
         chartLineContainer= view.findViewById(R.id.chart_line_container);
         llRoomTableRows   = view.findViewById(R.id.ll_room_table_rows);
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Thống kê → Công suất phòng");
     }
 
     private void setDefaultMonth() {
@@ -150,9 +149,6 @@ public class OccupancyReportFragment extends Fragment {
 
     private void setupButtons() {
         btnViewReport.setOnClickListener(v -> loadReport());
-
-        View backBtn = requireView().findViewById(R.id.btn_back);
-        if (backBtn != null) backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
     }
 
     // ─── Load data ────────────────────────────────────────────────────────────

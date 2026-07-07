@@ -84,6 +84,7 @@ public class StatisticsDashboardFragment extends Fragment {
         statsRepo = new StatisticsRepository(dbHelper);
 
         bindViews(view);
+        setupBreadcrumb(view);
         setupPeriodChips();
         setupDetailNavigation();
 
@@ -113,6 +114,13 @@ public class StatisticsDashboardFragment extends Fragment {
         chipMonth         = view.findViewById(R.id.chip_month);
         chipQuarter       = view.findViewById(R.id.chip_quarter);
         chipYear          = view.findViewById(R.id.chip_year);
+    }
+
+    private void setupBreadcrumb(View view) {
+        View bc = view.findViewById(R.id.breadcrumb);
+        if (bc == null) return;
+        TextView tv = bc.findViewById(R.id.tv_breadcrumb);
+        if (tv != null) tv.setText("Trang chủ → Thống kê");
     }
 
     private void setupDetailNavigation() {

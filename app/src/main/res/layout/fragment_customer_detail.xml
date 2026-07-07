@@ -1,17 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-    fragment_customer_detail.xml — Chi tiết khách hàng (D2)
+    fragment_customer_detail.xml â€” Chi tiáº¿t khÃ¡ch hÃ ng (D2)
     Root: ScrollView > LinearLayout (vertical)
-    Chỉ dùng LinearLayout / RelativeLayout / FrameLayout — KHÔNG dùng ConstraintLayout.
-    Phân quyền: Row nút Sửa/Xóa (id=row_action_buttons) ẩn/hiện runtime trong Java.
+    Chá»‰ dÃ¹ng LinearLayout / RelativeLayout / FrameLayout â€” KHÃ”NG dÃ¹ng ConstraintLayout.
+    PhÃ¢n quyá»n: Row nÃºt Sá»­a/XÃ³a (id=row_action_buttons) áº©n/hiá»‡n runtime trong Java.
 -->
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen"
-    android:fillViewport="true">
+    android:orientation="vertical">
+
+    <!-- Breadcrumb -->
+        <include
+            android:id="@+id/breadcrumb"
+            layout="@layout/layout_breadcrumb" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,12 +30,7 @@
         android:orientation="vertical"
         android:paddingBottom="24dp">
 
-        <!-- Breadcrumb -->
-        <include
-            android:id="@+id/breadcrumb"
-            layout="@layout/layout_breadcrumb" />
-
-        <!-- ===== (1) Header: Avatar + Tên + Badge số lần thuê ===== -->
+        <!-- ===== (1) Header: Avatar + TÃªn + Badge sá»‘ láº§n thuÃª ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +40,7 @@
             android:paddingBottom="16dp"
             android:background="@color/background_screen">
 
-            <!-- Avatar tròn 80dp -->
+            <!-- Avatar trÃ²n 80dp -->
             <FrameLayout
                 android:layout_width="@dimen/avatar_detail_large"
                 android:layout_height="@dimen/avatar_detail_large">
@@ -60,7 +66,7 @@
                     android:visibility="visible" />
             </FrameLayout>
 
-            <!-- Tên khách hàng -->
+            <!-- TÃªn khÃ¡ch hÃ ng -->
             <TextView
                 android:id="@+id/tv_ten_khach_detail"
                 android:layout_width="wrap_content"
@@ -74,7 +80,7 @@
                 android:maxLines="1"
                 android:ellipsize="end" />
 
-            <!-- Badge: số lần đã thuê -->
+            <!-- Badge: sá»‘ láº§n Ä‘Ã£ thuÃª -->
             <TextView
                 android:id="@+id/tv_badge_so_lan_thue"
                 android:layout_width="wrap_content"
@@ -90,7 +96,7 @@
 
         </LinearLayout>
 
-        <!-- ===== (2) Card thông tin cá nhân ===== -->
+        <!-- ===== (2) Card thÃ´ng tin cÃ¡ nhÃ¢n ===== -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,18 +113,18 @@
                 android:orientation="vertical"
                 android:padding="@dimen/padding_card_default">
 
-                <!-- Tiêu đề card -->
+                <!-- TiÃªu Ä‘á» card -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thông tin cá nhân"
+                    android:text="ThÃ´ng tin cÃ¡ nhÃ¢n"
                     android:textSize="16sp"
                     android:fontFamily="sans-serif-bold"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="@dimen/spacing_sm" />
 
-                <!-- Row: Số điện thoại -->
+                <!-- Row: Sá»‘ Ä‘iá»‡n thoáº¡i -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -128,7 +134,7 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Điện thoại"
+                        android:text="Äiá»‡n thoáº¡i"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/text_secondary" />
@@ -216,7 +222,7 @@
                     android:layout_height="@dimen/stroke_divider"
                     android:background="@color/divider" />
 
-                <!-- Row: Địa chỉ -->
+                <!-- Row: Äá»‹a chá»‰ -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -226,7 +232,7 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Địa chỉ"
+                        android:text="Äá»‹a chá»‰"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/text_secondary" />
@@ -250,7 +256,7 @@
                     android:layout_height="@dimen/stroke_divider"
                     android:background="@color/divider" />
 
-                <!-- Row: Ngày sinh + Giới tính -->
+                <!-- Row: NgÃ y sinh + Giá»›i tÃ­nh -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -260,7 +266,7 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Ngày sinh"
+                        android:text="NgÃ y sinh"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/text_secondary" />
@@ -279,7 +285,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===== (3) Card lịch sử đặt phòng ===== -->
+        <!-- ===== (3) Card lá»‹ch sá»­ Ä‘áº·t phÃ²ng ===== -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -296,7 +302,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/padding_card_default">
 
-                <!-- Header "Lịch sử lưu trú" + "Xem tất cả" -->
+                <!-- Header "Lá»‹ch sá»­ lÆ°u trÃº" + "Xem táº¥t cáº£" -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -308,7 +314,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Lịch sử lưu trú"
+                        android:text="Lá»‹ch sá»­ lÆ°u trÃº"
                         android:textSize="16sp"
                         android:fontFamily="sans-serif-bold"
                         android:textStyle="bold"
@@ -318,7 +324,7 @@
                         android:id="@+id/tv_xem_tat_ca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xem tất cả"
+                        android:text="Xem táº¥t cáº£"
                         android:textSize="13sp"
                         android:fontFamily="sans-serif"
                         android:textColor="@color/text_link"
@@ -326,20 +332,20 @@
                         android:focusable="true" />
                 </LinearLayout>
 
-                <!-- RecyclerView 3 lần đặt phòng gần nhất -->
+                <!-- RecyclerView 3 láº§n Ä‘áº·t phÃ²ng gáº§n nháº¥t -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_lich_su_dat_phong"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false" />
 
-                <!-- Empty: không có lịch sử -->
+                <!-- Empty: khÃ´ng cÃ³ lá»‹ch sá»­ -->
                 <TextView
                     android:id="@+id/tv_no_history"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:gravity="center"
-                    android:text="Chưa có lịch sử lưu trú"
+                    android:text="ChÆ°a cÃ³ lá»‹ch sá»­ lÆ°u trÃº"
                     android:textSize="13sp"
                     android:textColor="@color/icon_inactive"
                     android:visibility="gone" />
@@ -347,7 +353,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===== (4) Row 2 nút Chỉnh sửa / Xóa (ẩn runtime nếu ChiXem) ===== -->
+        <!-- ===== (4) Row 2 nÃºt Chá»‰nh sá»­a / XÃ³a (áº©n runtime náº¿u ChiXem) ===== -->
         <LinearLayout
             android:id="@+id/row_action_buttons"
             android:layout_width="match_parent"
@@ -358,14 +364,14 @@
             android:layout_marginTop="@dimen/spacing_md"
             android:gravity="center_vertical">
 
-            <!-- Nút Chỉnh sửa (outline) -->
+            <!-- NÃºt Chá»‰nh sá»­a (outline) -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_chinh_sua"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_weight="1"
-                android:text="Chỉnh sửa"
+                android:text="Chá»‰nh sá»­a"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/primary_main"
@@ -374,7 +380,7 @@
                 app:strokeWidth="1.5dp"
                 app:cornerRadius="@dimen/radius_button" />
 
-            <!-- Nút Xóa (outline đỏ) -->
+            <!-- NÃºt XÃ³a (outline Ä‘á») -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_xoa"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -382,7 +388,7 @@
                 android:layout_height="44dp"
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/spacing_xs"
-                android:text="Xóa"
+                android:text="XÃ³a"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/status_error"
@@ -394,4 +400,6 @@
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+</LinearLayout>

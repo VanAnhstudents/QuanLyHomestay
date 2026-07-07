@@ -112,7 +112,6 @@ public class BookingDetailFragment extends Fragment {
 
         bindViews(view);
         setupBreadcrumb(view);
-        setupBackButton(view);
 
         if (maDatPhong > 0) loadDetail();
     }
@@ -146,16 +145,6 @@ public class BookingDetailFragment extends Fragment {
         if (bc == null) return;
         TextView tv = bc.findViewById(R.id.tv_breadcrumb);
         if (tv != null) tv.setText("Trang chủ → Đặt phòng → Chi tiết");
-    }
-
-    private void setupBackButton(View view) {
-        View btnBack = view.findViewById(R.id.btn_back);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> {
-                if (getParentFragmentManager().getBackStackEntryCount() > 0)
-                    getParentFragmentManager().popBackStack();
-            });
-        }
     }
 
     private void loadDetail() {

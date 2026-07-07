@@ -1,12 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_room_add_edit.xml – Thêm/Sửa phòng (B3) -->
-<!-- Root: ScrollView bọc toàn bộ, không có AppBar inline (dùng AppBar chung của activity_main) -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_room_add_edit.xml â€“ ThÃªm/Sá»­a phÃ²ng (B3) -->
+<!-- Root: ScrollView bá»c toÃ n bá»™, khÃ´ng cÃ³ AppBar inline (dÃ¹ng AppBar chung cá»§a activity_main) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen"
-    android:fillViewport="true">
+    android:orientation="vertical">
+
+    <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,9 +22,7 @@
         android:orientation="vertical"
         android:paddingBottom="32dp">
 
-        <include android:id="@+id/breadcrumb" layout="@layout/layout_breadcrumb" />
-
-        <!-- Ảnh phòng: clickable, 180dp, bo tròn -->
+        <!-- áº¢nh phÃ²ng: clickable, 180dp, bo trÃ²n -->
         <FrameLayout
             android:id="@+id/fl_pick_image"
             android:layout_width="match_parent"
@@ -30,7 +36,7 @@
                 android:id="@+id/iv_room_image_preview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="Ảnh phòng"
+                android:contentDescription="áº¢nh phÃ²ng"
                 android:scaleType="centerCrop"
                 android:visibility="gone" />
 
@@ -44,7 +50,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:contentDescription="Thêm ảnh"
+                    android:contentDescription="ThÃªm áº£nh"
                     android:src="@drawable/ic_camera"
                     app:tint="@color/icon_inactive" />
 
@@ -52,12 +58,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Thêm ảnh phòng"
+                    android:text="ThÃªm áº£nh phÃ²ng"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Nút X xóa ảnh (chỉ hiện khi đã có ảnh) -->
+            <!-- NÃºt X xÃ³a áº£nh (chá»‰ hiá»‡n khi Ä‘Ã£ cÃ³ áº£nh) -->
             <TextView
                 android:id="@+id/btn_clear_image"
                 android:layout_width="32dp"
@@ -68,14 +74,14 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="✕"
+                android:text="âœ•"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
         </FrameLayout>
 
-        <!-- Card form thông tin phòng -->
+        <!-- Card form thÃ´ng tin phÃ²ng -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,11 +90,11 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Tên phòng -->
+            <!-- TÃªn phÃ²ng -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên phòng *"
+                android:text="TÃªn phÃ²ng *"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -99,18 +105,18 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/bg_input_normal"
-                android:hint="Ví dụ: P101"
+                android:hint="VÃ­ dá»¥: P101"
                 android:inputType="text"
                 android:paddingHorizontal="12dp"
                 android:textColorHint="@color/text_placeholder"
                 android:textSize="14sp" />
 
-            <!-- Loại phòng -->
+            <!-- Loáº¡i phÃ²ng -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Loại phòng *"
+                android:text="Loáº¡i phÃ²ng *"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -127,7 +133,7 @@
                     android:id="@+id/actvLoaiPhong"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="Chọn loại phòng"
+                    android:hint="Chá»n loáº¡i phÃ²ng"
                     android:inputType="none"
                     android:textSize="14sp"
                     android:textColor="@color/text_primary"
@@ -135,12 +141,12 @@
                     android:paddingHorizontal="4dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Giá/đêm -->
+            <!-- GiÃ¡/Ä‘Ãªm -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Giá/đêm (VNĐ) *"
+                android:text="GiÃ¡/Ä‘Ãªm (VNÄ) *"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -157,12 +163,12 @@
                 android:textColorHint="@color/text_placeholder"
                 android:textSize="14sp" />
 
-            <!-- Sức chứa -->
+            <!-- Sá»©c chá»©a -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Sức chứa (người)"
+                android:text="Sá»©c chá»©a (ngÆ°á»i)"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -179,12 +185,12 @@
                 android:textColorHint="@color/text_placeholder"
                 android:textSize="14sp" />
 
-            <!-- Diện tích -->
+            <!-- Diá»‡n tÃ­ch -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Diện tích (m²)"
+                android:text="Diá»‡n tÃ­ch (mÂ²)"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -201,12 +207,12 @@
                 android:textColorHint="@color/text_placeholder"
                 android:textSize="14sp" />
 
-            <!-- Tầng -->
+            <!-- Táº§ng -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Tầng"
+                android:text="Táº§ng"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -223,12 +229,12 @@
                 android:textColorHint="@color/text_placeholder"
                 android:textSize="14sp" />
 
-            <!-- Trạng thái -->
+            <!-- Tráº¡ng thÃ¡i -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Trạng thái"
+                android:text="Tráº¡ng thÃ¡i"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -245,7 +251,7 @@
                     android:id="@+id/actvTrangThai"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="Chọn trạng thái"
+                    android:hint="Chá»n tráº¡ng thÃ¡i"
                     android:inputType="none"
                     android:textSize="14sp"
                     android:textColor="@color/text_primary"
@@ -253,17 +259,17 @@
                     android:paddingHorizontal="4dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Tiện nghi -->
+            <!-- Tiá»‡n nghi -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Tiện nghi"
+                android:text="Tiá»‡n nghi"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <!-- Container tiện nghi checkboxes (2 cột, tạo động trong Java) -->
+            <!-- Container tiá»‡n nghi checkboxes (2 cá»™t, táº¡o Ä‘á»™ng trong Java) -->
             <LinearLayout
                 android:id="@+id/ll_tien_nghi_container"
                 android:layout_width="match_parent"
@@ -271,12 +277,12 @@
                 android:layout_marginTop="8dp"
                 android:orientation="vertical" />
 
-            <!-- Mô tả -->
+            <!-- MÃ´ táº£ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Mô tả"
+                android:text="MÃ´ táº£"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -288,7 +294,7 @@
                 android:layout_marginTop="4dp"
                 android:background="@drawable/bg_input_normal"
                 android:gravity="top"
-                android:hint="Nhập mô tả phòng..."
+                android:hint="Nháº­p mÃ´ táº£ phÃ²ng..."
                 android:inputType="textMultiLine"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
@@ -296,7 +302,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Row nút Hủy + Lưu – nằm trong scroll, không cố định -->
+        <!-- Row nÃºt Há»§y + LÆ°u â€“ náº±m trong scroll, khÃ´ng cá»‘ Ä‘á»‹nh -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -305,14 +311,14 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Button Hủy: outline, không nền solid -->
+            <!-- Button Há»§y: outline, khÃ´ng ná»n solid -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cancel_room"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="H?y"
+                android:text="Há»§y"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/primary_main"
@@ -328,7 +334,7 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="LƯU PHÒNG"
+                android:text="LÆ¯U PHÃ’NG"
                 android:textColor="@color/text_on_primary"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -337,6 +343,8 @@
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+</LinearLayout>
 
 
