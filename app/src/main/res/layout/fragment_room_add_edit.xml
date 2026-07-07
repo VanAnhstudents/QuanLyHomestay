@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_room_add_edit.xml â€“ ThÃªm/Sá»­a phÃ²ng (B3) -->
-<!-- Root: ScrollView bá»c toÃ n bá»™, khÃ´ng cÃ³ AppBar inline (dÃ¹ng AppBar chung cá»§a activity_main) -->
+<!-- fragment_room_add_edit.xml – Thêm/Sửa phòng (B3) -->
+<!-- Root: ScrollView bọc toàn bộ, không có AppBar inline (dùng AppBar chung của activity_main) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,335 +16,333 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="32dp">
-
-        <!-- áº¢nh phÃ²ng: clickable, 180dp, bo trÃ²n -->
-        <FrameLayout
-            android:id="@+id/fl_pick_image"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_card_listitem"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
 
-            <ImageView
-                android:id="@+id/iv_room_image_preview"
+            <!-- Ảnh phòng: clickable, 180dp, bo tròn -->
+            <FrameLayout
+                android:id="@+id/fl_pick_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="áº¢nh phÃ²ng"
-                android:scaleType="centerCrop"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/ll_image_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="180dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/bg_card_listitem"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:contentDescription="ThÃªm áº£nh"
-                    android:src="@drawable/ic_camera"
-                    app:tint="@color/icon_inactive" />
+                    android:id="@+id/iv_room_image_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Ảnh phòng"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
 
+                <LinearLayout
+                    android:id="@+id/ll_image_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Thêm ảnh"
+                        android:src="@drawable/ic_camera"
+                        app:tint="@color/icon_inactive" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Thêm ảnh phòng"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Nút X xóa ảnh (chỉ hiện khi đã có ảnh) -->
+                <TextView
+                    android:id="@+id/btn_clear_image"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_badge_dadat"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="✕"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <!-- Card form thông tin phòng -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/bg_card_white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Tên phòng -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Tên phòng *"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_ten_phong"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:hint="Ví dụ: P101"
+                    android:inputType="text"
+                    android:paddingHorizontal="12dp"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="14sp" />
+
+                <!-- Loại phòng -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Loại phòng *"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_loai_phong"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:endIconMode="dropdown_menu">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/actvLoaiPhong"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Chọn loại phòng"
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_placeholder"
+                        android:paddingHorizontal="4dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Giá/đêm -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Giá/đêm (VNĐ) *"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_gia_moi_dem"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:paddingHorizontal="12dp"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="14sp" />
+
+                <!-- Sức chứa -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Sức chứa (người)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_suc_chua"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:hint="2"
+                    android:inputType="number"
+                    android:paddingHorizontal="12dp"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="14sp" />
+
+                <!-- Diện tích -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Diện tích (m²)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_dien_tich"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:hint="22"
+                    android:inputType="numberDecimal"
+                    android:paddingHorizontal="12dp"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="14sp" />
+
+                <!-- Tầng -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Tầng"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_tang"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:hint="1"
+                    android:inputType="number"
+                    android:paddingHorizontal="12dp"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="14sp" />
+
+                <!-- Trạng thái -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Trạng thái"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_trang_thai"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:endIconMode="dropdown_menu">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/actvTrangThai"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Chọn trạng thái"
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_placeholder"
+                        android:paddingHorizontal="4dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Tiện nghi -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Tiện nghi"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Container tiện nghi checkboxes (2 cột, tạo động trong Java) -->
+                <LinearLayout
+                    android:id="@+id/ll_tien_nghi_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="ThÃªm áº£nh phÃ²ng"
-                    android:textColor="@color/text_secondary"
+                    android:orientation="vertical" />
+
+                <!-- Mô tả -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Mô tả"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_mo_ta"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:gravity="top"
+                    android:hint="Nhập mô tả phòng..."
+                    android:inputType="textMultiLine"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:textColorHint="@color/text_placeholder"
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- NÃºt X xÃ³a áº£nh (chá»‰ hiá»‡n khi Ä‘Ã£ cÃ³ áº£nh) -->
-            <TextView
-                android:id="@+id/btn_clear_image"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="top|end"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_badge_dadat"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="âœ•"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </FrameLayout>
-
-        <!-- Card form thÃ´ng tin phÃ²ng -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/bg_card_white"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- TÃªn phÃ²ng -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TÃªn phÃ²ng *"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_ten_phong"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:hint="VÃ­ dá»¥: P101"
-                android:inputType="text"
-                android:paddingHorizontal="12dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-
-            <!-- Loáº¡i phÃ²ng -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Loáº¡i phÃ²ng *"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_loai_phong"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:endIconMode="dropdown_menu">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/actvLoaiPhong"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:hint="Chá»n loáº¡i phÃ²ng"
-                    android:inputType="none"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_placeholder"
-                    android:paddingHorizontal="4dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- GiÃ¡/Ä‘Ãªm -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="GiÃ¡/Ä‘Ãªm (VNÄ) *"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_gia_moi_dem"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:hint="0"
-                android:inputType="numberDecimal"
-                android:paddingHorizontal="12dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-
-            <!-- Sá»©c chá»©a -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Sá»©c chá»©a (ngÆ°á»i)"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_suc_chua"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:hint="2"
-                android:inputType="number"
-                android:paddingHorizontal="12dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-
-            <!-- Diá»‡n tÃ­ch -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Diá»‡n tÃ­ch (mÂ²)"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_dien_tich"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:hint="22"
-                android:inputType="numberDecimal"
-                android:paddingHorizontal="12dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-
-            <!-- Táº§ng -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Táº§ng"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_tang"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:hint="1"
-                android:inputType="number"
-                android:paddingHorizontal="12dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-
-            <!-- Tráº¡ng thÃ¡i -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Tráº¡ng thÃ¡i"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_trang_thai"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:endIconMode="dropdown_menu">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/actvTrangThai"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:hint="Chá»n tráº¡ng thÃ¡i"
-                    android:inputType="none"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_placeholder"
-                    android:paddingHorizontal="4dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Tiá»‡n nghi -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Tiá»‡n nghi"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <!-- Container tiá»‡n nghi checkboxes (2 cá»™t, táº¡o Ä‘á»™ng trong Java) -->
+            <!-- Row nút Hủy + Lưu – nằm trong scroll, không cố định -->
             <LinearLayout
-                android:id="@+id/ll_tien_nghi_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical" />
-
-            <!-- MÃ´ táº£ -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:text="MÃ´ táº£"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_mo_ta"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:gravity="top"
-                android:hint="Nháº­p mÃ´ táº£ phÃ²ng..."
-                android:inputType="textMultiLine"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
+                <!-- Button Hủy: outline, không nền solid -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_cancel_room"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="Hủy"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/primary_main"
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/primary_main"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button" />
+
+                <!-- Button Luu -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_room"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="LƯU PHÒNG"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary_main"
+                    app:cornerRadius="@dimen/radius_button"/>
+            </LinearLayout>
+
         </LinearLayout>
-
-        <!-- Row nÃºt Há»§y + LÆ°u â€“ náº±m trong scroll, khÃ´ng cá»‘ Ä‘á»‹nh -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <!-- Button Há»§y: outline, khÃ´ng ná»n solid -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_cancel_room"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="Há»§y"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/primary_main"
-                app:backgroundTint="@color/background_card"
-                app:strokeColor="@color/primary_main"
-                app:strokeWidth="1.5dp"
-                app:cornerRadius="@dimen/radius_button" />
-
-            <!-- Button Luu -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_save_room"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="LÆ¯U PHÃ’NG"
-                android:textColor="@color/text_on_primary"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/primary_main"
-                app:cornerRadius="@dimen/radius_button"/>
-        </LinearLayout>
-
-    </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
-
-

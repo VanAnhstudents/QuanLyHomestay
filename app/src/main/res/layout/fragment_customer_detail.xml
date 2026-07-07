@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-    fragment_customer_detail.xml â€” Chi tiáº¿t khÃ¡ch hÃ ng (D2)
+    fragment_customer_detail.xml — Chi tiết khách hàng (D2)
     Root: ScrollView > LinearLayout (vertical)
-    Chá»‰ dÃ¹ng LinearLayout / RelativeLayout / FrameLayout â€” KHÃ”NG dÃ¹ng ConstraintLayout.
-    PhÃ¢n quyá»n: Row nÃºt Sá»­a/XÃ³a (id=row_action_buttons) áº©n/hiá»‡n runtime trong Java.
+    Chỉ dùng LinearLayout / RelativeLayout / FrameLayout — KHÔNG dùng ConstraintLayout.
+    Phân quyền: Row nút Sửa/Xóa (id=row_action_buttons) ẩn/hiện runtime trong Java.
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,9 +14,9 @@
     android:orientation="vertical">
 
     <!-- Breadcrumb -->
-        <include
-            android:id="@+id/breadcrumb"
-            layout="@layout/layout_breadcrumb" />
+    <include
+        android:id="@+id/breadcrumb"
+        layout="@layout/layout_breadcrumb" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,382 +24,382 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="24dp">
-
-        <!-- ===== (1) Header: Avatar + TÃªn + Badge sá»‘ láº§n thuÃª ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="24dp"
-            android:paddingBottom="16dp"
-            android:background="@color/background_screen">
+            android:paddingBottom="24dp">
 
-            <!-- Avatar trÃ²n 80dp -->
-            <FrameLayout
-                android:layout_width="@dimen/avatar_detail_large"
-                android:layout_height="@dimen/avatar_detail_large">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/iv_avatar_detail"
-                    android:layout_width="@dimen/avatar_detail_large"
-                    android:layout_height="@dimen/avatar_detail_large"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
-
-                <TextView
-                    android:id="@+id/tv_initials_detail"
-                    android:layout_width="@dimen/avatar_detail_large"
-                    android:layout_height="@dimen/avatar_detail_large"
-                    android:background="@drawable/bg_avatar_circle"
-                    android:gravity="center"
-                    android:textColor="@color/text_on_primary"
-                    android:textSize="28sp"
-                    android:fontFamily="sans-serif-bold"
-                    android:textStyle="bold"
-                    android:visibility="visible" />
-            </FrameLayout>
-
-            <!-- TÃªn khÃ¡ch hÃ ng -->
-            <TextView
-                android:id="@+id/tv_ten_khach_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-bold"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:gravity="center"
-                android:maxLines="1"
-                android:ellipsize="end" />
-
-            <!-- Badge: sá»‘ láº§n Ä‘Ã£ thuÃª -->
-            <TextView
-                android:id="@+id/tv_badge_so_lan_thue"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/badge_height"
-                android:layout_marginTop="8dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:fontFamily="sans-serif-medium"
-                android:background="@drawable/bg_badge_dathanhtoan"
-                android:textColor="@color/badge_dathanhtoan_text" />
-
-        </LinearLayout>
-
-        <!-- ===== (2) Card thÃ´ng tin cÃ¡ nhÃ¢n ===== -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_screen_horizontal"
-            android:layout_marginEnd="@dimen/margin_screen_horizontal"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:cardCornerRadius="@dimen/radius_card_large"
-            app:cardElevation="@dimen/elevation_card"
-            app:cardBackgroundColor="@color/background_card">
-
+            <!-- ===== (1) Header: Avatar + Tên + Badge số lần thuê ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/padding_card_default">
+                android:gravity="center"
+                android:paddingTop="24dp"
+                android:paddingBottom="16dp"
+                android:background="@color/background_screen">
 
-                <!-- TiÃªu Ä‘á» card -->
+                <!-- Avatar tròn 80dp -->
+                <FrameLayout
+                    android:layout_width="@dimen/avatar_detail_large"
+                    android:layout_height="@dimen/avatar_detail_large">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_avatar_detail"
+                        android:layout_width="@dimen/avatar_detail_large"
+                        android:layout_height="@dimen/avatar_detail_large"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.LalaHouse.Circle" />
+
+                    <TextView
+                        android:id="@+id/tv_initials_detail"
+                        android:layout_width="@dimen/avatar_detail_large"
+                        android:layout_height="@dimen/avatar_detail_large"
+                        android:background="@drawable/bg_avatar_circle"
+                        android:gravity="center"
+                        android:textColor="@color/text_on_primary"
+                        android:textSize="28sp"
+                        android:fontFamily="sans-serif-bold"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+                </FrameLayout>
+
+                <!-- Tên khách hàng -->
                 <TextView
+                    android:id="@+id/tv_ten_khach_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ThÃ´ng tin cÃ¡ nhÃ¢n"
-                    android:textSize="16sp"
+                    android:layout_marginTop="12dp"
+                    android:textSize="20sp"
                     android:fontFamily="sans-serif-bold"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="@dimen/spacing_sm" />
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
-                <!-- Row: Sá»‘ Ä‘iá»‡n thoáº¡i -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="Äiá»‡n thoáº¡i"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/text_secondary" />
-
-                    <TextView
-                        android:id="@+id/tv_sdt_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/text_primary"
-                        android:gravity="end" />
-                </LinearLayout>
-
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/stroke_divider"
-                    android:background="@color/divider" />
-
-                <!-- Row: Email -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/text_secondary" />
-
-                    <TextView
-                        android:id="@+id/tv_email_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/text_primary"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        android:ellipsize="end" />
-                </LinearLayout>
-
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/stroke_divider"
-                    android:background="@color/divider" />
-
-                <!-- Row: CCCD/CMND -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="CCCD/CMND"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/text_secondary" />
-
-                    <TextView
-                        android:id="@+id/tv_cccd_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/text_primary"
-                        android:gravity="end" />
-                </LinearLayout>
-
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/stroke_divider"
-                    android:background="@color/divider" />
-
-                <!-- Row: Äá»‹a chá»‰ -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="Äá»‹a chá»‰"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/text_secondary" />
-
-                    <TextView
-                        android:id="@+id/tv_dia_chi_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/text_primary"
-                        android:gravity="end"
-                        android:maxLines="2"
-                        android:ellipsize="end" />
-                </LinearLayout>
-
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/stroke_divider"
-                    android:background="@color/divider" />
-
-                <!-- Row: NgÃ y sinh + Giá»›i tÃ­nh -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="NgÃ y sinh"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/text_secondary" />
-
-                    <TextView
-                        android:id="@+id/tv_ngay_sinh_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/text_primary"
-                        android:gravity="end" />
-                </LinearLayout>
+                <!-- Badge: số lần đã thuê -->
+                <TextView
+                    android:id="@+id/tv_badge_so_lan_thue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/badge_height"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:background="@drawable/bg_badge_dathanhtoan"
+                    android:textColor="@color/badge_dathanhtoan_text" />
 
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===== (3) Card lá»‹ch sá»­ Ä‘áº·t phÃ²ng ===== -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_screen_horizontal"
-            android:layout_marginEnd="@dimen/margin_screen_horizontal"
-            android:layout_marginTop="@dimen/spacing_md"
-            app:cardCornerRadius="@dimen/radius_card_large"
-            app:cardElevation="@dimen/elevation_card"
-            app:cardBackgroundColor="@color/background_card">
-
-            <LinearLayout
+            <!-- ===== (2) Card thông tin cá nhân ===== -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_card_default">
+                android:layout_marginStart="@dimen/margin_screen_horizontal"
+                android:layout_marginEnd="@dimen/margin_screen_horizontal"
+                android:layout_marginTop="@dimen/spacing_xs"
+                app:cardCornerRadius="@dimen/radius_card_large"
+                app:cardElevation="@dimen/elevation_card"
+                app:cardBackgroundColor="@color/background_card">
 
-                <!-- Header "Lá»‹ch sá»­ lÆ°u trÃº" + "Xem táº¥t cáº£" -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/spacing_sm">
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_card_default">
 
+                    <!-- Tiêu đề card -->
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Lá»‹ch sá»­ lÆ°u trÃº"
+                        android:text="Thông tin cá nhân"
                         android:textSize="16sp"
                         android:fontFamily="sans-serif-bold"
                         android:textStyle="bold"
-                        android:textColor="@color/text_primary" />
+                        android:textColor="@color/text_primary"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
 
-                    <TextView
-                        android:id="@+id/tv_xem_tat_ca"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xem táº¥t cáº£"
-                        android:textSize="13sp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/text_link"
-                        android:clickable="true"
-                        android:focusable="true" />
+                    <!-- Row: Số điện thoại -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Điện thoại"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/text_secondary" />
+
+                        <TextView
+                            android:id="@+id/tv_sdt_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/text_primary"
+                            android:gravity="end" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/stroke_divider"
+                        android:background="@color/divider" />
+
+                    <!-- Row: Email -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/text_secondary" />
+
+                        <TextView
+                            android:id="@+id/tv_email_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/text_primary"
+                            android:gravity="end"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/stroke_divider"
+                        android:background="@color/divider" />
+
+                    <!-- Row: CCCD/CMND -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="CCCD/CMND"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/text_secondary" />
+
+                        <TextView
+                            android:id="@+id/tv_cccd_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/text_primary"
+                            android:gravity="end" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/stroke_divider"
+                        android:background="@color/divider" />
+
+                    <!-- Row: Địa chỉ -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Địa chỉ"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/text_secondary" />
+
+                        <TextView
+                            android:id="@+id/tv_dia_chi_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/text_primary"
+                            android:gravity="end"
+                            android:maxLines="2"
+                            android:ellipsize="end" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/stroke_divider"
+                        android:background="@color/divider" />
+
+                    <!-- Row: Ngày sinh + Giới tính -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Ngày sinh"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/text_secondary" />
+
+                        <TextView
+                            android:id="@+id/tv_ngay_sinh_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/text_primary"
+                            android:gravity="end" />
+                    </LinearLayout>
+
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- RecyclerView 3 láº§n Ä‘áº·t phÃ²ng gáº§n nháº¥t -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_lich_su_dat_phong"
+            <!-- ===== (3) Card lịch sử đặt phòng ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_screen_horizontal"
+                android:layout_marginEnd="@dimen/margin_screen_horizontal"
+                android:layout_marginTop="@dimen/spacing_md"
+                app:cardCornerRadius="@dimen/radius_card_large"
+                app:cardElevation="@dimen/elevation_card"
+                app:cardBackgroundColor="@color/background_card">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_card_default">
 
-                <!-- Empty: khÃ´ng cÃ³ lá»‹ch sá»­ -->
-                <TextView
-                    android:id="@+id/tv_no_history"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:text="ChÆ°a cÃ³ lá»‹ch sá»­ lÆ°u trÃº"
-                    android:textSize="13sp"
-                    android:textColor="@color/icon_inactive"
-                    android:visibility="gone" />
+                    <!-- Header "Lịch sử lưu trú" + "Xem tất cả" -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/spacing_sm">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Lịch sử lưu trú"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif-bold"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary" />
+
+                        <TextView
+                            android:id="@+id/tv_xem_tat_ca"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Xem tất cả"
+                            android:textSize="13sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/text_link"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
+                    <!-- RecyclerView 3 lần đặt phòng gần nhất -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_lich_su_dat_phong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
+
+                    <!-- Empty: không có lịch sử -->
+                    <TextView
+                        android:id="@+id/tv_no_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center"
+                        android:text="Chưa có lịch sử lưu trú"
+                        android:textSize="13sp"
+                        android:textColor="@color/icon_inactive"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== (4) Row 2 nút Chỉnh sửa / Xóa (ẩn runtime nếu ChiXem) ===== -->
+            <LinearLayout
+                android:id="@+id/row_action_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/margin_screen_horizontal"
+                android:layout_marginEnd="@dimen/margin_screen_horizontal"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:gravity="center_vertical">
+
+                <!-- Nút Chỉnh sửa (outline) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_chinh_sua"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Chỉnh sửa"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/primary_main"
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/primary_main"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button" />
+
+                <!-- Nút Xóa (outline đỏ) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_xoa"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_xs"
+                    android:text="Xóa"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/status_error"
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/status_error"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button" />
 
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- ===== (4) Row 2 nÃºt Chá»‰nh sá»­a / XÃ³a (áº©n runtime náº¿u ChiXem) ===== -->
-        <LinearLayout
-            android:id="@+id/row_action_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/margin_screen_horizontal"
-            android:layout_marginEnd="@dimen/margin_screen_horizontal"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:gravity="center_vertical">
-
-            <!-- NÃºt Chá»‰nh sá»­a (outline) -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_chinh_sua"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:text="Chá»‰nh sá»­a"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/primary_main"
-                app:backgroundTint="@color/background_card"
-                app:strokeColor="@color/primary_main"
-                app:strokeWidth="1.5dp"
-                app:cornerRadius="@dimen/radius_button" />
-
-            <!-- NÃºt XÃ³a (outline Ä‘á») -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_xoa"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/spacing_xs"
-                android:text="XÃ³a"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/status_error"
-                app:backgroundTint="@color/background_card"
-                app:strokeColor="@color/status_error"
-                app:strokeWidth="1.5dp"
-                app:cornerRadius="@dimen/radius_button" />
 
         </LinearLayout>
-
-    </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

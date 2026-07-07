@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_booking_add_edit.xml â€“ ThÃªm/Sá»­a Ä‘áº·t phÃ²ng (C3) -->
-<!-- Root: ScrollView bá»c toÃ n bá»™, khÃ´ng cÃ³ AppBar inline (dÃ¹ng AppBar chung cá»§a activity_main) -->
+<!-- fragment_booking_add_edit.xml – Thêm/Sửa đặt phòng (C3) -->
+<!-- Root: ScrollView bọc toàn bộ, không có AppBar inline (dùng AppBar chung của activity_main) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,575 +16,573 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="32dp">
-
-        <!-- ===== Card form Ä‘áº·t phÃ²ng ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_card_white"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingBottom="32dp">
 
-            <!-- Pháº§n 1: ThÃ´ng tin khÃ¡ch hÃ ng -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="THÃ”NG TIN KHÃCH HÃ€NG"
-                android:textColor="@color/primary_main"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05" />
-
-            <!-- TÃ¬m khÃ¡ch hÃ ng cÃ³ sáºµn -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="TÃ¬m khÃ¡ch hÃ ng (nháº­p tÃªn/SÄT)"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <AutoCompleteTextView
-                android:id="@+id/actv_khach_hang"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:completionThreshold="1"
-                android:hint="Nháº­p tÃªn hoáº·c SÄT khÃ¡ch..."
-                android:inputType="text"
-                android:paddingHorizontal="12dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-
-            <!-- Divider "Hoáº·c nháº­p má»›i" -->
+            <!-- ===== Card form đặt phòng ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_margin="16dp"
+                android:background="@drawable/bg_card_white"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/divider" />
-
+                <!-- Phần 1: Thông tin khách hàng -->
                 <TextView
-                    android:id="@+id/tv_or_new_customer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="Hoáº·c nháº­p khÃ¡ch má»›i"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+                    android:text="THÔNG TIN KHÁCH HÀNG"
+                    android:textColor="@color/primary_main"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/divider" />
+                <!-- Tìm khách hàng có sẵn -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Tìm khách hàng (nhập tên/SĐT)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/actv_khach_hang"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:completionThreshold="1"
+                    android:hint="Nhập tên hoặc SĐT khách..."
+                    android:inputType="text"
+                    android:paddingHorizontal="12dp"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="14sp" />
+
+                <!-- Divider "Hoặc nhập mới" -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/divider" />
+
+                    <TextView
+                        android:id="@+id/tv_or_new_customer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="Hoặc nhập khách mới"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/divider" />
+                </LinearLayout>
+
+                <!-- Section thông tin khách mới -->
+                <LinearLayout
+                    android:id="@+id/ll_new_customer_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Tên khách -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tên khách hàng *"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_ten_khach"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_input_normal"
+                        android:hint="Họ và tên khách"
+                        android:inputType="textPersonName|textCapWords"
+                        android:paddingHorizontal="12dp"
+                        android:textColorHint="@color/text_placeholder"
+                        android:textSize="14sp" />
+
+                    <!-- Số điện thoại -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Số điện thoại *"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_sdt_khach"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_input_normal"
+                        android:hint="0912345678"
+                        android:inputType="phone"
+                        android:paddingHorizontal="12dp"
+                        android:textColorHint="@color/text_placeholder"
+                        android:textSize="14sp" />
+
+                    <!-- CCCD -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="CCCD / Hộ chiếu"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_cccd_khach"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_input_normal"
+                        android:hint="Số CCCD hoặc hộ chiếu"
+                        android:inputType="number"
+                        android:paddingHorizontal="12dp"
+                        android:textColorHint="@color/text_placeholder"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <!-- Section thÃ´ng tin khÃ¡ch má»›i -->
+            <!-- ===== Card chọn phòng & ngày ===== -->
             <LinearLayout
-                android:id="@+id/ll_new_customer_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/bg_card_white"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <!-- TÃªn khÃ¡ch -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TÃªn khÃ¡ch hÃ ng *"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="THÔNG TIN ĐẶT PHÒNG"
+                    android:textColor="@color/primary_main"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05" />
 
-                <EditText
-                    android:id="@+id/et_ten_khach"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_input_normal"
-                    android:hint="Há» vÃ  tÃªn khÃ¡ch"
-                    android:inputType="textPersonName|textCapWords"
-                    android:paddingHorizontal="12dp"
-                    android:textColorHint="@color/text_placeholder"
-                    android:textSize="14sp" />
-
-                <!-- Sá»‘ Ä‘iá»‡n thoáº¡i -->
+                <!-- Chọn phòng (chỉ phòng Trống) -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Sá»‘ Ä‘iá»‡n thoáº¡i *"
+                    android:text="Phòng *"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/et_sdt_khach"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_phong"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_input_normal"
-                    android:hint="0912345678"
-                    android:inputType="phone"
-                    android:paddingHorizontal="12dp"
-                    android:textColorHint="@color/text_placeholder"
-                    android:textSize="14sp" />
+                    app:endIconMode="dropdown_menu">
 
-                <!-- CCCD -->
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/actv_phong"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Chọn phòng..."
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_placeholder"
+                        android:paddingHorizontal="4dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Ngày check-in -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="CCCD / Há»™ chiáº¿u"
+                    android:layout_marginTop="12dp"
+                    android:text="Ngày check-in *"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/ll_checkin_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_ngay_checkin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Chọn ngày check-in"
+                        android:textColorHint="@color/text_placeholder"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Chọn ngày"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/primary_main" />
+                </LinearLayout>
+
+                <!-- Giờ check-in -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Giờ check-in"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/ll_checkin_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_gio_checkin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="14:00"
+                        android:textColorHint="@color/text_placeholder"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Chọn giờ"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/primary_main" />
+                </LinearLayout>
+
+                <!-- Ngày check-out -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Ngày check-out *"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/ll_checkout_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_ngay_checkout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Chọn ngày check-out"
+                        android:textColorHint="@color/text_placeholder"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Chọn ngày"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/primary_main" />
+                </LinearLayout>
+
+                <!-- Giờ check-out -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Giờ check-out"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/ll_checkout_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_gio_checkout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="12:00"
+                        android:textColorHint="@color/text_placeholder"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Chọn giờ"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/primary_main" />
+                </LinearLayout>
+
+                <!-- Số lượng khách -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Số lượng khách"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/et_cccd_khach"
+                    android:id="@+id/et_so_luong_khach"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/bg_input_normal"
-                    android:hint="Sá»‘ CCCD hoáº·c há»™ chiáº¿u"
+                    android:hint="1"
                     android:inputType="number"
                     android:paddingHorizontal="12dp"
                     android:textColorHint="@color/text_placeholder"
                     android:textSize="14sp" />
-            </LinearLayout>
 
-        </LinearLayout>
-
-        <!-- ===== Card chá»n phÃ²ng & ngÃ y ===== -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/bg_card_white"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="THÃ”NG TIN Äáº¶T PHÃ’NG"
-                android:textColor="@color/primary_main"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05" />
-
-            <!-- Chá»n phÃ²ng (chá»‰ phÃ²ng Trá»‘ng) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="PhÃ²ng *"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_phong"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:endIconMode="dropdown_menu">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/actv_phong"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:hint="Chá»n phÃ²ng..."
-                    android:inputType="none"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_placeholder"
-                    android:paddingHorizontal="4dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- NgÃ y check-in -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="NgÃ y check-in *"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/ll_checkin_date"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp">
-
+                <!-- Phương thức thanh toán -->
                 <TextView
-                    android:id="@+id/tv_ngay_checkin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Chá»n ngÃ y check-in"
-                    android:textColorHint="@color/text_placeholder"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="Chá»n ngÃ y"
-                    android:src="@drawable/ic_calendar"
-                    app:tint="@color/primary_main" />
-            </LinearLayout>
-
-            <!-- Giá» check-in -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Giá» check-in"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/ll_checkin_time"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp">
-
-                <TextView
-                    android:id="@+id/tv_gio_checkin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="14:00"
-                    android:textColorHint="@color/text_placeholder"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="Chá»n giá»"
-                    android:src="@drawable/ic_calendar"
-                    app:tint="@color/primary_main" />
-            </LinearLayout>
-
-            <!-- NgÃ y check-out -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="NgÃ y check-out *"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/ll_checkout_date"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp">
-
-                <TextView
-                    android:id="@+id/tv_ngay_checkout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Chá»n ngÃ y check-out"
-                    android:textColorHint="@color/text_placeholder"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="Chá»n ngÃ y"
-                    android:src="@drawable/ic_calendar"
-                    app:tint="@color/primary_main" />
-            </LinearLayout>
-
-            <!-- Giá» check-out -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Giá» check-out"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/ll_checkout_time"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp">
-
-                <TextView
-                    android:id="@+id/tv_gio_checkout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="12:00"
-                    android:textColorHint="@color/text_placeholder"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="Chá»n giá»"
-                    android:src="@drawable/ic_calendar"
-                    app:tint="@color/primary_main" />
-            </LinearLayout>
-
-            <!-- Sá»‘ lÆ°á»£ng khÃ¡ch -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Sá»‘ lÆ°á»£ng khÃ¡ch"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_so_luong_khach"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:hint="1"
-                android:inputType="number"
-                android:paddingHorizontal="12dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-
-            <!-- PhÆ°Æ¡ng thá»©c thanh toÃ¡n -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="PhÆ°Æ¡ng thá»©c thanh toÃ¡n"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_phuong_thuc_tt"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:endIconMode="dropdown_menu">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/actv_phuong_thuc_tt"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:hint="Chá»n phÆ°Æ¡ng thá»©c..."
-                    android:inputType="none"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_placeholder"
-                    android:paddingHorizontal="4dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Ghi chÃº -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Ghi chÃº"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_ghi_chu"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_input_normal"
-                android:gravity="top"
-                android:hint="Ghi chÃº thÃªm..."
-                android:inputType="textMultiLine"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:textColorHint="@color/text_placeholder"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <!-- ===== Card tÃ­nh tiá»n tá»± Ä‘á»™ng ===== -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_card_form"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="THÃ”NG TIN CHI PHÃ"
-                android:textColor="@color/primary_main"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05" />
-
-            <!-- Sá»‘ Ä‘Ãªm -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sá»‘ Ä‘Ãªm"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_so_dem_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 Ä‘Ãªm"
+                    android:layout_marginTop="12dp"
+                    android:text="Phương thức thanh toán"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
 
-            <!-- ÄÆ¡n giÃ¡ -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_phuong_thuc_tt"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ÄÆ¡n giÃ¡/Ä‘Ãªm"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="4dp"
+                    app:endIconMode="dropdown_menu">
 
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/actv_phuong_thuc_tt"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Chọn phương thức..."
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_placeholder"
+                        android:paddingHorizontal="4dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Ghi chú -->
                 <TextView
-                    android:id="@+id/tv_don_gia_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 Ä‘"
+                    android:layout_marginTop="12dp"
+                    android:text="Ghi chú"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="10dp"
-                android:background="@color/divider" />
-
-            <!-- ThÃ nh tiá»n -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ThÃ nh tiá»n"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
+                <EditText
+                    android:id="@+id/et_ghi_chu"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input_normal"
+                    android:gravity="top"
+                    android:hint="Ghi chú thêm..."
+                    android:inputType="textMultiLine"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- ===== Card tính tiền tự động ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card_form"
+                android:orientation="vertical"
+                android:padding="16dp">
+
                 <TextView
-                    android:id="@+id/tv_thanh_tien_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 Ä‘"
+                    android:text="THÔNG TIN CHI PHÍ"
                     android:textColor="@color/primary_main"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05" />
+
+                <!-- Số đêm -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Số đêm"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_so_dem_preview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 đêm"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Đơn giá -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Đơn giá/đêm"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_don_gia_preview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 đ"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@color/divider" />
+
+                <!-- Thành tiền -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Thành tiền"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_thanh_tien_preview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 đ"
+                        android:textColor="@color/primary_main"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Row nút Hủy + Xác nhận – nằm trong scroll, không cố định -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Button Hủy: outline, không nền solid -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_cancel_booking"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Hủy"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/primary_main"
+                    app:backgroundTint="@color/background_card"
+                    app:strokeColor="@color/primary_main"
+                    app:strokeWidth="1.5dp"
+                    app:cornerRadius="@dimen/radius_button" />
+
+                <!-- Button Xác nhận -->
+                <Button
+                    android:id="@+id/btn_save_booking"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="2"
+                    android:text="XÁC NHẬN ĐẶT PHÒNG"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
         </LinearLayout>
-
-        <!-- Row nÃºt Há»§y + XÃ¡c nháº­n â€“ náº±m trong scroll, khÃ´ng cá»‘ Ä‘á»‹nh -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <!-- Button Há»§y: outline, khÃ´ng ná»n solid -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_cancel_booking"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="Há»§y"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/primary_main"
-                app:backgroundTint="@color/background_card"
-                app:strokeColor="@color/primary_main"
-                app:strokeWidth="1.5dp"
-                app:cornerRadius="@dimen/radius_button" />
-
-            <!-- Button XÃ¡c nháº­n -->
-            <Button
-                android:id="@+id/btn_save_booking"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="2"
-                android:text="XÃC NHáº¬N Äáº¶T PHÃ’NG"
-                android:textColor="@color/text_on_primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
-
-

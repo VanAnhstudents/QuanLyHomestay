@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_room_detail.xml â€“ Chi tiáº¿t phÃ²ng (B2) -->
-<!-- Root: ScrollView â€“ khÃ´ng cÃ³ appbar inline, khÃ´ng cá»‘ Ä‘á»‹nh button -->
+<!-- fragment_room_detail.xml – Chi tiết phòng (B2) -->
+<!-- Root: ScrollView – không có appbar inline, không cố định button -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,31 +16,31 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="32dp">
-
-    <!-- Header áº£nh phÃ²ng: 220dp -->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <!-- Header ảnh phòng: 220dp -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
 
                 <ImageView
                     android:id="@+id/iv_room_header"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
-                    android:contentDescription="áº¢nh phÃ²ng"
+                    android:contentDescription="Ảnh phòng"
                     android:scaleType="centerCrop" />
 
-                <!-- Overlay gradient má» -->
+                <!-- Overlay gradient mờ -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:background="@drawable/bg_gradient_overlay" />
 
-                <!-- Badge tráº¡ng thÃ¡i -->
+                <!-- Badge trạng thái -->
                 <TextView
                     android:id="@+id/tv_room_status_header"
                     android:layout_width="wrap_content"
@@ -51,11 +51,11 @@
                     android:background="@drawable/bg_badge_trong"
                     android:gravity="center"
                     android:paddingHorizontal="12dp"
-                    android:text="Trá»‘ng"
+                    android:text="Trống"
                     android:textSize="12sp" />
             </RelativeLayout>
 
-            <!-- Card thÃ´ng tin chÃ­nh -->
+            <!-- Card thông tin chính -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- TÃªn phÃ²ng + loáº¡i -->
+                <!-- Tên phòng + loại -->
                 <TextView
                     android:id="@+id/tv_room_name"
                     android:layout_width="wrap_content"
@@ -82,13 +82,13 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
 
-                <!-- GiÃ¡ -->
+                <!-- Giá -->
                 <TextView
                     android:id="@+id/tv_room_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="550,000 Ä‘/Ä‘Ãªm"
+                    android:text="550,000 đ/đêm"
                     android:textColor="@color/primary_main"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -100,14 +100,14 @@
                     android:layout_marginVertical="12dp"
                     android:background="@color/divider" />
 
-                <!-- Grid thÃ´ng tin: Sá»©c chá»©a / Diá»‡n tÃ­ch / Táº§ng (3 cá»™t) -->
+                <!-- Grid thông tin: Sức chứa / Diện tích / Tầng (3 cột) -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:orientation="horizontal"
                     android:weightSum="3">
 
-                    <!-- Sá»©c chá»©a -->
+                    <!-- Sức chứa -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -118,7 +118,7 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:contentDescription="Sá»©c chá»©a"
+                            android:contentDescription="Sức chứa"
                             android:src="@drawable/ic_person"
                             app:tint="@color/primary_main" />
 
@@ -127,7 +127,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="2 ngÆ°á»i"
+                            android:text="2 người"
                             android:textColor="@color/text_primary"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -135,12 +135,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sá»©c chá»©a"
+                            android:text="Sức chứa"
                             android:textColor="@color/text_secondary"
                             android:textSize="11sp" />
                     </LinearLayout>
 
-                    <!-- Diá»‡n tÃ­ch -->
+                    <!-- Diện tích -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -151,7 +151,7 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:contentDescription="Diá»‡n tÃ­ch"
+                            android:contentDescription="Diện tích"
                             android:src="@drawable/ic_bed"
                             app:tint="@color/primary_main" />
 
@@ -160,7 +160,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="22 mÂ²"
+                            android:text="22 m²"
                             android:textColor="@color/text_primary"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -168,12 +168,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Diá»‡n tÃ­ch"
+                            android:text="Diện tích"
                             android:textColor="@color/text_secondary"
                             android:textSize="11sp" />
                     </LinearLayout>
 
-                    <!-- Táº§ng -->
+                    <!-- Tầng -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -184,7 +184,7 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:contentDescription="Táº§ng"
+                            android:contentDescription="Tầng"
                             android:src="@drawable/ic_home"
                             app:tint="@color/primary_main" />
 
@@ -193,7 +193,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Táº§ng 1"
+                            android:text="Tầng 1"
                             android:textColor="@color/text_primary"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -201,7 +201,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vá»‹ trÃ­"
+                            android:text="Vị trí"
                             android:textColor="@color/text_secondary"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -214,11 +214,11 @@
                     android:layout_marginVertical="12dp"
                     android:background="@color/divider" />
 
-                <!-- Section Tiá»‡n nghi -->
+                <!-- Section Tiện nghi -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tiá»‡n nghi"
+                    android:text="Tiện nghi"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -244,11 +244,11 @@
                     android:layout_marginVertical="12dp"
                     android:background="@color/divider" />
 
-                <!-- Section MÃ´ táº£ -->
+                <!-- Section Mô tả -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MÃ´ táº£"
+                    android:text="Mô tả"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -259,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:lineSpacingMultiplier="1.5"
-                    android:text="MÃ´ táº£ phÃ²ng..."
+                    android:text="Mô tả phòng..."
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
 
@@ -269,76 +269,74 @@
                     android:layout_height="16dp" />
             </LinearLayout>
 
-        <!-- ===== Row hÃ nh Ä‘á»™ng: Chá»‰nh sá»­a / XÃ³a / Äáº·t phÃ²ng ===== -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="24dp">
-
-            <!-- HÃ ng 1: Chá»‰nh sá»­a + XÃ³a phÃ²ng -->
+            <!-- ===== Row hành động: Chỉnh sửa / Xóa / Đặt phòng ===== -->
             <LinearLayout
-                android:id="@+id/row_edit_delete"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="24dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_edit_room"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
+                <!-- Hàng 1: Chỉnh sửa + Xóa phòng -->
+                <LinearLayout
+                    android:id="@+id/row_edit_delete"
+                    android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:text="Chá»‰nh sá»­a"
-                    android:textSize="14sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/primary_main"
-                    app:backgroundTint="@color/background_card"
-                    app:strokeColor="@color/primary_main"
-                    app:strokeWidth="1.5dp"
-                    app:cornerRadius="@dimen/radius_button"
-                    android:visibility="gone" />
+                    android:orientation="horizontal">
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_edit_room"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:text="Chỉnh sửa"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/primary_main"
+                        app:backgroundTint="@color/background_card"
+                        app:strokeColor="@color/primary_main"
+                        app:strokeWidth="1.5dp"
+                        app:cornerRadius="@dimen/radius_button"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_delete_room"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="Xóa phòng"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/status_error"
+                        app:backgroundTint="@color/background_card"
+                        app:strokeColor="@color/status_error"
+                        app:strokeWidth="1.5dp"
+                        app:cornerRadius="@dimen/radius_button"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <!-- Hàng 2: Đặt phòng -->
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_delete_room"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:id="@+id/btn_book_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_button_main"
                     android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:text="XÃ³a phÃ²ng"
-                    android:textSize="14sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/status_error"
-                    app:backgroundTint="@color/background_card"
-                    app:strokeColor="@color/status_error"
-                    app:strokeWidth="1.5dp"
-                    app:cornerRadius="@dimen/radius_button"
-                    android:visibility="gone" />
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    android:text="ĐẶT PHÒNG"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_on_primary"
+                    app:backgroundTint="@color/primary_main"
+                    app:cornerRadius="@dimen/radius_button" />
             </LinearLayout>
 
-            <!-- HÃ ng 2: Äáº·t phÃ²ng -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_book_room"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_button_main"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="@dimen/spacing_md"
-                android:text="Äáº¶T PHÃ’NG"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif-bold"
-                android:textStyle="bold"
-                android:textColor="@color/text_on_primary"
-                app:backgroundTint="@color/primary_main"
-                app:cornerRadius="@dimen/radius_button" />
         </LinearLayout>
-
-    </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
-
-
