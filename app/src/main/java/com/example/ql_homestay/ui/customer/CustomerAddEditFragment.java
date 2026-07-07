@@ -77,7 +77,7 @@ public class CustomerAddEditFragment extends Fragment {
             });
 
     private static final String[] GIOI_TINH_DISPLAY = {"Nam", "Nữ", "Khác"};
-    private static final String[] GIOI_TINH_VALUE   = {"Nam", "Nu",  "Khac"};
+    private static final String[] GIOI_TINH_VALUE = {"Nam", "Nu",  "Khac"};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,19 +97,19 @@ public class CustomerAddEditFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         repository = new CustomerRepository(requireContext());
 
-        flAvatarPicker      = view.findViewById(R.id.fl_avatar_picker);
-        ivAvatarPick        = view.findViewById(R.id.iv_avatar_pick);
+        flAvatarPicker = view.findViewById(R.id.fl_avatar_picker);
+        ivAvatarPick = view.findViewById(R.id.iv_avatar_pick);
         tvAvatarPlaceholder = view.findViewById(R.id.tv_avatar_placeholder);
-        tilHoTen         = view.findViewById(R.id.til_ho_ten);
-        tilSdt           = view.findViewById(R.id.til_sdt);
-        etHoTen          = view.findViewById(R.id.et_ho_ten);
-        etSdt            = view.findViewById(R.id.et_sdt);
-        etEmail          = view.findViewById(R.id.et_email);
-        etCccd           = view.findViewById(R.id.et_cccd);
-        etDiaChi         = view.findViewById(R.id.et_dia_chi);
-        etNgaySinh       = view.findViewById(R.id.et_ngay_sinh);
+        tilHoTen = view.findViewById(R.id.til_ho_ten);
+        tilSdt = view.findViewById(R.id.til_sdt);
+        etHoTen = view.findViewById(R.id.et_ho_ten);
+        etSdt = view.findViewById(R.id.et_sdt);
+        etEmail = view.findViewById(R.id.et_email);
+        etCccd = view.findViewById(R.id.et_cccd);
+        etDiaChi = view.findViewById(R.id.et_dia_chi);
+        etNgaySinh = view.findViewById(R.id.et_ngay_sinh);
         dropdownGioiTinh = view.findViewById(R.id.dropdown_gioi_tinh);
-        btnLuu           = view.findViewById(R.id.btn_luu);
+        btnLuu = view.findViewById(R.id.btn_luu);
 
         setupBreadcrumb(view);
         setupAvatarPicker();
@@ -182,7 +182,7 @@ public class CustomerAddEditFragment extends Fragment {
 
     private void onSave() {
         String hoTen = text(etHoTen);
-        String sdt   = text(etSdt);
+        String sdt = text(etSdt);
 
         boolean valid = true;
         if (TextUtils.isEmpty(hoTen)) {

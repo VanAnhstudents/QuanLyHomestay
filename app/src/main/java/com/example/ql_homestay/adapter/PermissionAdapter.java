@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,41 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.repository.PermissionRepository.PermissionRow;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * PermissionAdapter - Hiển thị 8 dòng phân quyền module trong AccountDetailFragment.
- * Mỗi dòng có icon module, tên module, mô tả và dropdown quyền.
- */
 public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.VH> {
-    private static final String[] QUYEN_DISPLAY = {"Toàn quyền", "Xem và Tạo", "Chỉ xem", "Không truy cập"};
-    private static final String[] QUYEN_VALUE = {"ToanQuyen", "XemVaTao", "ChiXem", "KhongTruyCap"};
-
     private List<PermissionRow> data = new ArrayList<>();
-    private boolean isReadOnly = false; // true khi tab Admin được chọn
 
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<PermissionRow> list) {
         data = list != null ? list : new ArrayList<>();
         notifyDataSetChanged();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setReadOnly(boolean readOnly) {
-        isReadOnly = readOnly;
-        notifyDataSetChanged();
-    }
-
-    /** Trả về map maModule → tenQuyen từ dữ liệu hiện tại (dùng khi lưu). */
-    public java.util.Map<Integer, String> getCurrentPermissions() {
-        java.util.Map<Integer, String> map = new java.util.HashMap<>();
-        for (PermissionRow row : data) {
-            map.put(row.module.getMaModule(), row.tenQuyen);
-        }
-        return map;
     }
 
     @NonNull
@@ -63,21 +38,8 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.VH
         PermissionRow row = data.get(pos);
         h.tvName.setText(mapModuleName(row.module.getTenModule()));
         h.tvDesc.setText(mapModuleDesc(row.module.getTenModule()));
+        h.tvQuyen.setText(quyenValueToDisplay(row.tenQuyen));
         h.ivIcon.setImageResource(mapModuleIcon(row.module.getTenModule()));
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                h.itemView.getContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                QUYEN_DISPLAY);
-        h.dropdown.setAdapter(adapter);
-
-        String display = quyenValueToDisplay(row.tenQuyen);
-        h.dropdown.setText(display, false);
-        h.dropdown.setEnabled(!isReadOnly);
-
-        h.dropdown.setOnItemClickListener((parent, v, position, id) -> {
-            row.tenQuyen = QUYEN_VALUE[position];
-        });
     }
 
     @Override
@@ -86,27 +48,27 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.VH
     }
 
     private static String quyenValueToDisplay(String tenQuyen) {
-        if (tenQuyen == null) return "Không truy cập";
+        if (tenQuyen == null) return "Kh\u00f4ng truy c\u1eadp";
         switch (tenQuyen) {
-            case "ToanQuyen": return "Toàn quyền";
-            case "XemVaTao": return "Xem và Tạo";
-            case "ChiXem": return "Chỉ xem";
-            case "KhongTruyCap": return "Không truy cập";
-            default: return "Không truy cập";
+            case "ToanQuyen": return "To\u00e0n quy\u1ec1n";
+            case "XemVaTao": return "Xem v\u00e0 T\u1ea1o";
+            case "ChiXem": return "Ch\u1ec9 xem";
+            case "KhongTruyCap": return "Kh\u00f4ng truy c\u1eadp";
+            default: return "Kh\u00f4ng truy c\u1eadp";
         }
     }
 
     private static String mapModuleName(String tenModule) {
         if (tenModule == null) return "";
         switch (tenModule) {
-            case "TrangChu": return "Trang chủ / Dashboard";
-            case "QuanLyPhong": return "Quản lý phòng";
-            case "QuanLyDatPhong": return "Quản lý đặt phòng";
-            case "QuanLyKhachHang": return "Quản lý khách hàng";
-            case "HoaDonThanhToan": return "Hóa đơn & Thanh toán";
-            case "QuanLyNhanVien": return "Quản lý nhân viên";
-            case "BaoCaoThongKe": return "Báo cáo & Thống kê";
-            case "CaiDatHeThong": return "Cài đặt hệ thống";
+            case "TrangChu": return "Trang ch\u1ee7 / Dashboard";
+            case "QuanLyPhong": return "Qu\u1ea3n l\u00fd ph\u00f2ng";
+            case "QuanLyDatPhong": return "Qu\u1ea3n l\u00fd \u0111\u1eb7t ph\u00f2ng";
+            case "QuanLyKhachHang": return "Qu\u1ea3n l\u00fd kh\u00e1ch h\u00e0ng";
+            case "HoaDonThanhToan": return "H\u00f3a \u0111\u01a1n & Thanh to\u00e1n";
+            case "QuanLyNhanVien": return "Qu\u1ea3n l\u00fd nh\u00e2n vi\u00ean";
+            case "BaoCaoThongKe": return "B\u00e1o c\u00e1o & Th\u1ed1ng k\u00ea";
+            case "CaiDatHeThong": return "C\u00e0i \u0111\u1eb7t h\u1ec7 th\u1ed1ng";
             default: return tenModule;
         }
     }
@@ -114,14 +76,14 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.VH
     private static String mapModuleDesc(String tenModule) {
         if (tenModule == null) return "";
         switch (tenModule) {
-            case "TrangChu": return "Xem tổng quan & KPI";
-            case "QuanLyPhong": return "Thêm/sửa/xóa phòng";
-            case "QuanLyDatPhong": return "Đặt phòng, check-in/out";
-            case "QuanLyKhachHang": return "Thông tin khách hàng";
-            case "HoaDonThanhToan": return "Lập và xác nhận hóa đơn";
-            case "QuanLyNhanVien": return "Nhân viên & ca làm việc";
-            case "BaoCaoThongKe": return "Thống kê doanh thu";
-            case "CaiDatHeThong": return "Tài khoản & phân quyền";
+            case "TrangChu": return "Xem t\u1ed5ng quan & KPI";
+            case "QuanLyPhong": return "Th\u00eam/s\u1eeda/x\u00f3a ph\u00f2ng";
+            case "QuanLyDatPhong": return "\u0110\u1eb7t ph\u00f2ng, check-in/out";
+            case "QuanLyKhachHang": return "Th\u00f4ng tin kh\u00e1ch h\u00e0ng";
+            case "HoaDonThanhToan": return "L\u1eadp v\u00e0 x\u00e1c nh\u1eadn h\u00f3a \u0111\u01a1n";
+            case "QuanLyNhanVien": return "Nh\u00e2n vi\u00ean & ca l\u00e0m vi\u1ec7c";
+            case "BaoCaoThongKe": return "Th\u1ed1ng k\u00ea doanh thu";
+            case "CaiDatHeThong": return "T\u00e0i kho\u1ea3n & ph\u00e2n quy\u1ec1n";
             default: return "";
         }
     }
@@ -143,14 +105,14 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.VH
 
     static class VH extends RecyclerView.ViewHolder {
         final ImageView ivIcon;
-        final TextView tvName, tvDesc;
-        final MaterialAutoCompleteTextView dropdown;
+        final TextView tvName, tvDesc, tvQuyen;
+
         VH(View v) {
             super(v);
             ivIcon = v.findViewById(R.id.iv_module_icon);
             tvName = v.findViewById(R.id.tv_module_name);
             tvDesc = v.findViewById(R.id.tv_module_desc);
-            dropdown = v.findViewById(R.id.dropdown_quyen);
+            tvQuyen = v.findViewById(R.id.tv_quyen);
         }
     }
 }

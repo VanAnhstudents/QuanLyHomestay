@@ -122,7 +122,7 @@
                 android:paddingStart="@dimen/padding_card_default"
                 android:paddingEnd="@dimen/padding_card_default"
                 android:paddingTop="@dimen/padding_card_default"
-                android:paddingBottom="40dp"
+                android:paddingBottom="16dp"
                 android:clipChildren="false"
                 android:clipToPadding="false">
 
@@ -156,7 +156,7 @@
             android:layout_marginEnd="@dimen/margin_screen_horizontal"
             android:layout_marginTop="@dimen/spacing_md"
             android:layout_marginBottom="@dimen/spacing_md"
-            android:text="Lưu thay đổi"
+            android:text="Lưu vai trò"
             android:textSize="16sp"
             android:fontFamily="sans-serif-bold"
             android:textStyle="bold"

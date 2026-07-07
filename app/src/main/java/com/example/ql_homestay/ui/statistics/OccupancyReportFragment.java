@@ -77,19 +77,19 @@ public class OccupancyReportFragment extends Fragment {
     // ─── Setup ────────────────────────────────────────────────────────────────
 
     private void bindViews(View view) {
-        tvFromDate        = view.findViewById(R.id.tv_from_date);
-        tvToDate          = view.findViewById(R.id.tv_to_date);
-        btnViewReport     = view.findViewById(R.id.btn_view_report);
-        cardMetrics       = view.findViewById(R.id.card_metrics);
-        cardLineChart     = view.findViewById(R.id.card_line_chart);
-        cardRoomTable     = view.findViewById(R.id.card_room_table);
-        tvTotalRooms      = view.findViewById(R.id.tv_total_rooms);
+        tvFromDate = view.findViewById(R.id.tv_from_date);
+        tvToDate = view.findViewById(R.id.tv_to_date);
+        btnViewReport = view.findViewById(R.id.btn_view_report);
+        cardMetrics = view.findViewById(R.id.card_metrics);
+        cardLineChart = view.findViewById(R.id.card_line_chart);
+        cardRoomTable = view.findViewById(R.id.card_room_table);
+        tvTotalRooms = view.findViewById(R.id.tv_total_rooms);
         tvAvailableNights = view.findViewById(R.id.tv_available_nights);
-        tvSoldNights      = view.findViewById(R.id.tv_sold_nights);
-        tvOccupancyRate   = view.findViewById(R.id.tv_occupancy_rate);
-        tvEmpty           = view.findViewById(R.id.tv_empty);
+        tvSoldNights = view.findViewById(R.id.tv_sold_nights);
+        tvOccupancyRate = view.findViewById(R.id.tv_occupancy_rate);
+        tvEmpty = view.findViewById(R.id.tv_empty);
         chartLineContainer= view.findViewById(R.id.chart_line_container);
-        llRoomTableRows   = view.findViewById(R.id.ll_room_table_rows);
+        llRoomTableRows = view.findViewById(R.id.ll_room_table_rows);
     }
 
     private void setupBreadcrumb(View view) {

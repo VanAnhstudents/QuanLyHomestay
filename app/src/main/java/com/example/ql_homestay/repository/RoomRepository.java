@@ -22,10 +22,10 @@ public class RoomRepository {
     private final TienNghiDAO tienNghiDAO;
 
     public RoomRepository(DatabaseHelper dbHelper) {
-        this.phongDAO          = new PhongDAO(dbHelper);
-        this.loaiPhongDAO      = new LoaiPhongDAO(dbHelper);
-        this.phongTienNghiDAO  = new PhongTienNghiDAO(dbHelper);
-        this.tienNghiDAO       = new TienNghiDAO(dbHelper);
+        this.phongDAO = new PhongDAO(dbHelper);
+        this.loaiPhongDAO = new LoaiPhongDAO(dbHelper);
+        this.phongTienNghiDAO = new PhongTienNghiDAO(dbHelper);
+        this.tienNghiDAO = new TienNghiDAO(dbHelper);
     }
 
     // -------- Phong --------

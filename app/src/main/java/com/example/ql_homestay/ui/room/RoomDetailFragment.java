@@ -91,7 +91,7 @@ public class RoomDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = SessionManager.getInstance(requireContext());
-        dbHelper       = DatabaseHelper.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         roomRepository = new RoomRepository(dbHelper);
 
         bindViews(view);
@@ -101,19 +101,19 @@ public class RoomDetailFragment extends Fragment {
     }
 
     private void bindViews(View view) {
-        ivRoomHeader       = view.findViewById(R.id.iv_room_header);
+        ivRoomHeader = view.findViewById(R.id.iv_room_header);
         tvRoomStatusHeader = view.findViewById(R.id.tv_room_status_header);
-        tvRoomName         = view.findViewById(R.id.tv_room_name);
-        tvRoomType         = view.findViewById(R.id.tv_room_type);
-        tvRoomPrice        = view.findViewById(R.id.tv_room_price);
-        tvSucChua          = view.findViewById(R.id.tv_suc_chua);
-        tvDienTich         = view.findViewById(R.id.tv_dien_tich);
-        tvTang             = view.findViewById(R.id.tv_tang);
-        llTienNghi         = view.findViewById(R.id.ll_tien_nghi);
-        tvMoTa             = view.findViewById(R.id.tv_mo_ta);
-        btnEditRoom        = view.findViewById(R.id.btn_edit_room);
-        btnDeleteRoom      = view.findViewById(R.id.btn_delete_room);
-        btnBookRoom        = view.findViewById(R.id.btn_book_room);
+        tvRoomName = view.findViewById(R.id.tv_room_name);
+        tvRoomType = view.findViewById(R.id.tv_room_type);
+        tvRoomPrice = view.findViewById(R.id.tv_room_price);
+        tvSucChua = view.findViewById(R.id.tv_suc_chua);
+        tvDienTich = view.findViewById(R.id.tv_dien_tich);
+        tvTang = view.findViewById(R.id.tv_tang);
+        llTienNghi = view.findViewById(R.id.ll_tien_nghi);
+        tvMoTa = view.findViewById(R.id.tv_mo_ta);
+        btnEditRoom = view.findViewById(R.id.btn_edit_room);
+        btnDeleteRoom = view.findViewById(R.id.btn_delete_room);
+        btnBookRoom = view.findViewById(R.id.btn_book_room);
     }
 
     private void setupBreadcrumb(View view) {

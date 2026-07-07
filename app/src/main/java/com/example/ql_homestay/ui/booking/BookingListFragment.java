@@ -70,8 +70,8 @@ public class BookingListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sessionManager    = SessionManager.getInstance(requireContext());
-        dbHelper          = DatabaseHelper.getInstance(requireContext());
+        sessionManager = SessionManager.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         bookingRepository = new BookingRepository(dbHelper);
 
         bindViews(view);
@@ -87,14 +87,14 @@ public class BookingListFragment extends Fragment {
 
     private void bindViews(View view) {
         rvBookingList = view.findViewById(R.id.rv_booking_list);
-        layoutEmpty   = view.findViewById(R.id.layout_empty);
+        layoutEmpty = view.findViewById(R.id.layout_empty);
         fabAddBooking = view.findViewById(R.id.fab_add_booking);
-        etSearch      = view.findViewById(R.id.et_search);
-        chipAll       = view.findViewById(R.id.chip_all);
-        chipSapDen    = view.findViewById(R.id.chip_sap_den);
-        chipDangO     = view.findViewById(R.id.chip_dang_o);
-        chipDaTra     = view.findViewById(R.id.chip_da_tra);
-        chipDaHuy     = view.findViewById(R.id.chip_da_huy);
+        etSearch = view.findViewById(R.id.et_search);
+        chipAll = view.findViewById(R.id.chip_all);
+        chipSapDen = view.findViewById(R.id.chip_sap_den);
+        chipDangO = view.findViewById(R.id.chip_dang_o);
+        chipDaTra = view.findViewById(R.id.chip_da_tra);
+        chipDaHuy = view.findViewById(R.id.chip_da_huy);
     }
 
     private void setupBreadcrumb(View view) {

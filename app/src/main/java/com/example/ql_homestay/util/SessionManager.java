@@ -30,7 +30,7 @@ public class SessionManager {
     private final SharedPreferences.Editor editor;
 
     private SessionManager(Context context) {
-        prefs  = context.getApplicationContext()
+        prefs = context.getApplicationContext()
                 .getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = prefs.edit();
     }

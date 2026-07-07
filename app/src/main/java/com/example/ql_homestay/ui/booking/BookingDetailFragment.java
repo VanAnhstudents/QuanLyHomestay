@@ -104,11 +104,11 @@ public class BookingDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sessionManager    = SessionManager.getInstance(requireContext());
-        dbHelper          = DatabaseHelper.getInstance(requireContext());
+        sessionManager = SessionManager.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         bookingRepository = new BookingRepository(dbHelper);
-        khachHangDAO      = new KhachHangDAO(dbHelper);
-        nhanVienDAO       = new NhanVienDAO(dbHelper);
+        khachHangDAO = new KhachHangDAO(dbHelper);
+        nhanVienDAO = new NhanVienDAO(dbHelper);
 
         bindViews(view);
         setupBreadcrumb(view);
@@ -117,26 +117,26 @@ public class BookingDetailFragment extends Fragment {
     }
 
     private void bindViews(View view) {
-        tvMaDatPhong       = view.findViewById(R.id.tv_ma_dat_phong);
-        tvTrangThai        = view.findViewById(R.id.tv_trang_thai);
-        tvTenPhong         = view.findViewById(R.id.tv_ten_phong);
-        tvNgayCiCo         = view.findViewById(R.id.tv_ngay_ci_co);
-        tvSoDem            = view.findViewById(R.id.tv_so_dem);
-        tvAvatarInitials   = view.findViewById(R.id.tv_avatar_initials);
-        tvTenKhach         = view.findViewById(R.id.tv_ten_khach);
-        tvSdtKhach         = view.findViewById(R.id.tv_sdt_khach);
-        tvTienPhong        = view.findViewById(R.id.tv_tien_phong);
-        tvSoLuongKhach     = view.findViewById(R.id.tv_so_luong_khach);
-        tvPhuongThucTT     = view.findViewById(R.id.tv_phuong_thuc_tt);
-        tvTongCong         = view.findViewById(R.id.tv_tong_cong);
-        tvGhiChu           = view.findViewById(R.id.tv_ghi_chu);
-        rowAction          = view.findViewById(R.id.row_action);
-        row6a              = view.findViewById(R.id.row_6a);
-        row6b              = view.findViewById(R.id.row_6b);
-        btnEditBooking     = view.findViewById(R.id.btn_edit_booking);
-        btnDeleteBooking   = view.findViewById(R.id.btn_delete_booking);
-        btnCheckin         = view.findViewById(R.id.btn_checkin);
-        btnCheckout        = view.findViewById(R.id.btn_checkout);
+        tvMaDatPhong = view.findViewById(R.id.tv_ma_dat_phong);
+        tvTrangThai = view.findViewById(R.id.tv_trang_thai);
+        tvTenPhong = view.findViewById(R.id.tv_ten_phong);
+        tvNgayCiCo = view.findViewById(R.id.tv_ngay_ci_co);
+        tvSoDem = view.findViewById(R.id.tv_so_dem);
+        tvAvatarInitials = view.findViewById(R.id.tv_avatar_initials);
+        tvTenKhach = view.findViewById(R.id.tv_ten_khach);
+        tvSdtKhach = view.findViewById(R.id.tv_sdt_khach);
+        tvTienPhong = view.findViewById(R.id.tv_tien_phong);
+        tvSoLuongKhach = view.findViewById(R.id.tv_so_luong_khach);
+        tvPhuongThucTT = view.findViewById(R.id.tv_phuong_thuc_tt);
+        tvTongCong = view.findViewById(R.id.tv_tong_cong);
+        tvGhiChu = view.findViewById(R.id.tv_ghi_chu);
+        rowAction = view.findViewById(R.id.row_action);
+        row6a = view.findViewById(R.id.row_6a);
+        row6b = view.findViewById(R.id.row_6b);
+        btnEditBooking = view.findViewById(R.id.btn_edit_booking);
+        btnDeleteBooking = view.findViewById(R.id.btn_delete_booking);
+        btnCheckin = view.findViewById(R.id.btn_checkin);
+        btnCheckout = view.findViewById(R.id.btn_checkout);
         tvTrangThaiReadonly = view.findViewById(R.id.tv_trang_thai_readonly);
     }
 

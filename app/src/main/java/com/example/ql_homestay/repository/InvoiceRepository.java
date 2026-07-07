@@ -18,7 +18,7 @@ public class InvoiceRepository {
     private final ChiTietPhuThuDAO chiTietPhuThuDAO;
 
     public InvoiceRepository(DatabaseHelper dbHelper) {
-        this.hoaDonDAO        = new HoaDonDAO(dbHelper);
+        this.hoaDonDAO = new HoaDonDAO(dbHelper);
         this.chiTietPhuThuDAO = new ChiTietPhuThuDAO(dbHelper);
     }
 

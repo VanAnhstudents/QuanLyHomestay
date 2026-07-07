@@ -30,7 +30,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
     private OnBookingClickListener listener;
 
     public BookingAdapter(Context context) {
-        this.context  = context;
+        this.context = context;
         this.dataList = new ArrayList<>();
     }
 
@@ -137,11 +137,11 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvMaDatPhong = itemView.findViewById(R.id.tv_booking_id);
-            tvNgay       = itemView.findViewById(R.id.tv_booking_date);
-            tvTenKhach   = itemView.findViewById(R.id.tv_booking_customer);
-            tvTenPhong   = itemView.findViewById(R.id.tv_booking_room);
-            tvPeriod     = itemView.findViewById(R.id.tv_booking_period);
-            tvTrangThai  = itemView.findViewById(R.id.tv_booking_status);
+            tvNgay = itemView.findViewById(R.id.tv_booking_date);
+            tvTenKhach = itemView.findViewById(R.id.tv_booking_customer);
+            tvTenPhong = itemView.findViewById(R.id.tv_booking_room);
+            tvPeriod = itemView.findViewById(R.id.tv_booking_period);
+            tvTrangThai = itemView.findViewById(R.id.tv_booking_status);
         }
     }
 }

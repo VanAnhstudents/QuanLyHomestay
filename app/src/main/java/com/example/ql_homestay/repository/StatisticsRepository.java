@@ -189,7 +189,7 @@ public class StatisticsRepository {
         try (Cursor c = db.rawQuery(sql, new String[]{to, from})) {
             while (c.moveToNext()) {
                 String tenPhong = c.getString(0);
-                int soDem       = c.getInt(1);
+                int soDem = c.getInt(1);
                 double doanhThu = c.getDouble(2);
                 double congSuat = totalDays > 0 ? (soDem / (double) totalDays) * 100.0 : 0;
                 result.add(new Object[]{tenPhong, soDem, doanhThu, congSuat});

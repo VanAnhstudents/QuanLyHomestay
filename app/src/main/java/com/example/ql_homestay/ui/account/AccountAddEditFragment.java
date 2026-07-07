@@ -40,7 +40,7 @@ public class AccountAddEditFragment extends Fragment {
 
     private static final String ARG_MA_TK = "maTK";
     private static final String[] VAI_TRO_DISPLAY = {"Admin", "Lễ tân", "Kế toán", "Nhân viên"};
-    private static final String[] VAI_TRO_VALUE   = {"Admin", "LeTan", "KeToan", "NhanVien"};
+    private static final String[] VAI_TRO_VALUE = {"Admin", "LeTan", "KeToan", "NhanVien"};
 
     public static AccountAddEditFragment newInstance(int maTK) {
         AccountAddEditFragment f = new AccountAddEditFragment();
@@ -82,21 +82,21 @@ public class AccountAddEditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dbHelper    = DatabaseHelper.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         taiKhoanDAO = new TaiKhoanDAO(dbHelper);
 
-        tilUsername    = view.findViewById(R.id.til_username);
-        tilPassword    = view.findViewById(R.id.til_password);
-        tilConfirm     = view.findViewById(R.id.til_confirm_password);
-        etUsername     = view.findViewById(R.id.et_username);
-        etEmail        = view.findViewById(R.id.et_email);
-        etPassword     = view.findViewById(R.id.et_password);
-        etConfirm      = view.findViewById(R.id.et_confirm_password);
+        tilUsername = view.findViewById(R.id.til_username);
+        tilPassword = view.findViewById(R.id.til_password);
+        tilConfirm = view.findViewById(R.id.til_confirm_password);
+        etUsername = view.findViewById(R.id.et_username);
+        etEmail = view.findViewById(R.id.et_email);
+        etPassword = view.findViewById(R.id.et_password);
+        etConfirm = view.findViewById(R.id.et_confirm_password);
         dropdownVaiTro = view.findViewById(R.id.dropdown_vai_tro);
         switchTrangThai = view.findViewById(R.id.switch_trang_thai);
-        btnLuu         = view.findViewById(R.id.btn_luu);
-        labelPassword  = view.findViewById(R.id.label_password);
-        labelConfirm   = view.findViewById(R.id.label_confirm_password);
+        btnLuu = view.findViewById(R.id.btn_luu);
+        labelPassword = view.findViewById(R.id.label_password);
+        labelConfirm = view.findViewById(R.id.label_confirm_password);
 
         setupBreadcrumb(view);
         setupVaiTroDropdown();
@@ -159,7 +159,7 @@ public class AccountAddEditFragment extends Fragment {
 
         if (maTK <= 0) {
             String password = text(etPassword);
-            String confirm  = text(etConfirm);
+            String confirm = text(etConfirm);
             if (TextUtils.isEmpty(password)) {
                 tilPassword.setError("Mật khẩu không được để trống");
                 valid = false;

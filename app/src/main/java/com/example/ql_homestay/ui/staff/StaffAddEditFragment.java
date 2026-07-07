@@ -48,7 +48,7 @@ public class StaffAddEditFragment extends Fragment {
 
     private static final String ARG_MA_NV = "maNV";
     private static final String[] CHUC_VU_DISPLAY = {"Quản lý", "Lễ tân", "Kế toán", "Dọn phòng", "Bảo vệ"};
-    private static final String[] CHUC_VU_VALUE   = {"QuanLy", "LeTan", "KeToan", "DonPhong", "BaoVe"};
+    private static final String[] CHUC_VU_VALUE = {"QuanLy", "LeTan", "KeToan", "DonPhong", "BaoVe"};
 
     public static StaffAddEditFragment newInstance(int maNV) {
         StaffAddEditFragment f = new StaffAddEditFragment();
@@ -102,20 +102,20 @@ public class StaffAddEditFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         repository = new StaffRepository(requireContext());
 
-        tilHoTen      = view.findViewById(R.id.til_ho_ten);
-        tilUsername   = view.findViewById(R.id.til_username);
-        tilPassword   = view.findViewById(R.id.til_password);
-        etHoTen       = view.findViewById(R.id.et_ho_ten);
-        etSdt         = view.findViewById(R.id.et_sdt);
-        etEmail       = view.findViewById(R.id.et_email);
-        etCccd        = view.findViewById(R.id.et_cccd);
-        etNgayVaoLam  = view.findViewById(R.id.et_ngay_vao_lam);
-        etDiaChi      = view.findViewById(R.id.et_dia_chi);
-        etUsername    = view.findViewById(R.id.et_username);
-        etPassword    = view.findViewById(R.id.et_password);
+        tilHoTen = view.findViewById(R.id.til_ho_ten);
+        tilUsername = view.findViewById(R.id.til_username);
+        tilPassword = view.findViewById(R.id.til_password);
+        etHoTen = view.findViewById(R.id.et_ho_ten);
+        etSdt = view.findViewById(R.id.et_sdt);
+        etEmail = view.findViewById(R.id.et_email);
+        etCccd = view.findViewById(R.id.et_cccd);
+        etNgayVaoLam = view.findViewById(R.id.et_ngay_vao_lam);
+        etDiaChi = view.findViewById(R.id.et_dia_chi);
+        etUsername = view.findViewById(R.id.et_username);
+        etPassword = view.findViewById(R.id.et_password);
         dropdownChucVu = view.findViewById(R.id.dropdown_chuc_vu);
-        cardTaiKhoan  = view.findViewById(R.id.card_tai_khoan);
-        btnLuu        = view.findViewById(R.id.btn_luu);
+        cardTaiKhoan = view.findViewById(R.id.card_tai_khoan);
+        btnLuu = view.findViewById(R.id.btn_luu);
         flAvatarPicker = view.findViewById(R.id.fl_avatar_picker);
         ivAvatarPick = view.findViewById(R.id.iv_avatar_pick);
         tvAvatarPlaceholder = view.findViewById(R.id.tv_avatar_placeholder);

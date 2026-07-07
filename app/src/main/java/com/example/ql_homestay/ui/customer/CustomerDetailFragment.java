@@ -78,25 +78,25 @@ public class CustomerDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        session    = SessionManager.getInstance(requireContext());
-        dbHelper   = DatabaseHelper.getInstance(requireContext());
+        session = SessionManager.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         repository = new CustomerRepository(requireContext());
 
-        ivAvatar          = view.findViewById(R.id.iv_avatar_detail);
-        tvInitials        = view.findViewById(R.id.tv_initials_detail);
-        tvTenKhach        = view.findViewById(R.id.tv_ten_khach_detail);
-        tvBadgeSoLanThue  = view.findViewById(R.id.tv_badge_so_lan_thue);
-        tvSdt             = view.findViewById(R.id.tv_sdt_detail);
-        tvEmail           = view.findViewById(R.id.tv_email_detail);
-        tvCccd            = view.findViewById(R.id.tv_cccd_detail);
-        tvDiaChi          = view.findViewById(R.id.tv_dia_chi_detail);
-        tvNgaySinh        = view.findViewById(R.id.tv_ngay_sinh_detail);
-        rvLichSu          = view.findViewById(R.id.rv_lich_su_dat_phong);
-        tvNoHistory       = view.findViewById(R.id.tv_no_history);
-        tvXemTatCa        = view.findViewById(R.id.tv_xem_tat_ca);
-        rowActionButtons  = view.findViewById(R.id.row_action_buttons);
-        btnChinhSua       = view.findViewById(R.id.btn_chinh_sua);
-        btnXoa            = view.findViewById(R.id.btn_xoa);
+        ivAvatar = view.findViewById(R.id.iv_avatar_detail);
+        tvInitials = view.findViewById(R.id.tv_initials_detail);
+        tvTenKhach = view.findViewById(R.id.tv_ten_khach_detail);
+        tvBadgeSoLanThue = view.findViewById(R.id.tv_badge_so_lan_thue);
+        tvSdt = view.findViewById(R.id.tv_sdt_detail);
+        tvEmail = view.findViewById(R.id.tv_email_detail);
+        tvCccd = view.findViewById(R.id.tv_cccd_detail);
+        tvDiaChi = view.findViewById(R.id.tv_dia_chi_detail);
+        tvNgaySinh = view.findViewById(R.id.tv_ngay_sinh_detail);
+        rvLichSu = view.findViewById(R.id.rv_lich_su_dat_phong);
+        tvNoHistory = view.findViewById(R.id.tv_no_history);
+        tvXemTatCa = view.findViewById(R.id.tv_xem_tat_ca);
+        rowActionButtons = view.findViewById(R.id.row_action_buttons);
+        btnChinhSua = view.findViewById(R.id.btn_chinh_sua);
+        btnXoa = view.findViewById(R.id.btn_xoa);
 
         setupBreadcrumb(view);
         applyPermission();
@@ -252,8 +252,8 @@ public class CustomerDetailFragment extends Fragment {
             VH(View v) {
                 super(v);
                 tvCustomer = v.findViewById(R.id.tv_compact_customer);
-                tvRoom     = v.findViewById(R.id.tv_compact_room);
-                tvStatus   = v.findViewById(R.id.badge_compact_status);
+                tvRoom = v.findViewById(R.id.tv_compact_room);
+                tvStatus = v.findViewById(R.id.badge_compact_status);
             }
         }
 

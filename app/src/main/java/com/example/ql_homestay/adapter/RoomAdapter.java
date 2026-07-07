@@ -33,7 +33,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     private OnRoomClickListener listener;
 
     public RoomAdapter(Context context) {
-        this.context  = context;
+        this.context = context;
         this.dataList = new ArrayList<>();
     }
 
@@ -154,10 +154,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivHinhAnh   = itemView.findViewById(R.id.iv_room_image);
-            tvTenPhong  = itemView.findViewById(R.id.tv_room_name);
+            ivHinhAnh = itemView.findViewById(R.id.iv_room_image);
+            tvTenPhong = itemView.findViewById(R.id.tv_room_name);
             tvLoaiPhong = itemView.findViewById(R.id.tv_room_type);
-            tvGia       = itemView.findViewById(R.id.tv_room_price);
+            tvGia = itemView.findViewById(R.id.tv_room_price);
             tvTrangThai = itemView.findViewById(R.id.tv_room_status);
         }
     }

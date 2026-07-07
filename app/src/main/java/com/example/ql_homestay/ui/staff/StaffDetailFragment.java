@@ -92,8 +92,8 @@ public class StaffDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        session    = SessionManager.getInstance(requireContext());
-        dbHelper   = DatabaseHelper.getInstance(requireContext());
+        session = SessionManager.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         repository = new StaffRepository(requireContext());
 
         bindViews(view);
@@ -103,19 +103,19 @@ public class StaffDetailFragment extends Fragment {
     }
 
     private void bindViews(View v) {
-        ivAvatar      = v.findViewById(R.id.iv_avatar_detail);
-        tvInitials    = v.findViewById(R.id.tv_initials_detail);
-        tvTen         = v.findViewById(R.id.tv_ten_nv_detail);
-        tvChucVu      = v.findViewById(R.id.tv_chuc_vu_detail);
-        tvSdt         = v.findViewById(R.id.tv_sdt_detail);
-        tvEmail       = v.findViewById(R.id.tv_email_detail);
-        tvCccd        = v.findViewById(R.id.tv_cccd_detail);
-        tvDiaChi      = v.findViewById(R.id.tv_dia_chi_detail);
-        tvNgayVaoLam  = v.findViewById(R.id.tv_ngay_vao_lam_detail);
-        btnPhanCong   = v.findViewById(R.id.btn_phan_cong);
-        rowAction     = v.findViewById(R.id.row_action_buttons);
-        btnChinhSua   = v.findViewById(R.id.btn_chinh_sua);
-        btnXoa        = v.findViewById(R.id.btn_xoa);
+        ivAvatar = v.findViewById(R.id.iv_avatar_detail);
+        tvInitials = v.findViewById(R.id.tv_initials_detail);
+        tvTen = v.findViewById(R.id.tv_ten_nv_detail);
+        tvChucVu = v.findViewById(R.id.tv_chuc_vu_detail);
+        tvSdt = v.findViewById(R.id.tv_sdt_detail);
+        tvEmail = v.findViewById(R.id.tv_email_detail);
+        tvCccd = v.findViewById(R.id.tv_cccd_detail);
+        tvDiaChi = v.findViewById(R.id.tv_dia_chi_detail);
+        tvNgayVaoLam = v.findViewById(R.id.tv_ngay_vao_lam_detail);
+        btnPhanCong = v.findViewById(R.id.btn_phan_cong);
+        rowAction = v.findViewById(R.id.row_action_buttons);
+        btnChinhSua = v.findViewById(R.id.btn_chinh_sua);
+        btnXoa = v.findViewById(R.id.btn_xoa);
 
         // Ca Sáng
         cbSangT2 = v.findViewById(R.id.cb_sang_t2); cbSangT3 = v.findViewById(R.id.cb_sang_t3);

@@ -55,11 +55,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class BookingAddEditFragment extends Fragment {
 
-    private static final String ARG_MA_DAT_PHONG     = "ma_dat_phong";
+    private static final String ARG_MA_DAT_PHONG = "ma_dat_phong";
     private static final String ARG_MA_PHONG_PRESELECT = "ma_phong_pre";
-    private static final int    FRAGMENT_CONTAINER_ID  = R.id.fragment_container;
+    private static final int    FRAGMENT_CONTAINER_ID = R.id.fragment_container;
 
-    private int maDatPhong      = -1;
+    private int maDatPhong = -1;
     private int maPhongPreselect = -1;
 
     // ---- Views: Khách hàng ----
@@ -81,13 +81,13 @@ public class BookingAddEditFragment extends Fragment {
     private Button btnSaveBooking;
 
     // ---- Data ----
-    private List<KhachHang> khachHangList  = new ArrayList<>();
-    private List<Phong>     phongList      = new ArrayList<>();
-    private KhachHang       selectedKhach  = null;
-    private String ngayCheckin  = null;
-    private String gioCheckin   = "14:00";
+    private List<KhachHang> khachHangList = new ArrayList<>();
+    private List<Phong>     phongList = new ArrayList<>();
+    private KhachHang       selectedKhach = null;
+    private String ngayCheckin = null;
+    private String gioCheckin = "14:00";
     private String ngayCheckout = null;
-    private String gioCheckout  = "12:00";
+    private String gioCheckout = "12:00";
 
     // ---- DAOs / Repos ----
     private BookingRepository bookingRepository;
@@ -96,7 +96,7 @@ public class BookingAddEditFragment extends Fragment {
     private DatabaseHelper    dbHelper;
     private SessionManager    sessionManager;
 
-    private final ExecutorService dbExecutor  = Executors.newSingleThreadExecutor();
+    private final ExecutorService dbExecutor = Executors.newSingleThreadExecutor();
     private final Handler         mainHandler = new Handler(Looper.getMainLooper());
 
     // =========================================================================
@@ -120,7 +120,7 @@ public class BookingAddEditFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            maDatPhong       = getArguments().getInt(ARG_MA_DAT_PHONG,      -1);
+            maDatPhong = getArguments().getInt(ARG_MA_DAT_PHONG,      -1);
             maPhongPreselect = getArguments().getInt(ARG_MA_PHONG_PRESELECT, -1);
         }
     }
@@ -137,11 +137,11 @@ public class BookingAddEditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sessionManager    = SessionManager.getInstance(requireContext());
-        dbHelper          = DatabaseHelper.getInstance(requireContext());
+        sessionManager = SessionManager.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         bookingRepository = new BookingRepository(dbHelper);
-        roomRepository    = new RoomRepository(dbHelper);
-        khachHangDAO      = new KhachHangDAO(dbHelper);
+        roomRepository = new RoomRepository(dbHelper);
+        khachHangDAO = new KhachHangDAO(dbHelper);
 
         bindViews(view);
         updateAppBarTitle();
@@ -160,26 +160,26 @@ public class BookingAddEditFragment extends Fragment {
     // =========================================================================
 
     private void bindViews(View view) {
-        actvKhachHang        = view.findViewById(R.id.actv_khach_hang);
+        actvKhachHang = view.findViewById(R.id.actv_khach_hang);
         llNewCustomerSection = view.findViewById(R.id.ll_new_customer_section);
-        etTenKhach           = view.findViewById(R.id.et_ten_khach);
-        etSdtKhach           = view.findViewById(R.id.et_sdt_khach);
-        etCccdKhach          = view.findViewById(R.id.et_cccd_khach);
+        etTenKhach = view.findViewById(R.id.et_ten_khach);
+        etSdtKhach = view.findViewById(R.id.et_sdt_khach);
+        etCccdKhach = view.findViewById(R.id.et_cccd_khach);
 
-        actvPhong            = view.findViewById(R.id.actv_phong);
-        tvNgayCheckin        = view.findViewById(R.id.tv_ngay_checkin);
-        tvGioCheckin         = view.findViewById(R.id.tv_gio_checkin);
-        tvNgayCheckout       = view.findViewById(R.id.tv_ngay_checkout);
-        tvGioCheckout        = view.findViewById(R.id.tv_gio_checkout);
-        etSoLuongKhach       = view.findViewById(R.id.et_so_luong_khach);
-        actvPhuongThucTT     = view.findViewById(R.id.actv_phuong_thuc_tt);
-        etGhiChu             = view.findViewById(R.id.et_ghi_chu);
+        actvPhong = view.findViewById(R.id.actv_phong);
+        tvNgayCheckin = view.findViewById(R.id.tv_ngay_checkin);
+        tvGioCheckin = view.findViewById(R.id.tv_gio_checkin);
+        tvNgayCheckout = view.findViewById(R.id.tv_ngay_checkout);
+        tvGioCheckout = view.findViewById(R.id.tv_gio_checkout);
+        etSoLuongKhach = view.findViewById(R.id.et_so_luong_khach);
+        actvPhuongThucTT = view.findViewById(R.id.actv_phuong_thuc_tt);
+        etGhiChu = view.findViewById(R.id.et_ghi_chu);
 
-        tvSoDemPreview       = view.findViewById(R.id.tv_so_dem_preview);
-        tvDonGiaPreview      = view.findViewById(R.id.tv_don_gia_preview);
-        tvThanhTienPreview   = view.findViewById(R.id.tv_thanh_tien_preview);
+        tvSoDemPreview = view.findViewById(R.id.tv_so_dem_preview);
+        tvDonGiaPreview = view.findViewById(R.id.tv_don_gia_preview);
+        tvThanhTienPreview = view.findViewById(R.id.tv_thanh_tien_preview);
 
-        btnSaveBooking       = view.findViewById(R.id.btn_save_booking);
+        btnSaveBooking = view.findViewById(R.id.btn_save_booking);
 
         // Set giờ mặc định
         if (tvGioCheckin  != null) tvGioCheckin.setText(gioCheckin);
@@ -269,8 +269,8 @@ public class BookingAddEditFragment extends Fragment {
         View root = getView();
         if (root == null) return;
 
-        View llCheckinDate  = root.findViewById(R.id.ll_checkin_date);
-        View llCheckinTime  = root.findViewById(R.id.ll_checkin_time);
+        View llCheckinDate = root.findViewById(R.id.ll_checkin_date);
+        View llCheckinTime = root.findViewById(R.id.ll_checkin_time);
         View llCheckoutDate = root.findViewById(R.id.ll_checkout_date);
         View llCheckoutTime = root.findViewById(R.id.ll_checkout_time);
 
@@ -430,7 +430,7 @@ public class BookingAddEditFragment extends Fragment {
     }
 
     private void fillFormForEdit(DatPhong dp) {
-        ngayCheckin  = dp.getNgayCheckIn();
+        ngayCheckin = dp.getNgayCheckIn();
         ngayCheckout = dp.getNgayCheckOut();
         if (tvNgayCheckin  != null) tvNgayCheckin .setText(ngayCheckin != null  ? ngayCheckin  : "");
         if (tvNgayCheckout != null) tvNgayCheckout.setText(ngayCheckout != null ? ngayCheckout : "");
@@ -476,8 +476,8 @@ public class BookingAddEditFragment extends Fragment {
         // --- Bước 1: Xác định khách hàng ---
         // Ưu tiên: khách đã chọn từ autocomplete
         // Nếu chưa chọn: thử tạo khách mới từ form nhập tay
-        String tenKhach  = etTenKhach  != null ? etTenKhach .getText().toString().trim() : "";
-        String sdtKhach  = etSdtKhach  != null ? etSdtKhach .getText().toString().trim() : "";
+        String tenKhach = etTenKhach  != null ? etTenKhach .getText().toString().trim() : "";
+        String sdtKhach = etSdtKhach  != null ? etSdtKhach .getText().toString().trim() : "";
         String cccdKhach = etCccdKhach != null ? etCccdKhach.getText().toString().trim() : "";
 
         if (selectedKhach == null) {
@@ -621,18 +621,18 @@ public class BookingAddEditFragment extends Fragment {
 
         // Ghi check-in/out có giờ vào ghi chú ngày (lưu vào cột NgayCheckIn/Out là date)
         // Giờ được lưu kèm trong chuỗi ngày: "yyyy-MM-dd HH:mm"
-        final String checkinFull  = ngayCheckin  + " " + gioCheckin;
+        final String checkinFull = ngayCheckin  + " " + gioCheckin;
         final String checkoutFull = ngayCheckout + " " + gioCheckout;
 
-        final int finalMaPhong   = maPhong;
-        final int finalSoDem         = soDem;
-        final int finalSoLuongKhach  = soLuongKhach;
+        final int finalMaPhong = maPhong;
+        final int finalSoDem = soDem;
+        final int finalSoLuongKhach = soLuongKhach;
         final String finalPhuongThuc = phuongThuc;
-        final String finalGhiChu     = ghiChu.isEmpty() ? null : ghiChu;
-        final String finalNgayTao    = ngayTao;
-        final String finalTenKhach   = tenKhach;
-        final String finalSdtKhach   = sdtKhach;
-        final String finalCccdKhach  = cccdKhach;
+        final String finalGhiChu = ghiChu.isEmpty() ? null : ghiChu;
+        final String finalNgayTao = ngayTao;
+        final String finalTenKhach = tenKhach;
+        final String finalSdtKhach = sdtKhach;
+        final String finalCccdKhach = cccdKhach;
 
         // Vô hiệu hoá nút để tránh double-click
         if (btnSaveBooking != null) btnSaveBooking.setEnabled(false);

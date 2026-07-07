@@ -42,10 +42,10 @@ import java.util.concurrent.Executors;
 public class AccountListFragment extends Fragment {
 
     private static final int FRAGMENT_CONTAINER_ID = R.id.fragment_container;
-    private static final String FILTER_ALL      = "all";
-    private static final String FILTER_ADMIN    = "Admin";
+    private static final String FILTER_ALL = "all";
+    private static final String FILTER_ADMIN = "Admin";
     private static final String FILTER_NHANVIEN = "NhanVien";
-    private static final String FILTER_KHOA     = "khoa";
+    private static final String FILTER_KHOA = "khoa";
 
     private RecyclerView rvList;
     private View emptyState;
@@ -76,18 +76,18 @@ public class AccountListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        session    = SessionManager.getInstance(requireContext());
-        dbHelper   = DatabaseHelper.getInstance(requireContext());
+        session = SessionManager.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         taiKhoanDAO = new TaiKhoanDAO(dbHelper);
 
-        rvList    = view.findViewById(R.id.rv_account_list);
+        rvList = view.findViewById(R.id.rv_account_list);
         emptyState = view.findViewById(R.id.empty_state);
-        fabAdd    = view.findViewById(R.id.fab_add_account);
-        etSearch  = view.findViewById(R.id.et_search);
-        chipAll      = view.findViewById(R.id.chip_all);
-        chipAdmin    = view.findViewById(R.id.chip_admin);
+        fabAdd = view.findViewById(R.id.fab_add_account);
+        etSearch = view.findViewById(R.id.et_search);
+        chipAll = view.findViewById(R.id.chip_all);
+        chipAdmin = view.findViewById(R.id.chip_admin);
         chipNhanVien = view.findViewById(R.id.chip_nhanvien);
-        chipKhoa     = view.findViewById(R.id.chip_khoa);
+        chipKhoa = view.findViewById(R.id.chip_khoa);
 
         setupBreadcrumb(view);
         setupRecyclerView();
@@ -173,9 +173,9 @@ public class AccountListFragment extends Fragment {
                     break;
                 case FILTER_NHANVIEN:
                     // "Nhân viên" gộp: LeTan, KeToan, NhanVien
-                    List<TaiKhoan> le    = taiKhoanDAO.filterByVaiTro("LeTan");
-                    List<TaiKhoan> ke    = taiKhoanDAO.filterByVaiTro("KeToan");
-                    List<TaiKhoan> nv    = taiKhoanDAO.filterByVaiTro("NhanVien");
+                    List<TaiKhoan> le = taiKhoanDAO.filterByVaiTro("LeTan");
+                    List<TaiKhoan> ke = taiKhoanDAO.filterByVaiTro("KeToan");
+                    List<TaiKhoan> nv = taiKhoanDAO.filterByVaiTro("NhanVien");
                     raw = new ArrayList<>();
                     raw.addAll(le); raw.addAll(ke); raw.addAll(nv);
                     break;

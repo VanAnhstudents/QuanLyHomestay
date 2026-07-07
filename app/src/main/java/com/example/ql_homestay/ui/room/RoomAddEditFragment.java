@@ -60,7 +60,7 @@ public class RoomAddEditFragment extends Fragment {
     private Button btnSaveRoom;
 
     private List<LoaiPhong> loaiPhongList = new ArrayList<>();
-    private List<TienNghi> tienNghiList   = new ArrayList<>();
+    private List<TienNghi> tienNghiList = new ArrayList<>();
     private final List<CheckBox> tienNghiCheckBoxes = new ArrayList<>();
     private Uri selectedImageUri = null;
 
@@ -105,7 +105,7 @@ public class RoomAddEditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dbHelper       = DatabaseHelper.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         roomRepository = new RoomRepository(dbHelper);
 
         bindViews(view);
@@ -119,20 +119,20 @@ public class RoomAddEditFragment extends Fragment {
     }
 
     private void bindViews(View view) {
-        flPickImage         = view.findViewById(R.id.fl_pick_image);
-        ivRoomImagePreview  = view.findViewById(R.id.iv_room_image_preview);
-        llImagePlaceholder  = view.findViewById(R.id.ll_image_placeholder);
-        btnClearImage       = view.findViewById(R.id.btn_clear_image);
-        etTenPhong          = view.findViewById(R.id.et_ten_phong);
-        actvLoaiPhong       = view.findViewById(R.id.actvLoaiPhong);
-        etGiaMoiDem         = view.findViewById(R.id.et_gia_moi_dem);
-        etSucChua           = view.findViewById(R.id.et_suc_chua);
-        etDienTich          = view.findViewById(R.id.et_dien_tich);
-        etTang              = view.findViewById(R.id.et_tang);
-        actvTrangThai       = view.findViewById(R.id.actvTrangThai);
+        flPickImage = view.findViewById(R.id.fl_pick_image);
+        ivRoomImagePreview = view.findViewById(R.id.iv_room_image_preview);
+        llImagePlaceholder = view.findViewById(R.id.ll_image_placeholder);
+        btnClearImage = view.findViewById(R.id.btn_clear_image);
+        etTenPhong = view.findViewById(R.id.et_ten_phong);
+        actvLoaiPhong = view.findViewById(R.id.actvLoaiPhong);
+        etGiaMoiDem = view.findViewById(R.id.et_gia_moi_dem);
+        etSucChua = view.findViewById(R.id.et_suc_chua);
+        etDienTich = view.findViewById(R.id.et_dien_tich);
+        etTang = view.findViewById(R.id.et_tang);
+        actvTrangThai = view.findViewById(R.id.actvTrangThai);
         llTienNghiContainer = view.findViewById(R.id.ll_tien_nghi_container);
-        etMoTa              = view.findViewById(R.id.et_mo_ta);
-        btnSaveRoom         = view.findViewById(R.id.btn_save_room);
+        etMoTa = view.findViewById(R.id.et_mo_ta);
+        btnSaveRoom = view.findViewById(R.id.btn_save_room);
     }
 
     /** Cập nhật tiêu đề AppBar dùng chung của MainActivity */
@@ -200,15 +200,15 @@ public class RoomAddEditFragment extends Fragment {
 
     private void loadFormData() {
         dbExecutor.execute(() -> {
-            List<LoaiPhong> loais    = roomRepository.getAllLoaiPhong();
-            List<TienNghi> tenNghis  = roomRepository.getAllTienNghi();
-            Phong existing           = maPhong > 0 ? roomRepository.findPhongById(maPhong) : null;
-            List<TienNghi> existTN   = maPhong > 0 ? roomRepository.getTienNghiByPhong(maPhong) : null;
+            List<LoaiPhong> loais = roomRepository.getAllLoaiPhong();
+            List<TienNghi> tenNghis = roomRepository.getAllTienNghi();
+            Phong existing = maPhong > 0 ? roomRepository.findPhongById(maPhong) : null;
+            List<TienNghi> existTN = maPhong > 0 ? roomRepository.getTienNghiByPhong(maPhong) : null;
 
             mainHandler.post(() -> {
                 if (!isAdded()) return;
                 loaiPhongList = loais;
-                tienNghiList  = tenNghis;
+                tienNghiList = tenNghis;
                 setupLoaiPhongSpinner();
                 setupTrangThaiSpinner();
                 buildTienNghiCheckBoxes(existTN);
@@ -344,7 +344,7 @@ public class RoomAddEditFragment extends Fragment {
 
     private void validateAndSave() {
         String tenPhong = etTenPhong.getText() != null ? etTenPhong.getText().toString().trim() : "";
-        String giaStr   = etGiaMoiDem.getText() != null ? etGiaMoiDem.getText().toString().trim() : "";
+        String giaStr = etGiaMoiDem.getText() != null ? etGiaMoiDem.getText().toString().trim() : "";
 
         if (tenPhong.isEmpty()) { etTenPhong.setError("Nhập tên phòng"); etTenPhong.requestFocus(); return; }
         if (giaStr.isEmpty())   { etGiaMoiDem.setError("Nhập giá/đêm"); etGiaMoiDem.requestFocus(); return; }
@@ -375,9 +375,9 @@ public class RoomAddEditFragment extends Fragment {
         }
 
         int sucChua = 0, tang = 0; double dienTich = 0.0;
-        try { sucChua  = Integer.parseInt(etSucChua.getText().toString().trim()); } catch (Exception ignored) {}
+        try { sucChua = Integer.parseInt(etSucChua.getText().toString().trim()); } catch (Exception ignored) {}
         try { dienTich = Double.parseDouble(etDienTich.getText().toString().trim()); } catch (Exception ignored) {}
-        try { tang     = Integer.parseInt(etTang.getText().toString().trim()); } catch (Exception ignored) {}
+        try { tang = Integer.parseInt(etTang.getText().toString().trim()); } catch (Exception ignored) {}
         String moTa = etMoTa.getText() != null ? etMoTa.getText().toString().trim() : "";
 
         List<Integer> selectedTN = new ArrayList<>();

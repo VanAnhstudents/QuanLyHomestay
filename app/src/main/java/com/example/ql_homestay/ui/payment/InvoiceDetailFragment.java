@@ -67,9 +67,9 @@ public class InvoiceDetailFragment extends Fragment {
             maHD = getArguments().getInt("maHD", -1);
         }
 
-        dbHelper    = DatabaseHelper.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         invoiceRepo = new InvoiceRepository(dbHelper);
-        session     = SessionManager.getInstance(requireContext());
+        session = SessionManager.getInstance(requireContext());
 
         bindViews(view);
         setupBreadcrumb(view);
@@ -79,24 +79,24 @@ public class InvoiceDetailFragment extends Fragment {
     // ─── Setup ────────────────────────────────────────────────────────────────
 
     private void bindViews(View view) {
-        tvMaHD              = view.findViewById(R.id.tv_ma_hd);
-        tvTrangThai         = view.findViewById(R.id.tv_trang_thai);
-        tvNgayLap           = view.findViewById(R.id.tv_ngay_lap);
-        tvTenPhong          = view.findViewById(R.id.tv_ten_phong);
-        tvTenKhach          = view.findViewById(R.id.tv_ten_khach);
-        tvCheckIn           = view.findViewById(R.id.tv_check_in);
-        tvCheckOut          = view.findViewById(R.id.tv_check_out);
-        tvSoDem             = view.findViewById(R.id.tv_so_dem);
-        tvTienPhong         = view.findViewById(R.id.tv_tien_phong);
-        llPhuThuContainer   = view.findViewById(R.id.ll_phu_thu_container);
-        llGiamGiaRow        = view.findViewById(R.id.ll_giam_gia_row);
-        tvGiamGia           = view.findViewById(R.id.tv_giam_gia);
-        tvTongCong          = view.findViewById(R.id.tv_tong_cong);
-        tvPhuongThuc        = view.findViewById(R.id.tv_phuong_thuc);
-        tvNgayTT            = view.findViewById(R.id.tv_ngay_tt);
-        tvNguoiThu          = view.findViewById(R.id.tv_nguoi_thu);
-        btnPrint            = view.findViewById(R.id.btn_print);
-        btnConfirmPayment   = view.findViewById(R.id.btn_confirm_payment);
+        tvMaHD = view.findViewById(R.id.tv_ma_hd);
+        tvTrangThai = view.findViewById(R.id.tv_trang_thai);
+        tvNgayLap = view.findViewById(R.id.tv_ngay_lap);
+        tvTenPhong = view.findViewById(R.id.tv_ten_phong);
+        tvTenKhach = view.findViewById(R.id.tv_ten_khach);
+        tvCheckIn = view.findViewById(R.id.tv_check_in);
+        tvCheckOut = view.findViewById(R.id.tv_check_out);
+        tvSoDem = view.findViewById(R.id.tv_so_dem);
+        tvTienPhong = view.findViewById(R.id.tv_tien_phong);
+        llPhuThuContainer = view.findViewById(R.id.ll_phu_thu_container);
+        llGiamGiaRow = view.findViewById(R.id.ll_giam_gia_row);
+        tvGiamGia = view.findViewById(R.id.tv_giam_gia);
+        tvTongCong = view.findViewById(R.id.tv_tong_cong);
+        tvPhuongThuc = view.findViewById(R.id.tv_phuong_thuc);
+        tvNgayTT = view.findViewById(R.id.tv_ngay_tt);
+        tvNguoiThu = view.findViewById(R.id.tv_nguoi_thu);
+        btnPrint = view.findViewById(R.id.btn_print);
+        btnConfirmPayment = view.findViewById(R.id.btn_confirm_payment);
     }
 
     private void setupBreadcrumb(View view) {

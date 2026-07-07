@@ -80,7 +80,7 @@ public class StatisticsDashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dbHelper  = DatabaseHelper.getInstance(requireContext());
+        dbHelper = DatabaseHelper.getInstance(requireContext());
         statsRepo = new StatisticsRepository(dbHelper);
 
         bindViews(view);
@@ -96,24 +96,24 @@ public class StatisticsDashboardFragment extends Fragment {
     // ─── Setup ────────────────────────────────────────────────────────────────
 
     private void bindViews(View view) {
-        tvRevenue         = view.findViewById(R.id.tv_revenue);
-        tvGuests          = view.findViewById(R.id.tv_guests);
-        tvOccupancy       = view.findViewById(R.id.tv_occupancy);
-        tvBookings        = view.findViewById(R.id.tv_bookings);
-        tvLegendTrong     = view.findViewById(R.id.tv_legend_trong);
-        tvLegendDangThue  = view.findViewById(R.id.tv_legend_dangthue);
-        tvLegendDaDat     = view.findViewById(R.id.tv_legend_dadat);
-        tvRevenueDetail   = view.findViewById(R.id.tv_revenue_detail);
+        tvRevenue = view.findViewById(R.id.tv_revenue);
+        tvGuests = view.findViewById(R.id.tv_guests);
+        tvOccupancy = view.findViewById(R.id.tv_occupancy);
+        tvBookings = view.findViewById(R.id.tv_bookings);
+        tvLegendTrong = view.findViewById(R.id.tv_legend_trong);
+        tvLegendDangThue = view.findViewById(R.id.tv_legend_dangthue);
+        tvLegendDaDat = view.findViewById(R.id.tv_legend_dadat);
+        tvRevenueDetail = view.findViewById(R.id.tv_revenue_detail);
         tvOccupancyDetail = view.findViewById(R.id.tv_occupancy_detail);
         chartBarContainer = view.findViewById(R.id.chart_container_bar);
         chartPieContainer = view.findViewById(R.id.chart_container_pie);
-        tvChartBarEmpty   = view.findViewById(R.id.tv_chart_bar_empty);
-        llTopRooms        = view.findViewById(R.id.ll_top_rooms);
-        chipToday         = view.findViewById(R.id.chip_today);
-        chipWeek          = view.findViewById(R.id.chip_week);
-        chipMonth         = view.findViewById(R.id.chip_month);
-        chipQuarter       = view.findViewById(R.id.chip_quarter);
-        chipYear          = view.findViewById(R.id.chip_year);
+        tvChartBarEmpty = view.findViewById(R.id.tv_chart_bar_empty);
+        llTopRooms = view.findViewById(R.id.ll_top_rooms);
+        chipToday = view.findViewById(R.id.chip_today);
+        chipWeek = view.findViewById(R.id.chip_week);
+        chipMonth = view.findViewById(R.id.chip_month);
+        chipQuarter = view.findViewById(R.id.chip_quarter);
+        chipYear = view.findViewById(R.id.chip_year);
     }
 
     private void setupBreadcrumb(View view) {
@@ -208,15 +208,15 @@ public class StatisticsDashboardFragment extends Fragment {
 
         new Thread(() -> {
             // KPI
-            double revenue    = statsRepo.getRevenueByRange(fromDate, toDate);
-            int guests        = statsRepo.getTotalGuestsByRange(fromDate, toDate);
-            double occupancy  = statsRepo.getOccupancyRateByRange(fromDate, toDate, totalDays);
-            int bookings      = statsRepo.getTotalBookingsByRange(fromDate, toDate);
+            double revenue = statsRepo.getRevenueByRange(fromDate, toDate);
+            int guests = statsRepo.getTotalGuestsByRange(fromDate, toDate);
+            double occupancy = statsRepo.getOccupancyRateByRange(fromDate, toDate, totalDays);
+            int bookings = statsRepo.getTotalBookingsByRange(fromDate, toDate);
 
             // Phòng theo trạng thái (realtime)
-            int roomTrong    = statsRepo.getRoomsByTrangThai("Trong");
+            int roomTrong = statsRepo.getRoomsByTrangThai("Trong");
             int roomDangThue = statsRepo.getRoomsByTrangThai("DangThue");
-            int roomDaDat    = statsRepo.getRoomsByTrangThai("DaDat");
+            int roomDaDat = statsRepo.getRoomsByTrangThai("DaDat");
 
             // Doanh thu theo ngày
             List<Object[]> revenueByDay = statsRepo.getRevenueByDay(fromDate, toDate);
@@ -271,7 +271,7 @@ public class StatisticsDashboardFragment extends Fragment {
                     FrameLayout.LayoutParams.MATCH_PARENT));
 
             List<BarEntry> entries = new ArrayList<>();
-            List<String> labels   = new ArrayList<>();
+            List<String> labels = new ArrayList<>();
             for (int i = 0; i < revenueByDay.size(); i++) {
                 Object[] row = revenueByDay.get(i);
                 entries.add(new BarEntry(i, (float) ((Double) row[1] / 1_000_000.0)));
