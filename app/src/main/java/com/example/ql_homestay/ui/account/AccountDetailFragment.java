@@ -28,7 +28,6 @@ import com.example.ql_homestay.util.SessionManager;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -87,7 +86,7 @@ public class AccountDetailFragment extends Fragment {
         setupTabs();
         setupRecyclerView();
 
-        btnLuu.setOnClickListener(v -> savePermissions());
+        btnLuu.setOnClickListener(v -> saveRole());
         btnToggleLock.setOnClickListener(v -> toggleLock());
         loadAccountInfo();
     }
@@ -113,7 +112,7 @@ public class AccountDetailFragment extends Fragment {
         View bc = v.findViewById(R.id.breadcrumb);
         if (bc == null) return;
         TextView tv = bc.findViewById(R.id.tv_breadcrumb);
-        if (tv != null) tv.setText("Trang chủ → Tài khoản → Chi tiết");
+        if (tv != null) tv.setText("Trang ch\u1ee7 \u2192 T\u00e0i kho\u1ea3n \u2192 Chi ti\u1ebft");
     }
 
     private void setupTabs() {
@@ -148,9 +147,9 @@ public class AccountDetailFragment extends Fragment {
                 currentAccount = tk;
                 AvatarHelper.loadAvatar(requireContext(), tk.getAvatar(), tk.getTenDangNhap(), ivAvatar, tvInitials);
                 tvTenTK.setText(tk.getTenDangNhap());
-                tvEmail.setText(tk.getEmail() != null ? tk.getEmail() : "—");
-                tvCurrentRole.setText("Bạn đang có quyền " + roleLabel(tk.getVaiTro()) + " (" + roleShortLabel(tk.getVaiTro()) + ")");
-                tvNgayTao.setText(tk.getNgayTao() != null ? tk.getNgayTao() : "—");
+                tvEmail.setText(tk.getEmail() != null ? tk.getEmail() : "-");
+                bindRoleText(tk.getVaiTro());
+                tvNgayTao.setText(tk.getNgayTao() != null ? tk.getNgayTao() : "-");
                 bindLockState(tk);
 
                 selectedVaiTro = tk.getVaiTro() != null ? tk.getVaiTro() : "NhanVien";
@@ -162,16 +161,16 @@ public class AccountDetailFragment extends Fragment {
 
     private void bindLockState(TaiKhoan tk) {
         boolean active = "HoatDong".equals(tk.getTrangThai());
-        tvBadgeTrangThai.setText(active ? "Hoạt động" : "Đã khóa");
+        tvBadgeTrangThai.setText(active ? "Ho\u1ea1t \u0111\u1ed9ng" : "\u0110\u00e3 kh\u00f3a");
         tvBadgeTrangThai.setBackgroundResource(active ? R.drawable.bg_badge_dathanhtoan : R.drawable.bg_badge_dahuy);
-        btnToggleLock.setText(active ? "Khóa" : "Mở khóa");
+        btnToggleLock.setText(active ? "Kh\u00f3a" : "M\u1edf kh\u00f3a");
         btnToggleLock.setEnabled(tk.getMaTK() != session.getMaTK());
     }
 
     private void toggleLock() {
         if (currentAccount == null) return;
         if (currentAccount.getMaTK() == session.getMaTK()) {
-            Toast.makeText(requireContext(), "Không thể khóa tài khoản đang đăng nhập.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Kh\u00f4ng th\u1ec3 kh\u00f3a t\u00e0i kho\u1ea3n \u0111ang \u0111\u0103ng nh\u1eadp.", Toast.LENGTH_SHORT).show();
             return;
         }
         String nextStatus = "HoatDong".equals(currentAccount.getTrangThai()) ? "Khoa" : "HoatDong";
@@ -184,11 +183,11 @@ public class AccountDetailFragment extends Fragment {
                     currentAccount.setTrangThai(nextStatus);
                     bindLockState(currentAccount);
                     Toast.makeText(requireContext(),
-                            "HoatDong".equals(nextStatus) ? "Đã mở khóa tài khoản." : "Đã khóa tài khoản.",
+                            "HoatDong".equals(nextStatus) ? "\u0110\u00e3 m\u1edf kh\u00f3a t\u00e0i kho\u1ea3n." : "\u0110\u00e3 kh\u00f3a t\u00e0i kho\u1ea3n.",
                             Toast.LENGTH_SHORT).show();
                 } else {
                     btnToggleLock.setEnabled(true);
-                    Toast.makeText(requireContext(), "Cập nhật trạng thái thất bại.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "C\u1eadp nh\u1eadt tr\u1ea1ng th\u00e1i th\u1ea5t b\u1ea1i.", Toast.LENGTH_SHORT).show();
                 }
             });
         });
@@ -212,45 +211,48 @@ public class AccountDetailFragment extends Fragment {
             mainHandler.post(() -> {
                 if (!isAdded()) return;
                 permissionAdapter.setData(rows);
-                permissionAdapter.setReadOnly("Admin".equals(vaiTro));
                 rvPermissions.scrollToPosition(0);
-
-                int itemHeight = (int) (72 * getResources().getDisplayMetrics().density);
-                ViewGroup.LayoutParams params = rvPermissions.getLayoutParams();
-                params.height = rows.size() * itemHeight;
-                rvPermissions.setLayoutParams(params);
             });
         });
     }
 
-    private void savePermissions() {
-        if ("Admin".equals(selectedVaiTro)) {
-            Toast.makeText(requireContext(), "Vai trò Admin luôn có toàn quyền, không thể thay đổi.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Map<Integer, String> changes = permissionAdapter.getCurrentPermissions();
+    private void saveRole() {
+        if (currentAccount == null) return;
         btnLuu.setEnabled(false);
         executor.execute(() -> {
-            permissionRepo.savePermissions(selectedVaiTro, changes);
+            int rows = taiKhoanDAO.updateVaiTro(currentAccount.getMaTK(), selectedVaiTro);
             mainHandler.post(() -> {
                 if (!isAdded()) return;
                 btnLuu.setEnabled(true);
-                Toast.makeText(requireContext(), "Phân quyền đã được lưu.", Toast.LENGTH_SHORT).show();
+                if (rows > 0) {
+                    currentAccount.setVaiTro(selectedVaiTro);
+                    bindRoleText(selectedVaiTro);
+                    if (currentAccount.getMaTK() == session.getMaTK()) {
+                        session.login(currentAccount.getMaTK(), currentAccount.getTenDangNhap(), session.getHoTen(), selectedVaiTro, currentAccount.getAvatar());
+                    }
+                    Toast.makeText(requireContext(), "Vai tr\u00f2 t\u00e0i kho\u1ea3n \u0111\u00e3 \u0111\u01b0\u1ee3c l\u01b0u.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "C\u1eadp nh\u1eadt vai tr\u00f2 th\u1ea5t b\u1ea1i.", Toast.LENGTH_SHORT).show();
+                }
             });
         });
+    }
+
+    private void bindRoleText(String vaiTro) {
+        tvCurrentRole.setText("\u0110ang c\u00f3 vai tr\u00f2 " + roleLabel(vaiTro) + " (" + roleShortLabel(vaiTro) + ")");
     }
 
     private static String roleLabel(String vaiTro) {
         if ("Admin".equals(vaiTro)) return "Admin";
-        if ("LeTan".equals(vaiTro)) return "Lễ tân";
-        if ("KeToan".equals(vaiTro)) return "Kế toán";
-        if ("NhanVien".equals(vaiTro)) return "Nhân viên";
-        return vaiTro != null ? vaiTro : "Nhân viên";
+        if ("LeTan".equals(vaiTro)) return "L\u1ec5 t\u00e2n";
+        if ("KeToan".equals(vaiTro)) return "K\u1ebf to\u00e1n";
+        if ("NhanVien".equals(vaiTro)) return "Nh\u00e2n vi\u00ean";
+        return vaiTro != null ? vaiTro : "Nh\u00e2n vi\u00ean";
     }
 
     private static String roleShortLabel(String vaiTro) {
-        if ("LeTan".equals(vaiTro)) return "Lễ tân";
-        if ("KeToan".equals(vaiTro)) return "Kế toán";
+        if ("LeTan".equals(vaiTro)) return "L\u1ec5 t\u00e2n";
+        if ("KeToan".equals(vaiTro)) return "K\u1ebf to\u00e1n";
         if ("NhanVien".equals(vaiTro)) return "NV";
         return "Admin";
     }

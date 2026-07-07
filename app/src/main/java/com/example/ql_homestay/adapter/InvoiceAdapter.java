@@ -32,7 +32,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.ViewHold
     private OnInvoiceClickListener listener;
 
     public InvoiceAdapter(Context context) {
-        this.context  = context;
+        this.context = context;
         this.dataList = new ArrayList<>();
     }
 
@@ -144,11 +144,11 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.ViewHold
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvMaHD      = itemView.findViewById(R.id.tv_ma_hd);
-            tvNgayLap   = itemView.findViewById(R.id.tv_ngay_lap);
-            tvTenKhach  = itemView.findViewById(R.id.tv_ten_khach);
-            tvTenPhong  = itemView.findViewById(R.id.tv_ten_phong);
-            tvTongCong  = itemView.findViewById(R.id.tv_tong_cong);
+            tvMaHD = itemView.findViewById(R.id.tv_ma_hd);
+            tvNgayLap = itemView.findViewById(R.id.tv_ngay_lap);
+            tvTenKhach = itemView.findViewById(R.id.tv_ten_khach);
+            tvTenPhong = itemView.findViewById(R.id.tv_ten_phong);
+            tvTongCong = itemView.findViewById(R.id.tv_tong_cong);
             tvTrangThai = itemView.findViewById(R.id.tv_trang_thai);
         }
     }

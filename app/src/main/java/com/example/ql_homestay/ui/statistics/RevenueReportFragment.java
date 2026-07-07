@@ -70,7 +70,7 @@ public class RevenueReportFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         DatabaseHelper dbHelper = DatabaseHelper.getInstance(requireContext());
-        statsRepo   = new StatisticsRepository(dbHelper);
+        statsRepo = new StatisticsRepository(dbHelper);
         invoiceRepo = new InvoiceRepository(dbHelper);
 
         bindViews(view);
@@ -85,19 +85,19 @@ public class RevenueReportFragment extends Fragment {
     // ─── Setup ────────────────────────────────────────────────────────────────
 
     private void bindViews(View view) {
-        tvFromDate      = view.findViewById(R.id.tv_from_date);
-        tvToDate        = view.findViewById(R.id.tv_to_date);
-        btnViewReport   = view.findViewById(R.id.btn_view_report);
-        cardSummary     = view.findViewById(R.id.card_summary);
-        cardChart       = view.findViewById(R.id.card_chart);
+        tvFromDate = view.findViewById(R.id.tv_from_date);
+        tvToDate = view.findViewById(R.id.tv_to_date);
+        btnViewReport = view.findViewById(R.id.btn_view_report);
+        cardSummary = view.findViewById(R.id.card_summary);
+        cardChart = view.findViewById(R.id.card_chart);
         cardInvoiceList = view.findViewById(R.id.card_invoice_list);
-        tvTotalRevenue  = view.findViewById(R.id.tv_total_revenue);
-        tvComparePrev   = view.findViewById(R.id.tv_compare_prev);
-        tvInvoiceCount  = view.findViewById(R.id.tv_invoice_count);
-        tvEmpty         = view.findViewById(R.id.tv_empty);
-        chartContainer  = view.findViewById(R.id.chart_container);
-        llInvoiceList   = view.findViewById(R.id.ll_invoice_list);
-        btnExport       = view.findViewById(R.id.btn_export);
+        tvTotalRevenue = view.findViewById(R.id.tv_total_revenue);
+        tvComparePrev = view.findViewById(R.id.tv_compare_prev);
+        tvInvoiceCount = view.findViewById(R.id.tv_invoice_count);
+        tvEmpty = view.findViewById(R.id.tv_empty);
+        chartContainer = view.findViewById(R.id.chart_container);
+        llInvoiceList = view.findViewById(R.id.ll_invoice_list);
+        btnExport = view.findViewById(R.id.btn_export);
     }
 
     private void setupBreadcrumb(View view) {
@@ -191,7 +191,7 @@ public class RevenueReportFragment extends Fragment {
                     : (revenue > 0 ? 100.0 : 0.0);
 
             reportInvoices = invoices;
-            reportRevenue  = revenue;
+            reportRevenue = revenue;
 
             if (getActivity() != null) {
                 final double fRevenue = revenue;
@@ -234,7 +234,7 @@ public class RevenueReportFragment extends Fragment {
                     FrameLayout.LayoutParams.MATCH_PARENT));
 
             List<BarEntry> entries = new ArrayList<>();
-            List<String> labels   = new ArrayList<>();
+            List<String> labels = new ArrayList<>();
             for (int i = 0; i < data.size(); i++) {
                 entries.add(new BarEntry(i, (float)((Double) data.get(i)[1] / 1_000_000.0)));
                 String d = (String) data.get(i)[0];

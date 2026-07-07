@@ -119,7 +119,7 @@ public class ShiftAssignmentFragment extends Fragment {
         cbToiT4 = v.findViewById(R.id.cb_toi_t4); cbToiT5 = v.findViewById(R.id.cb_toi_t5);
         cbToiT6 = v.findViewById(R.id.cb_toi_t6); cbToiT7 = v.findViewById(R.id.cb_toi_t7);
         cbToiCN = v.findViewById(R.id.cb_toi_cn);
-        btnLuu  = v.findViewById(R.id.btn_luu);
+        btnLuu = v.findViewById(R.id.btn_luu);
         etTuanBatDau = v.findViewById(R.id.et_tuan_bat_dau);
     }
 

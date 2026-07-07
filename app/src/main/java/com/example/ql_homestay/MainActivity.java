@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        bottomNav    = findViewById(R.id.bottom_navigation);
-        tvUserName   = findViewById(R.id.tv_user_name);
+        bottomNav = findViewById(R.id.bottom_navigation);
+        tvUserName = findViewById(R.id.tv_user_name);
         tvBadgeCount = findViewById(R.id.tv_badge_count);
-        ivBell       = findViewById(R.id.iv_bell);
+        ivBell = findViewById(R.id.iv_bell);
 
         setupAppBar();
 
@@ -152,9 +152,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragments() {
-        homeFragment    = new HomeFragment();
+        homeFragment = new HomeFragment();
         customerFragment = new CustomerListFragment();
-        roomFragment    = new RoomListFragment();
+        roomFragment = new RoomListFragment();
         bookingFragment = new BookingListFragment();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, homeFragment,     "home")

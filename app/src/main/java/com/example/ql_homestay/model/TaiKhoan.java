@@ -22,7 +22,7 @@ public class TaiKhoan {
     public TaiKhoan() {}
 
     public TaiKhoan(int maTK, String tenDangNhap, String email, String matKhau, String vaiTro, String trangThai, String ngayTao, String avatar) {
-        this.maTK  = maTK;
+        this.maTK = maTK;
         this.tenDangNhap = tenDangNhap;
         this.email = email;
         this.matKhau = matKhau;

@@ -120,6 +120,13 @@ public class TaiKhoanDAO {
         return db.update("TaiKhoan", cv, "MaTK = ?", new String[]{String.valueOf(maTK)});
     }
 
+    public int updateVaiTro(int maTK, String vaiTro) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("VaiTro", vaiTro);
+        return db.update("TaiKhoan", cv, "MaTK = ?", new String[]{String.valueOf(maTK)});
+    }
+
     // WRITE
     /**
      * Chèn một TaiKhoan mới vào DB.

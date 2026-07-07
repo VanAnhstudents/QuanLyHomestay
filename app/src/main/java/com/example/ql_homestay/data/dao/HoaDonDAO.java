@@ -36,8 +36,8 @@ public class HoaDonDAO {
             "FROM HoaDon hd " +
             "LEFT JOIN DatPhong dp ON hd.MaDatPhong = dp.MaDatPhong " +
             "LEFT JOIN Phong p    ON dp.MaPhong = p.MaPhong " +
-            "LEFT JOIN KhachHang k ON dp.MaKH   = k.MaKH " +
-            "LEFT JOIN NhanVien nv ON hd.MaNV    = nv.MaNV ";
+            "LEFT JOIN KhachHang k ON dp.MaKH = k.MaKH " +
+            "LEFT JOIN NhanVien nv ON hd.MaNV = nv.MaNV ";
 
     private HoaDon mapCursor(Cursor c) {
         HoaDon hd = new HoaDon();

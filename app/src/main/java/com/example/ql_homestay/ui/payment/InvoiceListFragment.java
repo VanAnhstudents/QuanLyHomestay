@@ -67,7 +67,7 @@ public class InvoiceListFragment extends Fragment {
 
         DatabaseHelper db = DatabaseHelper.getInstance(requireContext());
         invoiceRepo = new InvoiceRepository(db);
-        session     = SessionManager.getInstance(requireContext());
+        session = SessionManager.getInstance(requireContext());
 
         bindViews(view);
         setupBreadcrumb(view);
@@ -88,15 +88,15 @@ public class InvoiceListFragment extends Fragment {
     // ─── Setup ───────────────────────────────────────────────────────────────
 
     private void bindViews(View view) {
-        tvTodayRevenue  = view.findViewById(R.id.tv_today_revenue);
-        tvInvoiceCount  = view.findViewById(R.id.tv_invoice_count);
-        etSearch        = view.findViewById(R.id.et_search);
-        chipAll         = view.findViewById(R.id.chip_all);
-        chipPaid        = view.findViewById(R.id.chip_paid);
-        chipUnpaid      = view.findViewById(R.id.chip_unpaid);
-        chipRefund      = view.findViewById(R.id.chip_refund);
-        rvInvoices      = view.findViewById(R.id.rv_invoices);
-        emptyState      = view.findViewById(R.id.empty_state);
+        tvTodayRevenue = view.findViewById(R.id.tv_today_revenue);
+        tvInvoiceCount = view.findViewById(R.id.tv_invoice_count);
+        etSearch = view.findViewById(R.id.et_search);
+        chipAll = view.findViewById(R.id.chip_all);
+        chipPaid = view.findViewById(R.id.chip_paid);
+        chipUnpaid = view.findViewById(R.id.chip_unpaid);
+        chipRefund = view.findViewById(R.id.chip_refund);
+        rvInvoices = view.findViewById(R.id.rv_invoices);
+        emptyState = view.findViewById(R.id.empty_state);
     }
 
     private void setupBreadcrumb(View view) {
@@ -230,9 +230,9 @@ public class InvoiceListFragment extends Fragment {
     }
 
     private void updateChipStyles(int activeChipId) {
-        int activeRes   = R.drawable.bg_chip_filter_active;
+        int activeRes = R.drawable.bg_chip_filter_active;
         int inactiveRes = R.drawable.bg_chip_filter_inactive;
-        int activeTxt   = getResources().getColor(R.color.text_primary, null);
+        int activeTxt = getResources().getColor(R.color.text_primary, null);
         int inactiveTxt = getResources().getColor(R.color.text_secondary, null);
 
         chipAll.setBackgroundResource(activeChipId == R.id.chip_all ? activeRes : inactiveRes);

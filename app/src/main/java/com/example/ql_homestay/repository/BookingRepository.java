@@ -25,10 +25,10 @@ public class BookingRepository {
     private final InvoiceRepository invoiceRepository;
 
     public BookingRepository(DatabaseHelper dbHelper) {
-        this.datPhongDAO   = new DatPhongDAO(dbHelper);
+        this.datPhongDAO = new DatPhongDAO(dbHelper);
         this.checkInOutDAO = new CheckInOutDAO(dbHelper);
-        this.phongDAO      = new PhongDAO(dbHelper);
-        this.khachHangDAO  = new KhachHangDAO(dbHelper);
+        this.phongDAO = new PhongDAO(dbHelper);
+        this.khachHangDAO = new KhachHangDAO(dbHelper);
         this.invoiceRepository = new InvoiceRepository(dbHelper);
     }
 

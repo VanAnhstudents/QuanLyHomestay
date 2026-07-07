@@ -12,14 +12,7 @@ import com.example.ql_homestay.model.Quyen;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Phục vụ riêng màn hình Phân quyền tài khoản. Khác với
- * util.PermissionHelper (chỉ trả boolean hasAccess() để ẩn/hiện View runtime
- * cho người dùng cuối), lớp này đọc/ghi trực tiếp PhanQuyen_VaiTro để Admin
- * chỉnh sửa phân quyền cho từng vai trò.
- */
 public class PermissionRepository {
     private final ModuleDAO moduleDAO;
     private final QuyenDAO quyenDAO;
@@ -32,7 +25,6 @@ public class PermissionRepository {
         this.phanQuyenVaiTroDAO = new PhanQuyenVaiTroDAO(dbHelper);
     }
 
-    /** 1 dòng hiển thị trong RecyclerView phân quyền (item_permission_row). */
     public static class PermissionRow {
         public final Module module;
         public int maQuyen;
@@ -49,7 +41,6 @@ public class PermissionRepository {
         return quyenDAO.getAll();
     }
 
-    /** 8 dòng module kèm quyền hiện tại của 1 vai trò — dữ liệu cho RecyclerView phân quyền. */
     public List<PermissionRow> getPermissionMatrix(String maVaiTro) {
         List<Module> modules = moduleDAO.getAll();
         List<Quyen> quyens = quyenDAO.getAll();
@@ -68,24 +59,5 @@ public class PermissionRepository {
             rows.add(new PermissionRow(m, maQuyen, tenQuyen));
         }
         return rows;
-    }
-
-    /** Lưu toàn bộ thay đổi phân quyền của 1 vai trò (nút "Lưu thay đổi" ở AccountDetailFragment). */
-    public void savePermissions(String maVaiTro, Map<Integer, String> tenQuyenByModule) {
-        List<Quyen> quyens = quyenDAO.getAll();
-        Map<Integer, Integer> maQuyenByModule = new java.util.HashMap<>();
-        for (Map.Entry<Integer, String> entry : tenQuyenByModule.entrySet()) {
-            int maQuyen = -1;
-            for (Quyen q : quyens) {
-                if (q.getTenQuyen().equals(entry.getValue())) {
-                    maQuyen = q.getMaQuyen();
-                    break;
-                }
-            }
-            if (maQuyen != -1) {
-                maQuyenByModule.put(entry.getKey(), maQuyen);
-            }
-        }
-        phanQuyenVaiTroDAO.updateAllForVaiTro(maVaiTro, maQuyenByModule);
     }
 }
