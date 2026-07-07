@@ -68,12 +68,21 @@ public class OccupancyReportFragment extends Fragment {
         statsRepo = new StatisticsRepository(dbHelper);
 
         bindViews(view);
+        setupBackButton(view);
         setupDatePickers();
         setupButtons();
         setDefaultMonth();
     }
 
     // ─── Setup ────────────────────────────────────────────────────────────────
+
+    private void setupBackButton(View view) {
+        View btnBack = view.findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v ->
+                    requireActivity().getSupportFragmentManager().popBackStack());
+        }
+    }
 
     private void bindViews(View view) {
         tvFromDate        = view.findViewById(R.id.tv_from_date);

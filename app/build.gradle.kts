@@ -53,6 +53,9 @@ dependencies {
     // CardView
     implementation(libs.cardview)
 
+    // GridLayout
+    implementation(libs.gridlayout)
+
     // MPAndroidChart (BarChart/LineChart/PieChart cho module Thống kê)
     implementation(libs.mpandroidchart)
 

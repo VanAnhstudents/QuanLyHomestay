@@ -16,8 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ql_homestay.R;
 import com.example.ql_homestay.data.DatabaseHelper;
-import com.example.ql_homestay.repository.StatisticsRepository;
-import com.github.mikephil.charting.charts.BarChart;
+import com.example.ql_homestay.repository.StatisticsRepository;import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -52,6 +51,9 @@ public class StatisticsDashboardFragment extends Fragment {
     // Legend
     private TextView tvLegendTrong, tvLegendDangThue, tvLegendDaDat;
 
+    // Navigation detail buttons
+    private TextView tvRevenueDetail, tvOccupancyDetail;
+
     // Chart containers
     private FrameLayout chartBarContainer, chartPieContainer;
     private TextView tvChartBarEmpty;
@@ -83,6 +85,7 @@ public class StatisticsDashboardFragment extends Fragment {
 
         bindViews(view);
         setupPeriodChips();
+        setupDetailNavigation();
 
         // Mặc định: Hôm nay
         setTodayPeriod();
@@ -99,6 +102,8 @@ public class StatisticsDashboardFragment extends Fragment {
         tvLegendTrong     = view.findViewById(R.id.tv_legend_trong);
         tvLegendDangThue  = view.findViewById(R.id.tv_legend_dangthue);
         tvLegendDaDat     = view.findViewById(R.id.tv_legend_dadat);
+        tvRevenueDetail   = view.findViewById(R.id.tv_revenue_detail);
+        tvOccupancyDetail = view.findViewById(R.id.tv_occupancy_detail);
         chartBarContainer = view.findViewById(R.id.chart_container_bar);
         chartPieContainer = view.findViewById(R.id.chart_container_pie);
         tvChartBarEmpty   = view.findViewById(R.id.tv_chart_bar_empty);
@@ -108,6 +113,24 @@ public class StatisticsDashboardFragment extends Fragment {
         chipMonth         = view.findViewById(R.id.chip_month);
         chipQuarter       = view.findViewById(R.id.chip_quarter);
         chipYear          = view.findViewById(R.id.chip_year);
+    }
+
+    private void setupDetailNavigation() {
+        if (tvRevenueDetail != null) {
+            tvRevenueDetail.setOnClickListener(v -> navigateTo(new RevenueReportFragment()));
+        }
+        if (tvOccupancyDetail != null) {
+            tvOccupancyDetail.setOnClickListener(v -> navigateTo(new OccupancyReportFragment()));
+        }
+    }
+
+    /** Điều hướng sang Fragment chi tiết, đẩy vào back stack để có thể Back. */
+    private void navigateTo(androidx.fragment.app.Fragment target) {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, target)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void setupPeriodChips() {

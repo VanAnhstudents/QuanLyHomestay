@@ -70,6 +70,7 @@ public class InvoiceListFragment extends Fragment {
 
         bindViews(view);
         setupBreadcrumb(view);
+        setupEmptyState(view);
         setupRecyclerView();
         setupSearch();
         setupFilterChips();
@@ -102,6 +103,35 @@ public class InvoiceListFragment extends Fragment {
         if (bc == null) return;
         TextView tv = bc.findViewById(R.id.tv_breadcrumb);
         if (tv != null) tv.setText("Trang chủ → Thanh toán");
+    }
+
+    private void setupEmptyState(View view) {
+        // Gán text gợi ý và click cho nút "Thêm mới" trong empty state
+        View emptyView = view.findViewById(R.id.empty_state);
+        if (emptyView == null) return;
+
+        TextView tvSub = emptyView.findViewById(R.id.tv_empty_sub);
+        if (tvSub != null) {
+            tvSub.setText("Nhấn nút bên dưới để tạo hóa đơn mới");
+            tvSub.setVisibility(View.VISIBLE);
+        }
+
+        TextView tvMsg = emptyView.findViewById(R.id.tv_empty_message);
+        if (tvMsg != null) tvMsg.setText("Chưa có hóa đơn nào");
+
+        View btnAdd = emptyView.findViewById(R.id.btn_empty_add);
+        if (btnAdd != null) {
+            btnAdd.setOnClickListener(v -> navigateToCreate());
+        }
+    }
+
+    /** Mở màn hình tạo hóa đơn mới */
+    private void navigateToCreate() {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new InvoiceCreateFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void setupRecyclerView() {
