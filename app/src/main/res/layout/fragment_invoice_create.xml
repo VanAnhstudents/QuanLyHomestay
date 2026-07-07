@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-    fragment_invoice_create.xml â€“ G3: Láº­p hÃ³a Ä‘Æ¡n má»›i
-    Root: LinearLayout (vertical) â†’ ScrollView + nÃºt cá»‘ Ä‘á»‹nh dÆ°á»›i
+    fragment_invoice_create.xml – G3: Lập hóa đơn mới
+    Root: LinearLayout (vertical) → ScrollView + nút cố định dưới
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -10,8 +10,8 @@
     android:background="@color/background_screen">
 
     <include
-                android:id="@+id/breadcrumb"
-                layout="@layout/layout_breadcrumb" />
+        android:id="@+id/breadcrumb"
+        layout="@layout/layout_breadcrumb" />
 
     <!-- ScrollView -->
     <ScrollView
@@ -25,11 +25,11 @@
             android:orientation="vertical"
             android:paddingBottom="24dp">
 
-            <!-- Header tiÃªu Ä‘á» trang -->
+            <!-- Header tiêu đề trang -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Láº­p hÃ³a Ä‘Æ¡n má»›i"
+                android:text="Lập hóa đơn mới"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif-bold"
                 android:textColor="@color/text_primary"
@@ -38,7 +38,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp" />
 
-            <!-- AutoComplete chá»n Ä‘áº·t phÃ²ng -->
+            <!-- AutoComplete chọn đặt phòng -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chá»n Ä‘áº·t phÃ²ng:"
+                    android:text="Chọn đặt phòng:"
                     android:textSize="14sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
@@ -65,7 +65,7 @@
                         android:id="@+id/ac_dat_phong"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="TÃ¬m theo mÃ£ Ä‘áº·t phÃ²ng / tÃªn khÃ¡ch..."
+                        android:hint="Tìm theo mã đặt phòng / tên khách..."
                         android:textColorHint="@color/text_placeholder"
                         android:textSize="14sp"
                         android:textColor="@color/text_primary"
@@ -78,7 +78,7 @@
                 </FrameLayout>
             </LinearLayout>
 
-            <!-- Card tá»± Ä‘iá»n thÃ´ng tin -->
+            <!-- Card tự điền thông tin -->
             <LinearLayout
                 android:id="@+id/card_auto_fill"
                 android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                     android:textSize="14sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
-                    android:text="ThÃ´ng tin Ä‘áº·t phÃ²ng"
+                    android:text="Thông tin đặt phòng"
                     android:layout_marginBottom="10dp" />
 
                 <LinearLayout
@@ -107,10 +107,10 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="PhÃ²ng:" />
+                        android:textColor="@color/text_secondary" android:text="Phòng:" />
                     <TextView android:id="@+id/tv_af_phong" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="â€”" />
+                        android:textColor="@color/text_primary" android:text="—" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -120,10 +120,10 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="KhÃ¡ch hÃ ng:" />
+                        android:textColor="@color/text_secondary" android:text="Khách hàng:" />
                     <TextView android:id="@+id/tv_af_khach" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="â€”" />
+                        android:textColor="@color/text_primary" android:text="—" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -136,7 +136,7 @@
                         android:textColor="@color/text_secondary" android:text="Check-in:" />
                     <TextView android:id="@+id/tv_af_checkin" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="â€”" />
+                        android:textColor="@color/text_primary" android:text="—" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,7 +149,7 @@
                         android:textColor="@color/text_secondary" android:text="Check-out:" />
                     <TextView android:id="@+id/tv_af_checkout" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
-                        android:textColor="@color/text_primary" android:text="â€”" />
+                        android:textColor="@color/text_primary" android:text="—" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -159,15 +159,15 @@
                     android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="13sp"
-                        android:textColor="@color/text_secondary" android:text="Tiá»n phÃ²ng:" />
+                        android:textColor="@color/text_secondary" android:text="Tiền phòng:" />
                     <TextView android:id="@+id/tv_af_tien_phong" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="14sp"
                         android:fontFamily="sans-serif-medium" android:textColor="@color/primary_main"
-                        android:text="0 Ä‘" />
+                        android:text="0 đ" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Card chi tiáº¿t phÃ­ -->
+            <!-- Card chi tiết phí -->
             <LinearLayout
                 android:id="@+id/card_fees"
                 android:layout_width="match_parent"
@@ -186,17 +186,17 @@
                     android:textSize="14sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
-                    android:text="Phá»¥ thu dá»‹ch vá»¥"
+                    android:text="Phụ thu dịch vụ"
                     android:layout_marginBottom="10dp" />
 
-                <!-- Container phá»¥ thu Ä‘á»™ng -->
+                <!-- Container phụ thu động -->
                 <LinearLayout
                     android:id="@+id/ll_fees_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
 
-                <!-- NÃºt +ThÃªm dÃ²ng phÃ­ -->
+                <!-- Nút +Thêm dòng phí -->
                 <LinearLayout
                     android:id="@+id/btn_add_fee_row"
                     android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="+ ThÃªm dÃ²ng phÃ­"
+                        android:text="+ Thêm dòng phí"
                         android:textSize="13sp"
                         android:textColor="@color/primary_main" />
                 </LinearLayout>
@@ -225,7 +225,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="8dp" />
 
-                <!-- Tá»•ng realtime -->
+                <!-- Tổng realtime -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -234,15 +234,15 @@
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:textSize="15sp"
                         android:fontFamily="sans-serif-bold" android:textColor="@color/text_primary"
-                        android:text="Tá»”NG Cá»˜NG:" />
+                        android:text="TỔNG CỘNG:" />
                     <TextView android:id="@+id/tv_tong_cong" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:textSize="18sp"
                         android:fontFamily="sans-serif-bold" android:textColor="@color/primary_main"
-                        android:text="0 Ä‘" />
+                        android:text="0 đ" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- PhÆ°Æ¡ng thá»©c thanh toÃ¡n -->
+            <!-- Phương thức thanh toán -->
             <LinearLayout
                 android:id="@+id/ll_phuong_thuc_wrapper"
                 android:layout_width="match_parent"
@@ -256,7 +256,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PhÆ°Æ¡ng thá»©c thanh toÃ¡n:"
+                    android:text="Phương thức thanh toán:"
                     android:textSize="14sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
@@ -277,7 +277,7 @@
                 </FrameLayout>
             </LinearLayout>
 
-            <!-- Ghi chÃº -->
+            <!-- Ghi chú -->
             <LinearLayout
                 android:id="@+id/ll_ghi_chu_wrapper"
                 android:layout_width="match_parent"
@@ -291,7 +291,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ghi chÃº:"
+                    android:text="Ghi chú:"
                     android:textSize="14sp"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/text_primary"
@@ -306,7 +306,7 @@
                         android:id="@+id/et_ghi_chu"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Nháº­p ghi chÃº (náº¿u cÃ³)..."
+                        android:hint="Nhập ghi chú (nếu có)..."
                         android:textColorHint="@color/text_placeholder"
                         android:textSize="14sp"
                         android:textColor="@color/text_primary"
@@ -321,7 +321,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- NÃºt "Táº¡o hÃ³a Ä‘Æ¡n" cá»‘ Ä‘á»‹nh dÆ°á»›i -->
+    <!-- Nút "Tạo hóa đơn" cố định dưới -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -344,7 +344,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Táº¡o hÃ³a Ä‘Æ¡n"
+                android:text="Tạo hóa đơn"
                 android:textSize="16sp"
                 android:fontFamily="sans-serif-bold"
                 android:textColor="@color/text_on_primary" />
