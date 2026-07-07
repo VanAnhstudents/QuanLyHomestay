@@ -149,14 +149,12 @@ public class BookingDetailFragment extends Fragment {
     }
 
     private void setupBackButton(View view) {
-        View appbar = view.findViewById(R.id.appbar);
-        if (appbar != null) {
-            View btnBack = appbar.findViewById(R.id.btn_appbar_back);
-            if (btnBack != null)
-                btnBack.setOnClickListener(v -> {
-                    if (getParentFragmentManager().getBackStackEntryCount() > 0)
-                        getParentFragmentManager().popBackStack();
-                });
+        View btnBack = view.findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> {
+                if (getParentFragmentManager().getBackStackEntryCount() > 0)
+                    getParentFragmentManager().popBackStack();
+            });
         }
     }
 

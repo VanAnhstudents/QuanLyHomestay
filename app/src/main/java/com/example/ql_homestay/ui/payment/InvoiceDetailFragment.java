@@ -78,6 +78,14 @@ public class InvoiceDetailFragment extends Fragment {
 
     // ─── Setup ────────────────────────────────────────────────────────────────
 
+    private void setupBackButton(View view) {
+        View btnBack = view.findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v ->
+                    requireActivity().getSupportFragmentManager().popBackStack());
+        }
+    }
+
     private void bindViews(View view) {
         tvMaHD              = view.findViewById(R.id.tv_ma_hd);
         tvTrangThai         = view.findViewById(R.id.tv_trang_thai);
@@ -97,14 +105,6 @@ public class InvoiceDetailFragment extends Fragment {
         tvNguoiThu          = view.findViewById(R.id.tv_nguoi_thu);
         btnPrint            = view.findViewById(R.id.btn_print);
         btnConfirmPayment   = view.findViewById(R.id.btn_confirm_payment);
-    }
-
-    private void setupBackButton(View view) {
-        // Back button trên AppBar nếu có
-        View btnBack = view.findViewById(R.id.btn_back);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
-        }
     }
 
     // ─── Data ─────────────────────────────────────────────────────────────────

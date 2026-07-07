@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    item_invoice_row.xml – Item hóa đơn trong RecyclerView (cao 88dp)
+    item_invoice_row.xml – Item hóa đơn trong RecyclerView
     Cấu trúc: icon + mã HĐ + ngày | tên KH + phòng | tổng tiền + badge trạng thái
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="88dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/bg_card_listitem"
     android:paddingStart="16dp"
@@ -21,8 +21,7 @@
     <!-- Hàng trên: Icon + Mã HĐ + Ngày -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
@@ -56,10 +55,10 @@
     <!-- Hàng giữa: Tên khách hàng + Tên phòng -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_vertical">
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp">
 
         <TextView
             android:id="@+id/tv_ten_khach"
@@ -67,22 +66,26 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/text_primary"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Nguyễn Thị Mai" />
 
         <TextView
             android:id="@+id/tv_ten_phong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:textSize="12sp"
             android:textColor="@color/text_secondary"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Phòng P101" />
     </LinearLayout>
 
     <!-- Hàng dưới: Tổng tiền + Badge trạng thái -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 

@@ -74,6 +74,7 @@ public class RevenueReportFragment extends Fragment {
         invoiceRepo = new InvoiceRepository(dbHelper);
 
         bindViews(view);
+        setupBackButton(view);
         setupDatePickers();
         setupButtons();
 
@@ -82,6 +83,14 @@ public class RevenueReportFragment extends Fragment {
     }
 
     // ─── Setup ────────────────────────────────────────────────────────────────
+
+    private void setupBackButton(View view) {
+        View btnBack = view.findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v ->
+                    requireActivity().getSupportFragmentManager().popBackStack());
+        }
+    }
 
     private void bindViews(View view) {
         tvFromDate      = view.findViewById(R.id.tv_from_date);
