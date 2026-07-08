@@ -1,5 +1,6 @@
 package com.example.ql_homestay.ui.statistics;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -244,6 +245,7 @@ public class StatisticsDashboardFragment extends Fragment {
         tvBookings.setText(String.valueOf(bookings));
     }
 
+    @SuppressLint("SetTextI18n")
     private void updatePieLegend(int trong, int dangThue, int daDat) {
         tvLegendTrong.setText("⬤ Trống: " + trong);
         tvLegendDangThue.setText("⬤ Đang thuê: " + dangThue);
