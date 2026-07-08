@@ -239,20 +239,20 @@ public class AccountDetailFragment extends Fragment {
     }
 
     private void bindRoleText(String vaiTro) {
-        tvCurrentRole.setText("\u0110ang c\u00f3 vai tr\u00f2 " + roleLabel(vaiTro) + " (" + roleShortLabel(vaiTro) + ")");
+        tvCurrentRole.setText("Đang có vai trò" + roleLabel(vaiTro) + " (" + roleShortLabel(vaiTro) + ")");
     }
 
     private static String roleLabel(String vaiTro) {
         if ("Admin".equals(vaiTro)) return "Admin";
-        if ("LeTan".equals(vaiTro)) return "L\u1ec5 t\u00e2n";
-        if ("KeToan".equals(vaiTro)) return "K\u1ebf to\u00e1n";
-        if ("NhanVien".equals(vaiTro)) return "Nh\u00e2n vi\u00ean";
-        return vaiTro != null ? vaiTro : "Nh\u00e2n vi\u00ean";
+        if ("LeTan".equals(vaiTro)) return "Lễ tân";
+        if ("KeToan".equals(vaiTro)) return "Kế toán";
+        if ("NhanVien".equals(vaiTro)) return "Nhân viên";
+        return vaiTro != null ? vaiTro : "Nhân viên";
     }
 
     private static String roleShortLabel(String vaiTro) {
-        if ("LeTan".equals(vaiTro)) return "L\u1ec5 t\u00e2n";
-        if ("KeToan".equals(vaiTro)) return "K\u1ebf to\u00e1n";
+        if ("LeTan".equals(vaiTro)) return "Lễ tân";
+        if ("KeToan".equals(vaiTro)) return "Kế toán";
         if ("NhanVien".equals(vaiTro)) return "NV";
         return "Admin";
     }

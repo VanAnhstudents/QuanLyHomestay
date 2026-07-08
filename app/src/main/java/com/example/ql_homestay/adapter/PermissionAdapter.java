@@ -48,7 +48,7 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.VH
     }
 
     private static String quyenValueToDisplay(String tenQuyen) {
-        if (tenQuyen == null) return "Kh\u00f4ng truy c\u1eadp";
+        if (tenQuyen == null) return "Không truy cập";
         switch (tenQuyen) {
             case "ToanQuyen": return "To\u00e0n quy\u1ec1n";
             case "XemVaTao": return "Xem v\u00e0 T\u1ea1o";
