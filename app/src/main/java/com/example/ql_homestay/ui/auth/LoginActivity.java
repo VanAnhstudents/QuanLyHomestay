@@ -161,8 +161,6 @@ public class LoginActivity extends AppCompatActivity {
     // Navigation
     private void goToMain() {
         Intent intent = new Intent(this, MainActivity.class);
-        // FLAG_ACTIVITY_NEW_TASK + CLEAR_TASK: xóa back-stack, người dùng
-        // không thể nhấn Back quay lại Login sau khi đã đăng nhập.
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
