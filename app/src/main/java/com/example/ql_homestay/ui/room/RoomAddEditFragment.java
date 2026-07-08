@@ -41,7 +41,7 @@ import java.util.concurrent.Executors;
  * RoomAddEditFragment – Thêm/Sửa phòng (B3).
  * Truyền maPhong = -1 để tạo mới; maPhong > 0 để chỉnh sửa.
  */
-public class oomAddEditFragment extends Fragment {
+public class RoomAddEditFragment extends Fragment {
 
     private static final String ARG_MA_PHONG = "ma_phong";
 
