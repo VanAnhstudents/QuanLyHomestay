@@ -38,7 +38,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         this.listener = listener;
     }
 
-    /** Cập nhật toàn bộ danh sách đặt phòng và notify UI. */
+    // Cập nhật toàn bộ danh sách đặt phòng và notify UI.
     public void setData(List<DatPhong> list) {
         this.dataList = list != null ? list : new ArrayList<>();
         notifyDataSetChanged();
@@ -85,18 +85,16 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         return dataList.size();
     }
 
-    // -------------------------------------------------------------------------
-    // HELPERS
-    // -------------------------------------------------------------------------
 
+    // HELPERS
     private String getTrangThaiLabel(String trangThai) {
         if (trangThai == null) return "";
         switch (trangThai) {
-            case "SapDen":      return "Sắp đến";
-            case "DangO":       return "Đang ở";
-            case "DaTraPhong":  return "Đã trả phòng";
-            case "DaHuy":       return "Đã hủy";
-            default:            return trangThai;
+            case "SapDen": return "Sắp đến";
+            case "DangO": return "Đang ở";
+            case "DaTraPhong": return "Đã trả phòng";
+            case "DaHuy": return "Đã hủy";
+            default: return trangThai;
         }
     }
 
@@ -122,10 +120,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         }
     }
 
-    // -------------------------------------------------------------------------
     // VIEW HOLDER
-    // -------------------------------------------------------------------------
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvMaDatPhong;
         final TextView tvNgay;

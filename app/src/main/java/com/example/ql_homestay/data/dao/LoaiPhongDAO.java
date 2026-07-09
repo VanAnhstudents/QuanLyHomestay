@@ -9,9 +9,6 @@ import com.example.ql_homestay.model.LoaiPhong;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO thao tác bảng LoaiPhong.
- */
 public class LoaiPhongDAO {
     private final DatabaseHelper dbHelper;
 
@@ -19,7 +16,7 @@ public class LoaiPhongDAO {
         this.dbHelper = dbHelper;
     }
 
-    /** Lấy tất cả loại phòng – dùng để populate Spinner trong form thêm phòng. */
+    // Lấy tất cả loại phòng – dùng để populate Spinner trong form thêm phòng.
     public List<LoaiPhong> getAll() {
         List<LoaiPhong> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -37,7 +34,7 @@ public class LoaiPhongDAO {
         return list;
     }
 
-    /** Tìm LoaiPhong theo MaLoaiPhong. Trả null nếu không tìm thấy. */
+    // Tìm LoaiPhong theo MaLoaiPhong. Trả null nếu không tìm thấy.
     public LoaiPhong findById(int maLoaiPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try (Cursor c = db.rawQuery(

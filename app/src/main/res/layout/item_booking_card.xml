@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- item_booking_card.xml – Item card cho RecyclerView đặt phòng (C1) -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -9,14 +8,14 @@
     android:paddingTop="10dp"
     android:paddingBottom="0dp">
 
-    <!-- Icon > -->
+    <!-- Icon -->
     <ImageView
         android:id="@+id/iv_chevron"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="6dp"
         android:contentDescription="Chi tiết"
         android:src="@drawable/ic_chevron_right"
         app:tint="@color/icon_inactive" />
@@ -30,7 +29,7 @@
         android:layout_marginEnd="12dp"
         android:orientation="vertical">
 
-        <!-- Hàng trên: icon lịch + mã đặt phòng + ngày -->
+        <!-- Hàng 1: Mã đặt phòng + Trạng thái -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,8 +39,8 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="Lịch"
                 android:src="@drawable/ic_calendar"
+                android:contentDescription="Lịch"
                 app:tint="@color/primary_main" />
 
             <TextView
@@ -56,47 +55,44 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_booking_date"
+                android:id="@+id/tv_booking_status"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2026-06-17"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:layout_height="24dp"
+                android:background="@drawable/bg_badge_dangthue"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="Đang ở"
+                android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Hàng giữa -->
+        <!-- Hàng 2: Khách -->
+        <TextView
+            android:id="@+id/tv_booking_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Nguyễn Văn A"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <!-- Hàng 3: Phòng -->
+        <TextView
+            android:id="@+id/tv_booking_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="P101"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <!-- Hàng 4: Thời gian thuê + Ngày -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_booking_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Nguyễn Văn A"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_booking_room"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="P101"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <!-- Hàng dưới -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -110,14 +106,12 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_booking_status"
+                android:id="@+id/tv_booking_date"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:background="@drawable/bg_badge_dangthue"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="Đang ở"
-                android:textSize="11sp" />
+                android:layout_height="wrap_content"
+                android:text="2026-06-17"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>

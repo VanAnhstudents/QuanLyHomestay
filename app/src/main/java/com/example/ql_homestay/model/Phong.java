@@ -12,7 +12,6 @@ public class Phong {
     private int sucChua;
     private double dienTich;
     private int tang;
-    /** "Trong" | "DangThue" | "DaDat" */
     private String trangThai;
     private String hinhAnh;
     private String moTa;

@@ -374,8 +374,50 @@ public class RoomAddEditFragment extends Fragment {
             else                                   trangThai = "Trong";
         }
 
-        int sucChua = 0, tang = 0; double dienTich = 0.0;
-        try { sucChua = Integer.parseInt(etSucChua.getText().toString().trim()); } catch (Exception ignored) {}
+        // --- Validate sức chứa ---
+        String sucChuaStr = etSucChua.getText() != null ? etSucChua.getText().toString().trim() : "";
+        if (sucChuaStr.isEmpty()) {
+            etSucChua.setError("Nhập sức chứa");
+            etSucChua.requestFocus();
+            return;
+        }
+        int sucChua;
+        try {
+            sucChua = Integer.parseInt(sucChuaStr);
+        } catch (NumberFormatException e) {
+            etSucChua.setError("Sức chứa không hợp lệ");
+            etSucChua.requestFocus();
+            return;
+        }
+        if (sucChua <= 0) {
+            etSucChua.setError("Sức chứa phải lớn hơn 0");
+            etSucChua.requestFocus();
+            return;
+        }
+
+        // Kiểm tra giới hạn sức chứa theo loại phòng
+        String selectedLoaiForValidation = actvLoaiPhong != null && actvLoaiPhong.getText() != null
+                ? actvLoaiPhong.getText().toString().toLowerCase(java.util.Locale.getDefault())
+                : "";
+        int maxSucChua;
+        String tenLoaiHienThi;
+        if (selectedLoaiForValidation.contains("suite")) {
+            maxSucChua = 6;
+            tenLoaiHienThi = "Suite";
+        } else if (selectedLoaiForValidation.contains("deluxe")) {
+            maxSucChua = 4;
+            tenLoaiHienThi = "Deluxe";
+        } else {
+            maxSucChua = 2;
+            tenLoaiHienThi = "Standard";
+        }
+        if (sucChua > maxSucChua) {
+            etSucChua.setError("Phòng " + tenLoaiHienThi + " tối đa " + maxSucChua + " người");
+            etSucChua.requestFocus();
+            return;
+        }
+
+        int tang = 0; double dienTich = 0.0;
         try { dienTich = Double.parseDouble(etDienTich.getText().toString().trim()); } catch (Exception ignored) {}
         try { tang = Integer.parseInt(etTang.getText().toString().trim()); } catch (Exception ignored) {}
         String moTa = etMoTa.getText() != null ? etMoTa.getText().toString().trim() : "";

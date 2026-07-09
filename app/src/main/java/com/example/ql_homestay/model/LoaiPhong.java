@@ -6,7 +6,6 @@ package com.example.ql_homestay.model;
  */
 public class LoaiPhong {
     private int maLoaiPhong;
-    /** "Standard" | "Deluxe" | "Suite" */
     private String tenLoai;
     private double giaCoBan;
 

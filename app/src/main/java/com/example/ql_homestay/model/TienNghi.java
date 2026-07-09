@@ -1,8 +1,5 @@
 package com.example.ql_homestay.model;
 
-/**
- * Model POJO cho bảng TienNghi.
- */
 public class TienNghi {
     private int maTienNghi;
     private String tenTienNghi;

@@ -212,14 +212,14 @@ public class BookingDetailFragment extends Fragment {
                 ? dp.getGhiChu() : "(Không có ghi chú)");
     }
 
-    /** Chuyển mã ngắn thành tên đầy đủ phương thức thanh toán */
+    // Chuyển mã ngắn thành tên đầy đủ phương thức thanh toán
     private String getPhuongThucLabel(String code) {
         if (code == null) return "—";
         switch (code) {
-            case "TM":    return "Tiền mặt";
-            case "CK":    return "Chuyển khoản";
+            case "TM": return "Tiền mặt";
+            case "CK": return "Chuyển khoản";
             case "VNPAY": return "VNPAY";
-            default:      return code;
+            default: return code;
         }
     }
 
@@ -261,18 +261,18 @@ public class BookingDetailFragment extends Fragment {
             case "SapDen":
                 setVisible(row6a, true);
                 setVisible(row6b, true);
-                setVisible(btnEditBooking,   true);
+                setVisible(btnEditBooking, true);
                 setVisible(btnDeleteBooking, true);
-                setVisible(btnCheckin,       true);
-                setVisible(btnCheckout,      false);
+                setVisible(btnCheckin, true);
+                setVisible(btnCheckout, false);
                 break;
             case "DangO":
                 setVisible(row6a, false);
                 setVisible(row6b, true);
-                setVisible(btnEditBooking,   false);
+                setVisible(btnEditBooking, false);
                 setVisible(btnDeleteBooking, false);
-                setVisible(btnCheckin,       false);
-                setVisible(btnCheckout,      true);
+                setVisible(btnCheckin, false);
+                setVisible(btnCheckout, true);
                 break;
             case "DaTraPhong":
             case "DaHuy":
@@ -312,9 +312,7 @@ public class BookingDetailFragment extends Fragment {
         }
     }
 
-    // -------------------------------------------------------------------------
     // CHECK-IN
-    // -------------------------------------------------------------------------
     private void performCheckIn(DatPhong dp) {
         int maNV = getMaNVHienTai();
         dbExecutor.execute(() -> {
@@ -340,9 +338,7 @@ public class BookingDetailFragment extends Fragment {
         });
     }
 
-    // -------------------------------------------------------------------------
     // CHECK-OUT
-    // -------------------------------------------------------------------------
     private void performCheckOut(DatPhong dp) {
         int maNV = getMaNVHienTai();
         dbExecutor.execute(() -> {
@@ -369,9 +365,7 @@ public class BookingDetailFragment extends Fragment {
         });
     }
 
-    // -------------------------------------------------------------------------
     // DELETE
-    // -------------------------------------------------------------------------
     private void showDeleteConfirm(DatPhong dp) {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Xóa đặt phòng")
@@ -398,11 +392,8 @@ public class BookingDetailFragment extends Fragment {
         });
     }
 
-    // -------------------------------------------------------------------------
     // HELPERS
-    // -------------------------------------------------------------------------
-
-    /** Lấy MaNV của nhân viên đang đăng nhập từ TaiKhoan → NhanVien. */
+    // Lấy MaNV của nhân viên đang đăng nhập từ TaiKhoan → NhanVien.
     private int getMaNVHienTai() {
         int maTK = sessionManager.getMaTK();
         if (maTK <= 0) return 0;
@@ -413,11 +404,11 @@ public class BookingDetailFragment extends Fragment {
     private String getTrangThaiLabel(String tt) {
         if (tt == null) return "";
         switch (tt) {
-            case "SapDen":      return "Sắp đến";
-            case "DangO":       return "Đang ở";
-            case "DaTraPhong":  return "Đã trả phòng";
-            case "DaHuy":       return "Đã hủy";
-            default:            return tt;
+            case "SapDen": return "Sắp đến";
+            case "DangO": return "Đang ở";
+            case "DaTraPhong": return "Đã trả phòng";
+            case "DaHuy": return "Đã hủy";
+            default: return tt;
         }
     }
 
