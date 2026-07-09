@@ -9,9 +9,6 @@ import com.example.ql_homestay.model.TienNghi;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO thao tác bảng TienNghi.
- */
 public class TienNghiDAO {
     private final DatabaseHelper dbHelper;
 
@@ -19,7 +16,7 @@ public class TienNghiDAO {
         this.dbHelper = dbHelper;
     }
 
-    /** Lấy tất cả tiện nghi – dùng để populate CheckBox trong form thêm phòng. */
+    // Lấy tất cả tiện nghi – dùng để populate CheckBox trong form thêm phòng.
     public List<TienNghi> getAll() {
         List<TienNghi> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();

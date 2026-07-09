@@ -28,7 +28,7 @@ public class RoomRepository {
         this.tienNghiDAO = new TienNghiDAO(dbHelper);
     }
 
-    // -------- Phong --------
+    // Phong
     public List<Phong> getAllPhong() { return phongDAO.getAll(); }
 
     public List<Phong> filterByTrangThai(String trangThai) {
@@ -61,17 +61,17 @@ public class RoomRepository {
         return phongDAO.isTenPhongDuplicate(tenPhong, excludeMaPhong);
     }
 
-    // -------- LoaiPhong --------
+    // LoaiPhong
     public List<LoaiPhong> getAllLoaiPhong() { return loaiPhongDAO.getAll(); }
 
     public LoaiPhong findLoaiPhongById(int maLoaiPhong) {
         return loaiPhongDAO.findById(maLoaiPhong);
     }
 
-    // -------- TienNghi --------
+    // TienNghi
     public List<TienNghi> getAllTienNghi() { return tienNghiDAO.getAll(); }
 
-    // -------- PhongTienNghi --------
+    // PhongTienNghi
     public List<TienNghi> getTienNghiByPhong(int maPhong) {
         return phongTienNghiDAO.getByPhong(maPhong);
     }

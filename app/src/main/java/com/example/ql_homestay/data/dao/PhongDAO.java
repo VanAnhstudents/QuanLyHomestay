@@ -21,9 +21,7 @@ public class PhongDAO {
         this.dbHelper = dbHelper;
     }
 
-    // -------------------------------------------------------------------------
     // HELPER: map Cursor -> Phong (JOIN với LoaiPhong)
-    // -------------------------------------------------------------------------
     private Phong mapCursor(Cursor c) {
         Phong p = new Phong();
         p.setMaPhong(c.getInt(c.getColumnIndexOrThrow("MaPhong")));
@@ -41,17 +39,14 @@ public class PhongDAO {
         return p;
     }
 
-    /** SQL JOIN chuẩn dùng chung cho tất cả query có TenLoai */
+    // SQL JOIN chuẩn dùng chung cho tất cả query có TenLoai
     private static final String SQL_SELECT_JOIN =
             "SELECT p.*, lp.TenLoai " +
             "FROM Phong p " +
             "LEFT JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong ";
 
-    // -------------------------------------------------------------------------
     // READ
-    // -------------------------------------------------------------------------
-
-    /** Lấy tất cả phòng, JOIN TenLoaiPhong. */
+    //Lấy tất cả phòng, JOIN TenLoaiPhong.
     public List<Phong> getAll() {
         List<Phong> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -61,7 +56,7 @@ public class PhongDAO {
         return list;
     }
 
-    /** Lọc theo TrangThai ("Trong" | "DangThue" | "DaDat"). */
+    // Lọc theo TrangThai ("Trong" | "DangThue" | "DaDat").
     public List<Phong> filterByTrangThai(String trangThai) {
         List<Phong> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -72,7 +67,7 @@ public class PhongDAO {
         return list;
     }
 
-    /** Tìm kiếm theo TenPhong (LIKE). */
+    // Tìm kiếm theo TenPhong (LIKE).
     public List<Phong> search(String keyword) {
         List<Phong> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -83,12 +78,12 @@ public class PhongDAO {
         return list;
     }
 
-    /** Chỉ lấy phòng TrangThai = 'Trong' – dùng cho Spinner đặt phòng. */
+    // Chỉ lấy phòng TrangThai = 'Trong' – dùng cho Spinner đặt phòng.
     public List<Phong> getAvailable() {
         return filterByTrangThai("Trong");
     }
 
-    /** Tìm phòng theo MaPhong. Trả null nếu không tìm thấy. */
+    // Tìm phòng theo MaPhong. Trả null nếu không tìm thấy.
     public Phong findById(int maPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = SQL_SELECT_JOIN + "WHERE p.MaPhong = ?";
@@ -98,7 +93,7 @@ public class PhongDAO {
         return null;
     }
 
-    /** Đếm số phòng theo trạng thái – dùng cho KPI card Home. */
+    // Đếm số phòng theo trạng thái – dùng cho KPI card Home.
     public int countByTrangThai(String trangThai) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try (Cursor c = db.rawQuery(
@@ -109,7 +104,7 @@ public class PhongDAO {
         return 0;
     }
 
-    /** Tổng số phòng – dùng cho KPI card Home. */
+    // Tổng số phòng – dùng cho KPI card Home.
     public int countAll() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try (Cursor c = db.rawQuery("SELECT COUNT(*) FROM Phong", null)) {
@@ -138,10 +133,7 @@ public class PhongDAO {
         return false;
     }
 
-    // -------------------------------------------------------------------------
     // WRITE
-    // -------------------------------------------------------------------------
-
     /**
      * Thêm phòng mới.
      * @return rowId của bản ghi vừa insert, -1 nếu lỗi.
@@ -184,20 +176,18 @@ public class PhongDAO {
         return db.update("Phong", cv, "MaPhong = ?", new String[]{String.valueOf(maPhong)});
     }
 
-    // -------------------------------------------------------------------------
     // PRIVATE HELPERS
-    // -------------------------------------------------------------------------
     private ContentValues toContentValues(Phong p) {
         ContentValues cv = new ContentValues();
         cv.put("MaLoaiPhong", p.getMaLoaiPhong());
-        cv.put("TenPhong",    p.getTenPhong());
-        cv.put("GiaMoiDem",   p.getGiaMoiDem());
-        cv.put("SucChua",     p.getSucChua());
-        cv.put("DienTich",    p.getDienTich());
-        cv.put("Tang",        p.getTang());
-        cv.put("TrangThai",   p.getTrangThai());
-        cv.put("HinhAnh",     p.getHinhAnh());
-        cv.put("MoTa",        p.getMoTa());
+        cv.put("TenPhong", p.getTenPhong());
+        cv.put("GiaMoiDem", p.getGiaMoiDem());
+        cv.put("SucChua", p.getSucChua());
+        cv.put("DienTich", p.getDienTich());
+        cv.put("Tang", p.getTang());
+        cv.put("TrangThai", p.getTrangThai());
+        cv.put("HinhAnh", p.getHinhAnh());
+        cv.put("MoTa", p.getMoTa());
         return cv;
     }
 }

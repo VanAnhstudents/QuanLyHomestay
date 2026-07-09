@@ -10,9 +10,6 @@ import com.example.ql_homestay.model.TienNghi;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO thao tác bảng nối Phong_TienNghi (quan hệ N-N).
- */
 public class PhongTienNghiDAO {
     private final DatabaseHelper dbHelper;
 
@@ -62,7 +59,7 @@ public class PhongTienNghiDAO {
             // Insert lại từng tiện nghi mới
             for (int maTN : maTienNghiList) {
                 ContentValues cv = new ContentValues();
-                cv.put("MaPhong",    maPhong);
+                cv.put("MaPhong", maPhong);
                 cv.put("MaTienNghi", maTN);
                 db.insert("Phong_TienNghi", null, cv);
             }

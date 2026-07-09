@@ -41,7 +41,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         this.listener = listener;
     }
 
-    /** Cập nhật toàn bộ danh sách phòng và notify UI. */
+    // Cập nhật toàn bộ danh sách phòng và notify UI.
     public void setData(List<Phong> list) {
         this.dataList = list != null ? list : new ArrayList<>();
         notifyDataSetChanged();
@@ -88,17 +88,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         return dataList.size();
     }
 
-    // -------------------------------------------------------------------------
     // HELPERS
-    // -------------------------------------------------------------------------
-
     private String getTrangThaiLabel(String trangThai) {
         if (trangThai == null) return "";
         switch (trangThai) {
-            case "Trong":    return "Trống";
+            case "Trong": return "Trống";
             case "DangThue": return "Đang thuê";
-            case "DaDat":    return "Đã đặt";
-            default:         return trangThai;
+            case "DaDat": return "Đã đặt";
+            default: return trangThai;
         }
     }
 
@@ -134,23 +131,25 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         }
         // Fallback: map tên drawable tĩnh
         switch (hinhAnh) {
-            case "room_deluxe":     iv.setImageResource(R.drawable.room_deluxe);     break;
-            case "room_deluxe_top": iv.setImageResource(R.drawable.room_deluxe_top); break;
-            case "room_suite":      iv.setImageResource(R.drawable.room_suite);      break;
-            default:                iv.setImageResource(R.drawable.room_standard);   break;
+            case "room_deluxe": iv.setImageResource(R.drawable.room_deluxe);
+            break;
+            case "room_deluxe_top": iv.setImageResource(R.drawable.room_deluxe_top);
+            break;
+            case "room_suite": iv.setImageResource(R.drawable.room_suite);
+            break;
+            default: iv.setImageResource(R.drawable.room_standard);
+            break;
         }
     }
 
-    // -------------------------------------------------------------------------
-    // VIEW HOLDER
-    // -------------------------------------------------------------------------
 
+    // VIEW HOLDER
     static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView ivHinhAnh;
-        final TextView  tvTenPhong;
-        final TextView  tvLoaiPhong;
-        final TextView  tvGia;
-        final TextView  tvTrangThai;
+        final TextView tvTenPhong;
+        final TextView tvLoaiPhong;
+        final TextView tvGia;
+        final TextView tvTrangThai;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

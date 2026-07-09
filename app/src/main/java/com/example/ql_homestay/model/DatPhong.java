@@ -13,7 +13,6 @@ public class DatPhong {
     private String ngayCheckOut;
     private int soLuongKhach;
     private int soDem;
-    /** "SapDen" | "DangO" | "DaTraPhong" | "DaHuy" */
     private String trangThai;
     private String phuongThucThanhToan;
     private String ghiChu;

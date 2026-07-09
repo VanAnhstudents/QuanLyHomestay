@@ -136,10 +136,10 @@ public class RoomListFragment extends Fragment {
     private void setupFilterChips() {
         View.OnClickListener chipClick = v -> {
             // Reset tất cả về inactive
-            setChipActive(chipAll,      false);
-            setChipActive(chipTrong,    false);
+            setChipActive(chipAll, false);
+            setChipActive(chipTrong, false);
             setChipActive(chipDangThue, false);
-            setChipActive(chipDaDat,    false);
+            setChipActive(chipDaDat, false);
 
             String newFilter = null;
             if (v == chipAll) {
@@ -183,9 +183,7 @@ public class RoomListFragment extends Fragment {
         if (fabAddRoom != null) fabAddRoom.setOnClickListener(v -> openAddEditRoom(-1));
     }
 
-    /**
-     * Áp dụng RBAC: chỉ Admin thấy FAB Thêm phòng.
-     */
+     //Áp dụng RBAC: chỉ Admin thấy FAB Thêm phòng.
     private void applyPermission() {
         String vaiTro = sessionManager.getVaiTro();
         boolean canAdd = PermissionHelper.hasFullAccess(dbHelper, vaiTro,

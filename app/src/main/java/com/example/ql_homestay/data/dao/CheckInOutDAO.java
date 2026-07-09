@@ -23,9 +23,7 @@ public class CheckInOutDAO {
         this.dbHelper = dbHelper;
     }
 
-    // -------------------------------------------------------------------------
     // HELPER
-    // -------------------------------------------------------------------------
     private CheckInOut mapCursor(Cursor c) {
         CheckInOut log = new CheckInOut();
         log.setMaCheckLog(c.getInt(c.getColumnIndexOrThrow("MaCheckLog")));
@@ -45,16 +43,13 @@ public class CheckInOutDAO {
         return log;
     }
 
-    // -------------------------------------------------------------------------
     // WRITE
-    // -------------------------------------------------------------------------
-
     /**
      * Ghi log Check-in hoặc Check-out. ThoiGian tự lấy thời điểm hiện tại.
      *
-     * @param maDatPhong  ID đặt phòng.
-     * @param maNV        ID nhân viên đang thực hiện (0 nếu không xác định).
-     * @param loai        "CheckIn" hoặc "CheckOut".
+     * @param maDatPhong ID đặt phòng.
+     * @param maNV ID nhân viên đang thực hiện (0 nếu không xác định).
+     * @param loai "CheckIn" hoặc "CheckOut".
      * @return rowId bản ghi vừa insert, -1 nếu lỗi.
      */
     public long insertLog(int maDatPhong, int maNV, String loai) {
@@ -69,10 +64,7 @@ public class CheckInOutDAO {
         return db.insert("CheckInOut", null, cv);
     }
 
-    // -------------------------------------------------------------------------
     // READ
-    // -------------------------------------------------------------------------
-
     /** Lấy tất cả log của một đặt phòng, mới nhất trên đầu. */
     public List<CheckInOut> getByDatPhong(int maDatPhong) {
         List<CheckInOut> list = new ArrayList<>();

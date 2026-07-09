@@ -8,7 +8,6 @@ public class CheckInOut {
     private int maCheckLog;
     private int maDatPhong;
     private int maNV;
-    /** "CheckIn" | "CheckOut" */
     private String loai;
     private String thoiGian;
     private String ghiChuDacBiet;

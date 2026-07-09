@@ -32,7 +32,7 @@ public class BookingRepository {
         this.invoiceRepository = new InvoiceRepository(dbHelper);
     }
 
-    // -------- DatPhong --------
+    // DatPhong
     public List<DatPhong> getAllDatPhong() { return datPhongDAO.getAll(); }
 
     public List<DatPhong> filterByTrangThai(String trangThai) {
@@ -80,9 +80,9 @@ public class BookingRepository {
      * 2. Cập nhật TrangThai Phong -> "DangThue"
      * 3. Ghi log CheckInOut (loai = "CheckIn")
      *
-     * @param maDatPhong  ID đặt phòng.
-     * @param maPhong     ID phòng.
-     * @param maNV        ID nhân viên đang đăng nhập.
+     * @param maDatPhong ID đặt phòng.
+     * @param maPhong ID phòng.
+     * @param maNV ID nhân viên đang đăng nhập.
      * @return true nếu tất cả thao tác thành công.
      */
     public boolean doCheckIn(int maDatPhong, int maPhong, int maNV) {

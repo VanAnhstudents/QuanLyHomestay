@@ -291,20 +291,24 @@ public class RoomDetailFragment extends Fragment {
         }
         // Fallback: map tên drawable
         switch (hinhAnh) {
-            case "room_deluxe":     iv.setImageResource(R.drawable.room_deluxe);     break;
-            case "room_deluxe_top": iv.setImageResource(R.drawable.room_deluxe_top); break;
-            case "room_suite":      iv.setImageResource(R.drawable.room_suite);      break;
-            default:                iv.setImageResource(R.drawable.room_standard);   break;
+            case "room_deluxe": iv.setImageResource(R.drawable.room_deluxe);
+            break;
+            case "room_deluxe_top": iv.setImageResource(R.drawable.room_deluxe_top);
+            break;
+            case "room_suite": iv.setImageResource(R.drawable.room_suite);
+            break;
+            default: iv.setImageResource(R.drawable.room_standard);
+            break;
         }
     }
 
     private String getTrangThaiLabel(String tt) {
         if (tt == null) return "";
         switch (tt) {
-            case "Trong":    return "Trống";
+            case "Trong": return "Trống";
             case "DangThue": return "Đang thuê";
-            case "DaDat":    return "Đã đặt";
-            default:         return tt;
+            case "DaDat": return "Đã đặt";
+            default: return tt;
         }
     }
 
